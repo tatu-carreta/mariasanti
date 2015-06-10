@@ -1,0 +1,13 @@
+Pasos para levantar la BD:
+
+1- Abrir navegador
+2- Poner localhost/phpmyadmin
+3- En el menú superior, seleccionar Importar
+4- Seleccionar archivo ( debería estar en C:/xampp/htdocs/offitec/public/documents ), el ultimo subido (el que tiene mayor numero detras).
+5- Darle a Continuar que está abajo y debería andar todo bien.
+
+Listo, debería haber generado la base de datos a la izquierda con el nombre: offitec_tc!! 
+
+En caso de no verlo al instante, recarguen la página que puede que no ande con javascript.
+
+En caso de que no les genere nada o les tire algun error, me llaman o me escriben y lo vemos..
