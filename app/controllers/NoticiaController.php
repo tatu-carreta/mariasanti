@@ -2,6 +2,8 @@
 
 class NoticiaController extends BaseController {
 
+    protected $folder_name = 'noticia';
+
     public function vistaListado() {
 
         $items_borrados = Item::where('estado', 'B')->lists('id');
@@ -21,7 +23,7 @@ class NoticiaController extends BaseController {
 
         //Hace que se muestre el html lista.blade.php de la carpeta item
         //con los parametros pasados por el array
-        return View::make('noticia.lista', $this->array_view);
+        return View::make($this->folder_name . '.lista', $this->array_view);
     }
 
     public function mostrarInfo($url) {
@@ -31,20 +33,20 @@ class NoticiaController extends BaseController {
 
         $this->array_view['item'] = $item;
 
-        return View::make('noticia.' . $this->project_name . '-ver', $this->array_view);
+        return View::make($this->folder_name . '.' . $this->project_name . '-ver', $this->array_view);
     }
 
     public function vistaAgregar($seccion_id) {
 
         $this->array_view['secciones'] = parent::seccionesDinamicas();
-        
+
         $this->array_view['seccion_id'] = $seccion_id;
-        
+
         $seccion = Seccion::find($seccion_id);
-        
+
         $this->array_view['seccion'] = $seccion;
 
-        return View::make('noticia.agregar', $this->array_view);
+        return View::make($this->folder_name . '.agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -67,7 +69,7 @@ class NoticiaController extends BaseController {
             $menu = $seccion->menuSeccion()->url;
             $ancla = '#' . $seccion->estado . $seccion->id;
 
-            return Redirect::to('admin/noticia/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje']); //->with('ancla', $ancla);
+            return Redirect::to('admin/' . $this->folder_name . '/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje']); //->with('ancla', $ancla);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             $menu = $respuesta['data']->texto()->item()->seccionItem()->menuSeccion()->url;
@@ -88,7 +90,7 @@ class NoticiaController extends BaseController {
             $this->array_view['noticia'] = $noticia;
             $this->array_view['secciones'] = $secciones;
             $this->array_view['continue'] = $next;
-            return View::make('noticia.editar', $this->array_view);
+            return View::make($this->folder_name . '.editar', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Página de Error!!';
             return View::make($this->project_name . '-error', $this->array_view);
@@ -110,7 +112,7 @@ class NoticiaController extends BaseController {
          * 
          */
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/noticia/editar/' . Input::get('noticia_id'))->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('noticia_id'))->with('mensaje', $respuesta['mensaje']);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             if (Input::get('continue') == "home") {
@@ -182,7 +184,7 @@ class NoticiaController extends BaseController {
          * 
          */
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/noticia')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->withErrors($respuesta['mensaje'])->withInput();
         } else {
             if (Input::get('continue') == "home") {
                 return Redirect::to('/')->with('mensaje', $respuesta['mensaje']);

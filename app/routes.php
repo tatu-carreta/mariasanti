@@ -56,6 +56,9 @@ Route::get('portfolio/{url}', 'PortfolioController@mostrarInfo');
 //Ruteo de PortfolioCompleto
 Route::get('portfolio_completo/{url}', 'PortfolioCompletoController@mostrarInfo');
 
+//Ruteo de Muestra
+Route::get('muestra/{url}', 'MuestraController@mostrarInfo');
+
 Route::post('admin/producto/producto-consulta', 'ProductoController@consultarProductoLista');
 Route::post('admin/producto/consulta-general', 'ProductoController@consultaGeneral');
 
@@ -304,6 +307,19 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('admin/portfolio_completo/editar/{id}/{next}', 'PortfolioCompletoController@vistaEditar');
 
     Route::post('admin/portfolio_completo/editar', 'PortfolioCompletoController@editar');
+    
+    /*
+     * Ruteo de Muestra
+     */
+    Route::get('admin/muestra', 'MuestraController@vistaListado');
+
+    Route::get('admin/muestra/agregar/{seccion_id}', 'MuestraController@vistaAgregar');
+
+    Route::post('admin/muestra/agregar', 'MuestraController@agregar');
+
+    Route::get('admin/muestra/editar/{id}/{next}', 'MuestraController@vistaEditar');
+
+    Route::post('admin/muestra/editar', 'MuestraController@editar');
 
 
     /*

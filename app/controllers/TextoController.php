@@ -2,6 +2,8 @@
 
 class TextoController extends BaseController {
 
+    protected $folder_name = 'texto';
+
     public function vistaAgregar($menu_id) {
 
         $datos = array(
@@ -13,7 +15,7 @@ class TextoController extends BaseController {
 
         $this->array_view['seccion_id'] = $seccion['data']->id;
 
-        return View::make('item.texto.agregar', $this->array_view);
+        return View::make('item.' . $this->folder_name . '.agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -38,7 +40,7 @@ class TextoController extends BaseController {
         if ($texto) {
             $this->array_view['item'] = $texto->item();
             $this->array_view['texto'] = $texto;
-            return View::make('item.texto.editar-texto', $this->array_view);
+            return View::make('item.' . $this->folder_name . '.editar-texto', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Página de Error!!';
             return View::make($this->project_name . '-error', $this->array_view);

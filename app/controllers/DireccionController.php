@@ -1,6 +1,9 @@
 <?php
 
 class DireccionController extends BaseController {
+
+    protected $folder_name = 'direccion';
+
     /*
       public function vistaListado() {
       $secciones = Seccion::where('estado', 'A')->get();
@@ -14,7 +17,7 @@ class DireccionController extends BaseController {
 
     public function vistaAgregar() {
 
-        return View::make('direccion.' . $this->project_name . '-agregar', $this->array_view);
+        return View::make($this->folder_name . '.' . $this->project_name . '-agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -32,66 +35,66 @@ class DireccionController extends BaseController {
 
         $direccion = Direccion::find($id);
 
-        return View::make('direccion.'.$this->project_name.'ver', array('direccion' => $direccion));
-    }
-/*
-    public function vistaEditar($id) {
-
-        $seccion = Seccion::find($id);
-
-        if ($seccion) {
-            $this->array_view['seccion'] = $seccion;
-            return View::make('seccion.editar-seccion', $this->array_view);
-        } else {
-            $this->array_view['texto'] = 'Página de Error!!';
-            return View::make($this->project_name . '-error', $this->array_view);
-        }
+        return View::make($this->folder_name . '.' . $this->project_name . 'ver', array('direccion' => $direccion));
     }
 
-    public function editar() {
+    /*
+      public function vistaEditar($id) {
 
-        $respuesta = Seccion::editarSeccion(Input::all());
+      $seccion = Seccion::find($id);
 
-        if ($respuesta['error'] == true) {
-            return Redirect::to('admin/seccion')->withErrors($respuesta['mensaje'])->withInput();
-        } else {
-            $menu = $respuesta['data']->menuSeccion()->url;
-            $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
+      if ($seccion) {
+      $this->array_view['seccion'] = $seccion;
+      return View::make('seccion.editar-seccion', $this->array_view);
+      } else {
+      $this->array_view['texto'] = 'Página de Error!!';
+      return View::make($this->project_name . '-error', $this->array_view);
+      }
+      }
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
-        }
-    }
+      public function editar() {
 
-    public function borrar() {
+      $respuesta = Seccion::editarSeccion(Input::all());
 
-        $respuesta = Seccion::borrarSeccion(Input::all());
+      if ($respuesta['error'] == true) {
+      return Redirect::to('admin/seccion')->withErrors($respuesta['mensaje'])->withInput();
+      } else {
+      $menu = $respuesta['data']->menuSeccion()->url;
+      $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
 
-        return $respuesta;
-    }
+      return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+      }
+      }
 
-    public function vistaOrdenar($menu_id) {
-        $menu = Menu::find($menu_id);
+      public function borrar() {
 
-        $this->array_view['secciones'] = $menu->secciones;
-        $this->array_view['menu'] = $menu;
+      $respuesta = Seccion::borrarSeccion(Input::all());
 
-        return View::make('seccion.lista-por-menu', $this->array_view);
-    }
+      return $respuesta;
+      }
 
-    public function ordenar() {
+      public function vistaOrdenar($menu_id) {
+      $menu = Menu::find($menu_id);
 
-        foreach (Input::get('orden') as $key => $seccion_id) {
-            $respuesta = Seccion::ordenarSeccionMenu($seccion_id, $key, Input::get('menu_id'));
-        }
+      $this->array_view['secciones'] = $menu->secciones;
+      $this->array_view['menu'] = $menu;
 
-        $menu = $respuesta['data']->menuSeccion()->url;
-        $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
+      return View::make('seccion.lista-por-menu', $this->array_view);
+      }
 
-        return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+      public function ordenar() {
 
-        //return Redirect::action('SeccionController@vistaOrdenar', array(Input::get('menu_id')));
-    }
- * 
- */
+      foreach (Input::get('orden') as $key => $seccion_id) {
+      $respuesta = Seccion::ordenarSeccionMenu($seccion_id, $key, Input::get('menu_id'));
+      }
 
+      $menu = $respuesta['data']->menuSeccion()->url;
+      $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
+
+      return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+
+      //return Redirect::action('SeccionController@vistaOrdenar', array(Input::get('menu_id')));
+      }
+     * 
+     */
 }

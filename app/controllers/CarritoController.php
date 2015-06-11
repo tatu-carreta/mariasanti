@@ -2,11 +2,13 @@
 
 class CarritoController extends BaseController {
 
+    protected $folder_name = 'carrito';
+
     public function vistaListado() {
 
         //Hace que se muestre el html lista.blade.php de la carpeta categoria
         //con los parametros pasados por el array
-        return View::make('carrito.' . $this->project_name . '-ver', $this->array_view);
+        return View::make($this->folder_name . '.' . $this->project_name . '-ver', $this->array_view);
     }
 
     public function agregarProducto($producto_id, $continue) {
@@ -98,7 +100,7 @@ class CarritoController extends BaseController {
         //y se queda con la respuesta para redirigir cual sea el caso
         $respuesta = Carrito::borrar();
 
-        return Redirect::to('/carrito')->with('mensaje', $respuesta['mensaje']);
+        return Redirect::to('/' . $this->folder_name)->with('mensaje', $respuesta['mensaje']);
     }
 
 }

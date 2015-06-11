@@ -2,6 +2,8 @@
 
 class HtmlController extends BaseController {
 
+    protected $folder_name = 'html';
+
     public function vistaAgregar($menu_id) {
 
         $datos = array(
@@ -12,8 +14,8 @@ class HtmlController extends BaseController {
         $seccion = Seccion::agregarSeccion($datos);
 
         $this->array_view['seccion_id'] = $seccion['data']->id;
-        
-        return View::make('item.html.agregar', $this->array_view);
+
+        return View::make('item.' . $this->folder_name . '.agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -35,11 +37,11 @@ class HtmlController extends BaseController {
     public function vistaEditar($id) {
         //Me quedo con el item, buscando por id
         $html = TextoHtml::buscar($id);
-        
+
         if ($html) {
             $this->array_view['item'] = $html->item();
             $this->array_view['html'] = $html;
-            return View::make('item.html.editar-html', $this->array_view);
+            return View::make('item.' . $this->folder_name . '.editar-html', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Página de Error!!';
             return View::make($this->project_name . '-error', $this->array_view);

@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versión del servidor:         5.6.16 - MySQL Community Server (GPL)
+-- Versión del servidor:         5.6.20 - MySQL Community Server (GPL)
 -- SO del servidor:              Win32
 -- HeidiSQL Versión:             9.2.0.4947
 -- --------------------------------------------------------
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `ciudad` (
   CONSTRAINT `FK_ciudad_provincia` FOREIGN KEY (`provincia_id`) REFERENCES `provincia` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27858 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla mariasanti_tc.ciudad: ~22.555 rows (aproximadamente)
+-- Volcando datos para la tabla mariasanti_tc.ciudad: ~22.502 rows (aproximadamente)
 DELETE FROM `ciudad`;
 /*!40000 ALTER TABLE `ciudad` DISABLE KEYS */;
 INSERT INTO `ciudad` (`id`, `nombre`, `codigo_postal`, `provincia_id`) VALUES
@@ -23629,6 +23629,23 @@ INSERT INTO `modulo` (`id`, `nombre`) VALUES
 /*!40000 ALTER TABLE `modulo` ENABLE KEYS */;
 
 
+-- Volcando estructura para tabla mariasanti_tc.muestra
+DROP TABLE IF EXISTS `muestra`;
+CREATE TABLE IF NOT EXISTS `muestra` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `portfolio_simple_id` int(11) NOT NULL,
+  `cuerpo` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  KEY `FK_muestra_portfolio_simple` (`portfolio_simple_id`),
+  CONSTRAINT `FK_muestra_portfolio_simple` FOREIGN KEY (`portfolio_simple_id`) REFERENCES `portfolio_simple` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Volcando datos para la tabla mariasanti_tc.muestra: ~0 rows (aproximadamente)
+DELETE FROM `muestra`;
+/*!40000 ALTER TABLE `muestra` DISABLE KEYS */;
+/*!40000 ALTER TABLE `muestra` ENABLE KEYS */;
+
+
 -- Volcando estructura para tabla mariasanti_tc.noticia
 DROP TABLE IF EXISTS `noticia`;
 CREATE TABLE IF NOT EXISTS `noticia` (
@@ -24520,7 +24537,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 DELETE FROM `usuario`;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` (`id`, `nombre`, `clave`, `iderUser`, `estado`, `ultimo_ingreso`, `fecha_carga`, `fecha_modificacion`, `fecha_baja`, `remember_token`) VALUES
-	(1, 'superadmin', '$2y$10$0JDU9/Ys.wS9c0ATKGEhb.7DCTYznN9pLBHELQwGwJ6VK/DiIhm6S', '', 'A', '2015-03-02 10:31:11', '2014-07-25 11:26:05', NULL, NULL, 0);
+	(1, 'superadmin', '$2y$10$0JDU9/Ys.wS9c0ATKGEhb.7DCTYznN9pLBHELQwGwJ6VK/DiIhm6S', '', 'A', '2015-06-11 13:43:08', '2014-07-25 11:26:05', NULL, NULL, 0);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 
@@ -24534,11 +24551,13 @@ CREATE TABLE IF NOT EXISTS `usuario_acceso` (
   PRIMARY KEY (`id`),
   KEY `usuario_id` (`usuario_id`),
   CONSTRAINT `usuario_acceso_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Volcando datos para la tabla mariasanti_tc.usuario_acceso: ~0 rows (aproximadamente)
 DELETE FROM `usuario_acceso`;
 /*!40000 ALTER TABLE `usuario_acceso` DISABLE KEYS */;
+INSERT INTO `usuario_acceso` (`id`, `usuario_id`, `fecha_acceso`, `ip`) VALUES
+	(1, 1, '2015-06-11 13:43:08', '::1');
 /*!40000 ALTER TABLE `usuario_acceso` ENABLE KEYS */;
 
 

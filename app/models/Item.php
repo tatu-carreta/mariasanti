@@ -833,5 +833,9 @@ class Item extends Eloquent {
     public function portfolio() {
         return Portfolio::where('item_id', $this->id)->first();
     }
+    
+    public function muestra() {
+        return Muestra::where('item_id', $this->id)->first();
+    }
 
 }

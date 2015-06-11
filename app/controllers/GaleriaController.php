@@ -2,6 +2,8 @@
 
 class GaleriaController extends BaseController {
 
+    protected $folder_name = 'galeria';
+
     public function vistaAgregar($menu_id) {
 
         $datos = array(
@@ -13,7 +15,7 @@ class GaleriaController extends BaseController {
 
         $this->array_view['seccion_id'] = $seccion['data']->id;
 
-        return View::make('item.galeria.agregar', $this->array_view);
+        return View::make('item.' . $this->folder_name . '.agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -36,11 +38,11 @@ class GaleriaController extends BaseController {
     public function vistaEditar($id) {
         //Me quedo con el item, buscando por id
         $galeria = Galeria::buscar($id);
-        
+
         if ($galeria) {
             $this->array_view['item'] = $galeria->item();
             $this->array_view['galeria'] = $galeria;
-            return View::make('item.galeria.editar', $this->array_view);
+            return View::make('item.' . $this->folder_name . '.editar', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Página de Error!!';
             return View::make($this->project_name . '-error', $this->array_view);

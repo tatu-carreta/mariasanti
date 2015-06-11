@@ -2,6 +2,8 @@
 
 class ProductoController extends BaseController {
 
+    protected $folder_name = 'producto';
+
     public function vistaListado() {
 
         $items_borrados = Item::where('estado', 'B')->lists('id');
@@ -21,7 +23,7 @@ class ProductoController extends BaseController {
 
         //Hace que se muestre el html lista.blade.php de la carpeta item
         //con los parametros pasados por el array
-        return View::make('producto.lista', $this->array_view);
+        return View::make($this->folder_name . '.lista', $this->array_view);
     }
 
     public function mostrarInfoProducto($url) {
@@ -31,20 +33,20 @@ class ProductoController extends BaseController {
 
         $this->array_view['item'] = $item;
 
-        return View::make('producto.' . $this->project_name . '-ver', $this->array_view);
+        return View::make($this->folder_name . '.' . $this->project_name . '-ver', $this->array_view);
     }
 
     public function vistaAgregar($seccion_id) {
 
-        
+
         $this->array_view['seccion_id'] = $seccion_id;
-        
+
         $seccion = Seccion::find($seccion_id);
-        
-        $modulo = $seccion->menuSeccion()->modulo();    
-        
+
+        $modulo = $seccion->menuSeccion()->modulo();
+
         $this->array_view['menues'] = $modulo->menus;
-        
+
         $this->array_view['seccion'] = $seccion;
 
         $marcas_principales = Marca::where('tipo', 'P')->where('estado', 'A')->orderBy('nombre')->get();
@@ -53,7 +55,7 @@ class ProductoController extends BaseController {
         $this->array_view['marcas_principales'] = $marcas_principales;
         $this->array_view['marcas_secundarias'] = $marcas_secundarias;
 
-        return View::make('producto.agregar', $this->array_view);
+        return View::make($this->folder_name . '.agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -76,7 +78,7 @@ class ProductoController extends BaseController {
             $menu = $seccion->menuSeccion()->url;
             $ancla = '#' . $seccion->estado . $seccion->id;
 
-            return Redirect::to('admin/producto/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje']); //->with('ancla', $ancla);
+            return Redirect::to('admin/' . $this->folder_name . '/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje']); //->with('ancla', $ancla);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
@@ -97,17 +99,17 @@ class ProductoController extends BaseController {
 
             $this->array_view['marcas_principales'] = $marcas_principales;
             $this->array_view['marcas_secundarias'] = $marcas_secundarias;
-            
+
             $seccion = $producto->item()->seccionItem();
-            
-            $modulo = $seccion->menuSeccion()->modulo();    
-        
+
+            $modulo = $seccion->menuSeccion()->modulo();
+
             $this->array_view['menues'] = $modulo->menus;
 
             $this->array_view['item'] = $producto->item();
             $this->array_view['producto'] = $producto;
             $this->array_view['continue'] = $next;
-            return View::make('producto.editar', $this->array_view);
+            return View::make($this->folder_name . '.editar', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Página de Error!!';
             return View::make($this->project_name . '-error', $this->array_view);
@@ -129,7 +131,7 @@ class ProductoController extends BaseController {
          * 
          */
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/producto/editar/' . Input::get('producto_id'))->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('producto_id'))->with('mensaje', $respuesta['mensaje']);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             if (Input::get('continue') == "home") {
@@ -176,7 +178,7 @@ class ProductoController extends BaseController {
             $this->array_view['item'] = $producto->item();
             $this->array_view['producto'] = $producto;
             $this->array_view['continue'] = $next;
-            return View::make('producto.destacar', $this->array_view);
+            return View::make($this->folder_name . '.destacar', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Página de Error!!';
             return View::make($this->project_name . '-error', $this->array_view);
@@ -198,7 +200,7 @@ class ProductoController extends BaseController {
          * 
          */
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->withErrors($respuesta['mensaje'])->withInput();
         } else {
             if (Input::get('continue') == "home") {
                 return Redirect::to('/')->with('mensaje', $respuesta['mensaje']);
@@ -256,7 +258,7 @@ class ProductoController extends BaseController {
             $this->array_view['item'] = $producto->item();
             $this->array_view['producto'] = $producto;
             $this->array_view['continue'] = $next;
-            return View::make('producto.oferta', $this->array_view);
+            return View::make($this->folder_name . '.oferta', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Página de Error!!';
             return View::make($this->project_name . '-error', $this->array_view);
@@ -278,7 +280,7 @@ class ProductoController extends BaseController {
          * 
          */
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->withErrors($respuesta['mensaje'])->withInput();
         } else {
             if (Input::get('continue') == "home") {
                 return Redirect::to('/')->with('mensaje', $respuesta['mensaje']);

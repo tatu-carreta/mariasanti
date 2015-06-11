@@ -1,8 +1,8 @@
 <?php
 
-class PortfolioController extends BaseController {
+class MuestraController extends BaseController {
 
-    protected $folder_name = 'portfolio_simple';
+    protected $folder_name = 'muestra';
 
     public function vistaListado() {
 
@@ -10,14 +10,14 @@ class PortfolioController extends BaseController {
 
         if (count($items_borrados) > 0) {
 
-            $portfolios = Portfolio::whereNotIn('item_id', $items_borrados)->get();
+            $muestras = Muestra::whereNotIn('item_id', $items_borrados)->get();
         } else {
-            $portfolios = Portfolio::all();
+            $muestras = Muestra::all();
         }
         $categorias = Categoria::where('estado', 'A')->get();
         $secciones = Seccion::where('estado', 'A')->get();
 
-        $this->array_view['portfolios'] = $portfolios;
+        $this->array_view['muestras'] = $muestras;
         $this->array_view['categorias'] = $categorias;
         $this->array_view['secciones'] = $secciones;
 
@@ -47,7 +47,7 @@ class PortfolioController extends BaseController {
 
         //Aca se manda a la funcion agregarItem de la clase Item
         //y se queda con la respuesta para redirigir cual sea el caso
-        $respuesta = Portfolio::agregar(Input::all());
+        $respuesta = Muestra::agregar(Input::all());
 
         /*
           if ($respuesta['error'] == true) {
@@ -78,12 +78,12 @@ class PortfolioController extends BaseController {
         //Me quedo con el item, buscando por id
         $item = Item::find($id);
 
-        $portfolio = Portfolio::find($item->portfolio()->id);
+        $muestra = Muestra::find($item->muestra()->id);
         $secciones = parent::seccionesDinamicas();
 
-        if ($portfolio) {
-            $this->array_view['item'] = $portfolio->item();
-            $this->array_view['portfolio'] = $portfolio;
+        if ($muestra) {
+            $this->array_view['item'] = $muestra->item();
+            $this->array_view['muestra'] = $muestra;
             $this->array_view['secciones'] = $secciones;
             $this->array_view['continue'] = $next;
             return View::make($this->folder_name . '.editar', $this->array_view);
@@ -97,7 +97,7 @@ class PortfolioController extends BaseController {
 
         //Aca se manda a la funcion editarItem de la clase Item
         //y se queda con la respuesta para redirigir cual sea el caso
-        $respuesta = Portfolio::editar(Input::all());
+        $respuesta = Muestra::editar(Input::all());
 
         /*
           if ($respuesta['error'] == true) {
@@ -108,7 +108,7 @@ class PortfolioController extends BaseController {
          * 
          */
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('portfolio_id'))->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('muestra_id'))->with('mensaje', $respuesta['mensaje']);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             if (Input::get('continue') == "home") {
@@ -131,7 +131,7 @@ class PortfolioController extends BaseController {
         return $respuesta;
     }
 
-    public function borrarPortfolioSeccion() {
+    public function borrarMuestraSeccion() {
 
         //Aca se manda a la funcion borrarItem de la clase Item
         //y se queda con la respuesta para redirigir cual sea el caso
@@ -169,7 +169,7 @@ class PortfolioController extends BaseController {
 
         //Aca se manda a la funcion editarItem de la clase Item
         //y se queda con la respuesta para redirigir cual sea el caso
-        $respuesta = Portfolio::destacar(Input::all());
+        $respuesta = Muestra::destacar(Input::all());
 
         /*
           if ($respuesta['error'] == true) {

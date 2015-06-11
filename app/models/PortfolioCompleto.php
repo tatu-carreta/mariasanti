@@ -1,6 +1,6 @@
 <?php
 
-class PortfolioCompleto extends Texto {
+class PortfolioCompleto extends Portfolio {
 
     //Tabla de la BD
     protected $table = 'portfolio_completo';
