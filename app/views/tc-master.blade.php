@@ -19,11 +19,10 @@
         
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/jquery-ui.css')}}">
         <link rel="stylesheet" href="{{URL::to('font-awesome-4.2.0/css/font-awesome.css')}}">
-        <link href="{{URL::to('css/jquery.Jcrop.css')}}" rel="stylesheet" />
-        <link rel="stylesheet" href="{{URL::to('css/owl.carousel.css')}}">
-        <link rel="stylesheet" href="{{URL::to('css/owl.theme.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{URL::to('css/full-slider.css')}}"> 
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/base.css')}}"> 
-        <link rel="stylesheet" type="text/css" href="{{URL::to('css/stylesOffitec.css')}}"> 
+        <link rel="stylesheet" type="text/css" href="{{URL::to('css/stylesMariasanti.css')}}"> 
+        
         
         <!-- M O D E R N I Z R -->
         <script src="{{URL::to('js/modernizr.custom.05470.js')}}"></script>
@@ -76,7 +75,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <a class="navbar-brand" href="#"><img alt="logo" src="{{URL::to('images/offitec.svg')}}"></a>
+                            <a href="{{URL::to('/')}}" >María Santi</a>
                             
                             <!-- N A V -->
                             @include('menu.'.$project_name.'-desplegar-menu')
@@ -85,9 +84,7 @@
                         </div>
                     </div>
                 </div>
-            </header>  
-            <!-- abre S L I D E estático -->
-            <div class="slideHome"></div>          
+            </header>          
         @show
         
 
@@ -106,7 +103,6 @@
         <script src="{{URL::to('js/jquery.previewInputFileImage.js')}}"></script>
         <script src="{{URL::to('js/jquery.lazyload.js')}}"></script>
         <script src="{{URL::to('js/jquery-ui.min.js')}}"></script>
-        <script src="{{URL::to('js/jquery.Jcrop.min.js')}}"></script>
         
         <script>
             $(function () {
@@ -116,25 +112,18 @@
             });
         </script>
 
-        <!-- Include OWL CARROUSEL -->
-        <script src="{{URL::to('js/owl.carousel.js')}}"></script>
-         <script>
-            $(document).ready(function() {
-              $("#owl-demo-prod").owlCarousel({
-             
-                  items : 4,
-                  itemsDesktop : [1199,3],
-                  itemsDesktopSmall : [979,3]
-             
-              });
-            });
-        </script>
-
         <!-- Div alerta  -->
         @include($project_name.'-div-alerta')
         
         <!-- Latest compiled and minified JavaScript -->
         <script src="{{URL::to('bootstrap-3.3.4-dist/js/bootstrap.min.js')}}"></script>
+        
+        <!-- Script to Activate the Carousel -->
+        <script>
+            $('.carousel').carousel({
+                interval: 5000 //changes the speed
+            });
+        </script>
         
         @show
         

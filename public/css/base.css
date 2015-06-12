@@ -47,9 +47,9 @@ footer {margin-top: 3em}
 .headerAdmin .salir{color:#fff; padding: 0 1em; margin-left: 1em}
 
 /* Catálogo de Productos */
-.divProductos:nth-child(1) {border-top: 0 none;}
-.divProductos {border-top: 1px solid #c6c6c6; min-height: 10em; padding-top: 1em; vertical-align: top;}
-.divProductos h3 {margin: 0 1em 0 0 !important}
+.divListadoItems:nth-child(1) {border-top: 0 none;}
+.divListadoItems {border-top: 1px solid #c6c6c6; padding-top: 1em; vertical-align: top;}
+.divListadoItems h3 {margin: 0 1em 0 0 !important}
 .sinProductos {border: 1px dashed #C6C6C6; width: 218px; height: 218px; text-align: center; line-height: 200px; margin: 2em 0px 4em;}
 
 .iconos{padding: 0.5em 0.5em 0.563em; border-bottom: 1px dashed #C6C6C6; margin-bottom: 0.5em}
@@ -99,3 +99,23 @@ margin: 0;padding:0;left:0;top: 0;width: 130px;}
 a.laura {display:block; width:210px; height:15px; background:url(../images/laura-chuburu.png); position:absolute; bottom: 0; right:20px;}
 a.laura span {display:none}
 a.laura:hover {background-position:bottom}
+
+
+
+
+
+
+/* -- M E D I A  Q U E R Y -- */
+@media screen and (max-width: 1000px) {
+	#menuPrincipal a {padding: 0 1.250em !important }
+
+}
+
+
+@media screen and (max-width: 768px) {
+
+	.divMenu {float: left; width: 100%}
+	#menuPrincipal {height: auto !important;} 
+	#menuPrincipal a {height: 40px; line-height: 40px; font-size: 1.250em;}
+	.navbar-collapse {border: 0 !important;}
+}

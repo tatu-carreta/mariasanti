@@ -47,14 +47,9 @@
                     @endif
                     </div>
                     <div class="clearfix"></div>
-                </div>
-                        
+                @endif
             </div>
-
-            @else
-            </div>
-
-            @endif
+        </div>
         <div class="contenedorSecciones">
             @include('seccion.seccion-contenedor')
         </div>
