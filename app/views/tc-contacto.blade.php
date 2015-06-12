@@ -10,7 +10,7 @@
     </div>
     <div class="columnaderecha">
         <div class="formulario">
-            {{Form::open(array('url' => 'consulta', 'class' => 'contact_form'))}}<form  class="contact_form" action="envia.php"  id="contact_form" runat="server">  
+            {{Form::open(array('url' => 'consulta', 'class' => 'contact_form'))}}
                 <div>  
                     <ul>  
                         <li>  
