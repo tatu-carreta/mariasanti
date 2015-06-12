@@ -3,7 +3,8 @@
  * Copyright 2015 -
  */
 
-body {margin:0; font-family: 'Source Sans Pro', sans-serif !important;}
+body {margin:0; font-family: 'Oxygen', sans-serif; !important;}
+body, html {height: 100%}
 
 h1, h2, h3 {font-weight: normal}
 ul, li {margin:0; padding:0; list-style: none}
@@ -13,13 +14,13 @@ a {text-decoration: none !important;}
 .fondoDestacado > * { margin-top: 0;}
 
 /* HEADER */
-header {background: #000;}
+header {background: #F4F4F2; position: fixed; width: 100%; z-index: 100; top:0;}
 
 /* NAV */
 .divMenu {float: right;}
-#menuPrincipal a {background: transparent; font-size: 1.250em; color:#fff; font-weight: 300;background: transparent; height: 88px; line-height: 88px; padding: 0 30px !important; text-transform: uppercase; box-sizing: border-box;}
-#menuPrincipal a:hover {background: #878979}
-#menuPrincipal .dropdown li a {height: 35px; line-height: 35px; font-size: 1.250em !important;}
+#menuPrincipal a {background: transparent; font-size: 1.250em; color:#333131; font-weight: 300;background: transparent; height: 88px; line-height: 88px; padding: 0 30px !important; text-transform: uppercase; box-sizing: border-box;}
+#menuPrincipal a:hover {background: #E0E0DC}
+#menuPrincipal .dropdown li a {height: 35px; line-height: 35px; font-size: 1em !important;}
 .btnCarrito {font-weight: 300; font-size: 15px; height: 88px; line-height: 88px; margin: 0 !important; background: #302F2F; color:#fff; padding: 0 30px !important; text-transform: uppercase; box-sizing: border-box;}
 
 /* Módulo lista y ficha de productos */

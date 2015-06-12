@@ -7,7 +7,7 @@
 
         <!-- abre LINK -->
         <link href="favicon.ico" rel="shortcut icon">
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
         <meta name="description" content="">
         <meta name="Keywords" content="">
         <meta property="og:image" content="" />
@@ -75,7 +75,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{URL::to('/')}}" >María Santi</a>
+                            <a class="logo pull-left" href="{{URL::to('/')}}" >María Santi</a>
                             
                             <!-- N A V -->
                             @include('menu.'.$project_name.'-desplegar-menu')

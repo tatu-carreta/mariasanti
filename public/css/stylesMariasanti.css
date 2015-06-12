@@ -1,20 +1,22 @@
 /* Estilos de Bootstrap modificados */
 .navbar {margin:0;}
 .navbar-toggle {margin-top: 1.560em}
-.navbar-brand {padding: 0.125em 0; margin-top: 1em;}
-.dropdown-menu {background: #878979}
+.dropdown-menu {background: #E0E0DC}
 
-.open {background: #878979}
+.open {background: #E0E0DC}
 
 .thumbnail {padding: 0; border: 1px solid #ccc; border-radius: 0;}
 
 .modal-header, .modal-footer {border: 0}
 
-body {margin:0px;}
-h1,h2,h3,h4,h5,h6 {font-weight:normal;}
-a {text-decoration:none;}
-ul,li {margin:0px;padding:0px;list-style:none;}
-header {}
+
+/* Estilos propios María */
+.logo {padding: 0.125em 0; margin-top: 0.6em; font-size: 2em; font-weight: 400; color: #333131}
+.logo:hover {color: #333131}
+
+section {margin-top: 60px}
+
+
 .clear {clear:both;}
 .imagenslider1{background-image: url(../images/cuerpo1.jpg) !important; height: 100%;}
 .imagenslider2{background-image: url(../images/cumulusVegetal.jpg) !important; height: 100%;}
@@ -29,7 +31,7 @@ header {}
 .pinterest:hover{background-position:-48px 0px}
 .instagram{background-position: -72px -72px;}
 .instagram:hover{background-position:-72px 0px;}
-.container {max-width: 1180px;}
+
 .boton-idioma {float: right; }
 .boton-idioma a{color:#fff; font-family: 14px;display:inline-block;text-decoration: none;width: 24px; height: 19px; background: #3F3939; margin-right: 3px;}
 
