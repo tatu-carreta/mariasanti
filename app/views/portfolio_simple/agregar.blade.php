@@ -17,17 +17,16 @@
         
             <div class="row marginBottom2">
                 <!-- Abre columna de imágenes -->
-                <div class="col-md-4 fondoDestacado cargaImg">
-                    <h3>Imagen principal</h3>
-                    @include('imagen.modulo-imagen-angular-crop')
+                <div class="col-md-12 cargaImg">
+                	<div class="fondoDestacado">
+	                    <h3>Recorte de imágenes</h3>
+	                    @include('imagen.modulo-imagen-angular-crop-horizontal')
+	                </div>
                 </div>
-
-                <div class="clear"></div>
-                <!-- cierran columnas -->
             </div>  
             
 
-            <div class="punteado">
+            <div class="borderTop">
                 <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
                 <a onclick="window.history.back();" class="btn btn-default">Cancelar</a>
             </div>

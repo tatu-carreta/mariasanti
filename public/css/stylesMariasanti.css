@@ -1,16 +1,28 @@
 /* Estilos de Bootstrap modificados */
 .navbar {margin:0;}
 .navbar-toggle {margin-top: 1.560em}
-.dropdown-menu {background: #E0E0DC}
+.dropdown-menu {background:transparent !important; padding:0;}
+.dropdown-menu li a {background: #E0E0DC !important;}
+.dropdown-menu li:nth-child(3n+1) a:hover {background:rgba(0,183,255,0.7) !important;}
+.dropdown-menu li:nth-child(3n+2) a:hover {background:rgba(255,245,0,0.7) !important;}
+.dropdown-menu li:nth-child(3n+3) a:hover {background:rgba(218,0,128,0.7) !important;}
 
 .open {background: #E0E0DC}
 
 .thumbnail {padding: 0; border: 1px solid #ccc; border-radius: 0;}
 
 .modal-header, .modal-footer {border: 0}
-
+.progress {height:10px;}
 
 /* Estilos propios María */
+
+/* HEADER */
+h1, h2 {font-weight: 300}
+h2 {font-size: 1.750em;}
+h3 {font-size: 1.125em; font-weight: 400}
+
+header {background: #F4F4F2;}
+
 .logo {padding: 0.125em 0; margin-top: 0.6em; font-size: 2em; font-weight: 400; color: #333131}
 .logo:hover {color: #333131}
 

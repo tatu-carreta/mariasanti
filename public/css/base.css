@@ -14,7 +14,7 @@ a {text-decoration: none !important;}
 .fondoDestacado > * { margin-top: 0;}
 
 /* HEADER */
-header {background: #F4F4F2; position: fixed; width: 100%; z-index: 100; top:0;}
+header {background: #F4F4F2;}
 
 /* NAV */
 .divMenu {float: right;}
@@ -62,9 +62,13 @@ footer {margin-top: 3em}
 .divCargaImgProducto {margin: 0px 0px 4em; position: relative;}
 .divCargaImg { height: 19.375em; width: 19.375em; border: 1px solid #CCC; position: relative; box-sizing: content-box;}
 
+.imgCargada {height:300px; text-align:center;}
+
 .form-group span {display: inline-block; margin:0 0.3em; font-size: 2em;}
 .datosProductos h3 {margin-top: 0 !important}
-.punteado { padding-top: 1.5em; border-top: 1px dashed #C6C6C6;}
+.borderTop { padding-top: 1.5em; border-top: 1px solid #C6C6C6;}
+
+.nombre-peso th {padding: 8px 0;}
 
 /* Ocultamos el input file */
 .oculto {z-index: 999;line-height: 0;font-size: 30px; position: absolute;opacity: 0;filter: alpha(opacity = 0);-ms-filter: "alpha(opacity=0)";
