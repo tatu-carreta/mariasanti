@@ -2,39 +2,45 @@
 
 @section('contenido')
 <section class="container">
-    <div class="columnaizquierda">
-        <div class="textocolumnaizquierda">
-            <h3>Representación exclusiva</h3>
-            <p>PRAXIS INTERNATIONAL ART <br> www.praxis-art.com</p>
-        </div>
-    </div>
-    <div class="columnaderecha">
-        <div class="formulario">
-            {{Form::open(array('url' => 'consulta', 'class' => 'contact_form'))}}
-                <div>  
-                    <ul>  
-                        <li>  
-                            <span class="required_notification"></span>  
-                        </li>  
-                        <li>  
-                            <label for="name">Nombre y apellido</label><br>  
-                            <input name="nombre" type="text" required>
-                        </li></br>
-                        <li>  
-                            <label for="name">email</label><br>  
-                            <input name="email" type="email" required>
-                        </li></br>
-                        <li>  
-                            <label for="message">Comentarios</label><br>  
-                            <textarea name="consulta"></textarea>
-                        </li></br>
-                        <li>  
-                            <button class="submit" type="submit">Enviar</button>  
-                        </li>  
-                    </ul>  
-                </div>  
-            {{Form::close()}}
-        </div>
-    </div>
+	<div class="row">
+	    <div class="col-md-6 col-info">
+	        <div class="textocolumnaizquierda">
+	            <h3>Representación exclusiva</h3>
+	            <p>PRAXIS INTERNATIONAL ART <br> <a href="http://www.praxis-art.com">www.praxis-art.com</a></p>
+	        </div>
+	        <div class="textocolumnaizquierda">
+	            <h3>Representación online</h3>
+	            <p>SAATCHI ART <br> <a href="http://www.saatchiart.com">www.saatchiart.com</a></p>
+	        </div>
+	    </div>
+	    <div class="col-md-6 col-form">
+	        <div class="formulario">
+	            {{Form::open(array('url' => 'consulta', 'class' => 'contact_form'))}}
+	                <div>  
+	                    <ul>  
+	                        <li>  
+	                            <span class="required_notification"></span>  
+	                        </li>  
+	                        <li>  
+	                            <label for="name">Nombre y apellido</label><br>  
+	                            <input class="form-control" name="nombre" type="text" id="name" required>
+	                        </li></br>
+	                        <li>  
+	                            <label for="email">email</label><br>  
+	                            <input class="form-control" name="email" type="email" id="email" required>
+	                        </li></br>
+	                        <li>  
+	                            <label for="message">Comentarios</label><br>  
+	                            <textarea class="form-control" name="consulta" id="message"></textarea>
+	                        </li></br>
+	                        <li>  
+	                            <button class="btn btn-default submit" type="submit">Enviar</button>  
+	                        </li>  
+	                    </ul>  
+	                </div>  
+	            {{Form::close()}}
+	        </div>
+	    </div>
+	</div>
 </section>
 @stop

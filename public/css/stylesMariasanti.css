@@ -16,8 +16,6 @@
 
 section {margin-top: 60px}
 
-
-.clear {clear:both;}
 .imagenslider1{background-image: url(../images/cuerpo1.jpg) !important; height: 100%;}
 .imagenslider2{background-image: url(../images/cumulusVegetal.jpg) !important; height: 100%;}
 .imagenslider3{background-image: url(../images/detalle.jpg) !important; height: 100%;}
@@ -37,16 +35,11 @@ section {margin-top: 60px}
 
 /*CONTACTOS*/
 .contenedorcontacto{margin: 0 auto; width:100%;padding: 50px}
-.columnaizquierda{width: 560px;height: 510px;background:#F4F4F2; display: inline-block; vertical-align: top;}
-.columnaizquierda p{font-family: helvetica;font-size: 12px;color:#333131;}
-.columnaderecha{background: #E0E0DC;width: 560px;height: 510px; display: inline-block;}
-.textocolumnaizquierda{padding: 150px 0 0 50px;}
-.formulario {padding: 50px;}
-.submit {font-family: helvetica;color: #5B5B5E;}
-label{font-family: helvetica; font-size: 12px; color:#333131;}
-input{width: 442px;height: 20px;display: inline-block;vertical-align: top;}
-textarea{width: 442px;height: 100px;display: inline-block;vertical-align: top;margin-top: 8px}
-button.submit{background-color:#5E5C5C;width: 100px;height: 36px;color:#fff;float: right;margin-right: 10px}
+.col-info{height: 510px;background:#F4F4F2;padding: 150px 0 0 50px;}
+.col-info p{color:#333131;}
+.col-form{background: #E0E0DC;height: 510px;padding: 50px;}
+
+button.submit{background-color:#5E5C5C;color: #5B5B5E; width: 100px;height: 36px;color:#fff;float: right;margin-right: 10px}
 
 
 
