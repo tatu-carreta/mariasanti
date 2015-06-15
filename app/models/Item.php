@@ -16,7 +16,7 @@ class Item extends Eloquent {
 
         //Se definen las reglas con las que se van a validar los datos..
         $reglas = array(
-            'titulo' => array('max:50', 'unique:item'),
+            //'titulo' => array('max:50', 'unique:item'),
             'seccion_id' => array('integer'),
         );
 
@@ -136,11 +136,15 @@ class Item extends Eloquent {
                     foreach ($input['imagen_portada_crop'] as $key => $imagen) {
                         if ($imagen != "") {
 
+                            echo "IMG -> ".$imagen;
+                            
                             if (isset($input['imagen_portada_original']) && ($input['imagen_portada_original'] != "")) {
                                 $ampliada = $input['imagen_portada_original'][$key];
                             } else {
                                 $ampliada = $imagen;
                             }
+                            
+                            echo "AMP -> ".$ampliada;
 
                             if (isset($input['epigrafe_imagen_portada']) && ($input['epigrafe_imagen_portada'] != "")) {
                                 $epigrafe_imagen_portada = $input['epigrafe_imagen_portada'][$key];
@@ -148,6 +152,8 @@ class Item extends Eloquent {
                                 $epigrafe_imagen_portada = NULL;
                             }
 
+                            echo "EP -> ".$epigrafe_imagen_portada;
+                            
                             $imagen_crop = Imagen::agregarImagenCropped($imagen, $ampliada, $epigrafe_imagen_portada);
 
                             if (!$imagen_crop['error']) {

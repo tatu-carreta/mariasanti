@@ -42,3 +42,31 @@ Stack trace:
 #16 C:\xampp\htdocs\mariasanti\bootstrap\compiled.php(657): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
 #17 C:\xampp\htdocs\mariasanti\public\index.php(49): Illuminate\Foundation\Application->run()
 #18 {main} [] []
+[2015-06-15 11:34:18] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function getClientOriginalName() on a non-object' in C:\xampp\htdocs\mariasanti\app\models\Imagen.php:192
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-06-15 11:37:48] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function getClientOriginalName() on a non-object' in C:\xampp\htdocs\mariasanti\app\models\Imagen.php:192
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-06-15 11:38:19] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function getClientOriginalName() on a non-object' in C:\xampp\htdocs\mariasanti\app\models\Imagen.php:192
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-06-15 11:40:47] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Cannot use object of type Symfony\Component\HttpFoundation\File\UploadedFile as array' in C:\xampp\htdocs\mariasanti\app\models\Item.php:142
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-06-15 11:43:01] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function getClientOriginalName() on a non-object' in C:\xampp\htdocs\mariasanti\app\models\Imagen.php:192
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-06-15 11:44:10] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function getClientOriginalName() on a non-object' in C:\xampp\htdocs\mariasanti\app\models\Imagen.php:192
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-06-15 11:57:27] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function getClientOriginalName() on a non-object' in C:\xampp\htdocs\mariasanti\app\models\Imagen.php:192
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
