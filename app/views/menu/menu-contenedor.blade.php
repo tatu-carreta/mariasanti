@@ -51,7 +51,15 @@
             </div>
         </div>
         <div class="contenedorSecciones">
-            @include('seccion.seccion-contenedor')
+            @if((!$hay_datos) && (!Auth::check()))
+                <div class="row">
+                    <div class="col-md-12">
+                        No hay {{$texto_modulo}} aún.
+                    </div>
+                </div>
+            @else
+                @include('seccion.seccion-contenedor')
+            @endif
         </div>
 
         @if(Auth::check())

@@ -44,6 +44,13 @@ class MenuController extends BaseController {
             if (!is_null($menu->categoria())) {
                 $this->array_view['ancla'] = Session::get('ancla');
 
+                $hay_datos = false;
+                foreach ($menu->secciones as $seccion) {
+                    if (count($seccion->items) > 0) {
+                        $hay_datos = true;
+                    }
+                }
+                
                 switch ($menu->modulo()->nombre) {
                     case "producto":
                         $marcas = array();
@@ -101,6 +108,8 @@ class MenuController extends BaseController {
                 $this->array_view['html'] = $menu->modulo()->nombre . ".listado";
                 $this->array_view['texto_agregar'] = $textoAgregar;
                 $this->array_view['texto_modulo'] = $texto_modulo;
+                
+                $this->array_view['hay_datos'] = $hay_datos;
 
                 return View::make($this->folder_name . ".menu-contenedor", $this->array_view);
             } else {
