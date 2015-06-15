@@ -28,11 +28,11 @@ header {background: #F4F4F2;}
 
 section {margin-top: 60px}
 
-.imagenslider1{background-image: url(../images/cuerpo1.jpg) !important; height: 100%;}
-.imagenslider2{background-image: url(../images/cumulusVegetal.jpg) !important; height: 100%;}
-.imagenslider3{background-image: url(../images/detalle.jpg) !important; height: 100%;}
-.imagenslider4{background-image: url(../images/fotoperfil.jpg) !important; height: 100%;}
-.imagenslider5{background-image: url(../images/panadero.jpg) !important; height: 100%;}
+.imagenslider1{background-image: url(../images/1.jpg) !important; height: 100%;}
+.imagenslider2{background-image: url(../images/2.jpg) !important; height: 100%;}
+.imagenslider3{background-image: url(../images/3.jpg) !important; height: 100%;}
+.imagenslider4{background-image: url(../images/4.jpg) !important; height: 100%;}
+.imagenslider5{background-image: url(../images/5.jpg) !important; height: 100%;}
 .redes{position: absolute; top:200px; right: 0px; width: 42px; height: 100px; background:rgba(255,255,255,0.5);  padding: 10px;}
 .redes a {background-image: url(../images/sprites.png); display: inline-block; width: 24px; height: 24px;}
 .facebook{background-position: 0px -24px;}
