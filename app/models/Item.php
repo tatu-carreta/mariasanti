@@ -133,6 +133,7 @@ class Item extends Eloquent {
 
             if (isset($input['imagen_portada_crop']) && ($input['imagen_portada_crop'] != "")) {
                 if (is_array($input['imagen_portada_crop'])) {
+                    $i = 0;
                     foreach ($input['imagen_portada_crop'] as $key => $imagen) {
                         if ($imagen != "") {
 
@@ -141,7 +142,7 @@ class Item extends Eloquent {
                             } else {
                                 $ampliada = $imagen;
                             }
-                            
+
                             if (isset($input['epigrafe_imagen_portada']) && ($input['epigrafe_imagen_portada'] != "")) {
                                 $epigrafe_imagen_portada = $input['epigrafe_imagen_portada'][$key];
                             } else {
@@ -151,7 +152,7 @@ class Item extends Eloquent {
                             $imagen_crop = Imagen::agregarImagenCropped($imagen, $ampliada, $epigrafe_imagen_portada);
 
                             if (!$imagen_crop['error']) {
-                                if (isset($input['destacado']) && ($input['destacado'] == $key)) {
+                                if ($i == 0) {
                                     $destacado = array(
                                         "destacado" => "A"
                                     );
@@ -162,6 +163,7 @@ class Item extends Eloquent {
                                 }
                                 $item->imagenes()->attach($imagen_crop['data']->id, $destacado);
                             }
+                            $i++;
                         }
                     }
                 } else {
@@ -400,14 +402,15 @@ class Item extends Eloquent {
                     }
                 }
             }
-            
+
             if (isset($input['imagen_portada_crop']) && ($input['imagen_portada_crop'] != "")) {
                 if (is_array($input['imagen_portada_crop'])) {
+                    $i = 0;
                     foreach ($input['imagen_portada_crop'] as $key => $imagen) {
                         if ($imagen != "") {
 
-                            if (isset($input['imagen_portada_original']) && ($input['imagen_portada_original'] != "")) {
-                                $ampliada = $input['imagen_portada_original'][$key];
+                            if (isset($input['imagen_portada_ampliada']) && ($input['imagen_portada_ampliada'] != "")) {
+                                $ampliada = $input['imagen_portada_ampliada'][$key];
                             } else {
                                 $ampliada = $imagen;
                             }
@@ -421,7 +424,7 @@ class Item extends Eloquent {
                             $imagen_crop = Imagen::agregarImagenCropped($imagen, $ampliada, $epigrafe_imagen_portada);
 
                             if (!$imagen_crop['error']) {
-                                if (isset($input['destacado']) && ($input['destacado'] == $key)) {
+                                if ($i == 0) {
                                     $destacado = array(
                                         "destacado" => "A"
                                     );
@@ -432,11 +435,12 @@ class Item extends Eloquent {
                                 }
                                 $item->imagenes()->attach($imagen_crop['data']->id, $destacado);
                             }
+                            $i++;
                         }
                     }
                 } else {
-                    if (isset($input['imagen_portada_original']) && ($input['imagen_portada_original'] != "")) {
-                        $ampliada = $input['imagen_portada_original'];
+                    if (isset($input['imagen_portada_ampliada']) && ($input['imagen_portada_ampliada'] != "")) {
+                        $ampliada = $input['imagen_portada_ampliada'];
                     } else {
                         $ampliada = $input['imagen_portada_crop'];
                     }
@@ -833,7 +837,7 @@ class Item extends Eloquent {
     public function portfolio() {
         return Portfolio::where('item_id', $this->id)->first();
     }
-    
+
     public function muestra() {
         return Muestra::where('item_id', $this->id)->first();
     }
