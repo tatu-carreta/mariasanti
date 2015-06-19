@@ -185,14 +185,49 @@ class Imagen extends Eloquent {
 
         $respuesta = array();
 
+        $carpeta = "/uploads/";
 
+        $datos_ampliada = array(
+            'nombre' => $ampliada,
+            'epigrafe' => $epigrafe_imagen_portada,
+            'carpeta' => $carpeta,
+            'tipo' => 'G',
+            'ampliada' => '',
+            'estado' => 'A',
+            'fecha_carga' => date("Y-m-d H:i:s"),
+            'usuario_id_carga' => Auth::user()->id
+        );
 
-        $file = $ampliada;
+        $imagen = static::create($datos_ampliada);
 
-        $count = count($file->getClientOriginalName()) - 4;
+        $datos_chica = array(
+            'nombre' => $imagen_portada_crop,
+            'epigrafe' => $epigrafe_imagen_portada,
+            'carpeta' => $carpeta,
+            'tipo' => 'C',
+            'ampliada' => $imagen->id,
+            'estado' => 'A',
+            'fecha_carga' => date("Y-m-d H:i:s"),
+            'usuario_id_carga' => Auth::user()->id
+        );
 
-        $filename = Str::limit(Str::slug($file->getClientOriginalName()), $count, "");
-        $extension = $file->getClientOriginalExtension(); //if you need extension of the file
+        $imagen_chica = static::create($datos_chica);
+
+        //Mensaje correspondiente a la agregacion exitosa
+        $respuesta['mensaje'] = 'Imagen creada.';
+        $respuesta['error'] = false;
+        $respuesta['data'] = $imagen_chica;
+        //return Response::json('success', 200);
+
+        return $respuesta;
+    }
+
+    public static function uploadImageAngular($imagen_crop, $imagen_ampliada) {
+
+        $count = count($imagen_ampliada->getClientOriginalName()) - 4;
+
+        $filename = Str::limit(Str::slug($imagen_ampliada->getClientOriginalName()), $count, "");
+        $extension = $imagen_ampliada->getClientOriginalExtension(); //if you need extension of the file
         //$extension = File::extension($file['name']);
 
         $carpeta = '/uploads/';
@@ -206,54 +241,17 @@ class Imagen extends Eloquent {
             $filename = $filename . ".{$extension}";
         }
 
-        //$upload_success = $file->move($directory, $filename);
-        //resize(width, height)
+        Image::make($imagen_ampliada)->resize(null, 800, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        })->save($directory . $filename);
 
-        if (Image::make($file)->resize(null, 800, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->save($directory . $filename)) {
-            $datos = array(
-                'nombre' => $filename,
-                'epigrafe' => $epigrafe_imagen_portada,
-                'carpeta' => $carpeta,
-                'tipo' => 'G',
-                'ampliada' => '',
-                'estado' => 'A',
-                'fecha_carga' => date("Y-m-d H:i:s"),
-                'usuario_id_carga' => Auth::user()->id
-            );
+        $imagen_crop_name = "small_" . $filename;
 
-            $imagen = static::create($datos);
-
-            $datos_chica = array(
-                'nombre' => $imagen_portada_crop,
-                'epigrafe' => $epigrafe_imagen_portada,
-                'carpeta' => $carpeta,
-                'tipo' => 'C',
-                'ampliada' => $imagen->id,
-                'estado' => 'A',
-                'fecha_carga' => date("Y-m-d H:i:s"),
-                'usuario_id_carga' => Auth::user()->id
-            );
-
-            $imagen_chica = static::create($datos_chica);
-
-            //Mensaje correspondiente a la agregacion exitosa
-            $respuesta['mensaje'] = 'Imagen creada.';
-            $respuesta['error'] = false;
-            $respuesta['data'] = $imagen_chica;
-            //return Response::json('success', 200);
-        } else {
-            //Mensaje correspondiente a la agregacion exitosa
-            $respuesta['mensaje'] = 'Imagen errónea.';
-            $respuesta['error'] = true;
-            $respuesta['data'] = null;
-            //return Response::json('error', 400);
-        }
-
-
-        return $respuesta;
+        $imagen_crop->move($directory, $imagen_crop_name);
+        $answer = array('answer' => 'File transfer completed', 'imagen_path' => $imagen_crop_name, 'imagen_ampliada' => $filename);
+        
+        return $answer;
     }
 
     public static function agregarImagenSlideHome($imagen = null, $epigrafe = null, $coordenadas = null) {

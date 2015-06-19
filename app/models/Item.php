@@ -136,24 +136,18 @@ class Item extends Eloquent {
                     foreach ($input['imagen_portada_crop'] as $key => $imagen) {
                         if ($imagen != "") {
 
-                            echo "IMG -> ".$imagen;
-                            
-                            if (isset($input['imagen_portada_original']) && ($input['imagen_portada_original'] != "")) {
-                                $ampliada = $input['imagen_portada_original'][$key];
+                            if (isset($input['imagen_portada_ampliada']) && ($input['imagen_portada_ampliada'] != "")) {
+                                $ampliada = $input['imagen_portada_ampliada'][$key];
                             } else {
                                 $ampliada = $imagen;
                             }
                             
-                            echo "AMP -> ".$ampliada;
-
                             if (isset($input['epigrafe_imagen_portada']) && ($input['epigrafe_imagen_portada'] != "")) {
                                 $epigrafe_imagen_portada = $input['epigrafe_imagen_portada'][$key];
                             } else {
                                 $epigrafe_imagen_portada = NULL;
                             }
 
-                            echo "EP -> ".$epigrafe_imagen_portada;
-                            
                             $imagen_crop = Imagen::agregarImagenCropped($imagen, $ampliada, $epigrafe_imagen_portada);
 
                             if (!$imagen_crop['error']) {
@@ -171,8 +165,8 @@ class Item extends Eloquent {
                         }
                     }
                 } else {
-                    if (isset($input['imagen_portada_original']) && ($input['imagen_portada_original'] != "")) {
-                        $ampliada = $input['imagen_portada_original'];
+                    if (isset($input['imagen_portada_ampliada']) && ($input['imagen_portada_ampliada'] != "")) {
+                        $ampliada = $input['imagen_portada_ampliada'];
                     } else {
                         $ampliada = $input['imagen_portada_crop'];
                     }
