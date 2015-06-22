@@ -27,5 +27,20 @@ class ImagenController extends BaseController {
         }
         die();
     }
+    
+    public function uploadGaleriaSlideHome() {
+
+        if (!empty(Input::hasFile('file'))) {
+
+            $img_slide = Input::file('file');
+
+            $respuesta = Imagen::uploadImageAngularSlide($img_slide);
+
+            echo json_encode($respuesta);
+        } else {
+            echo 'No image';
+        }
+        die();
+    }
 
 }
