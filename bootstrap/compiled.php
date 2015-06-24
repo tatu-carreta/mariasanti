@@ -363,7 +363,7 @@ class Container implements ArrayAccess
     }
     public function offsetUnset($key)
     {
-        unset($this->bindings[$key], $this->instances[$key]);
+        unset($this->bindings[$key], $this->instances[$key], $this->resolved[$key]);
     }
     public function __get($key)
     {
@@ -423,7 +423,7 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class Application extends Container implements HttpKernelInterface, TerminableInterface, ResponsePreparerInterface
 {
-    const VERSION = '4.2.16';
+    const VERSION = '4.2.17';
     protected $booted = false;
     protected $bootingCallbacks = array();
     protected $bootedCallbacks = array();
@@ -476,7 +476,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
     }
     public static function getBootstrapFile()
     {
-        return 'C:\\xampp\\htdocs\\jma\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation' . '/start.php';
+        return 'C:\\xampp\\htdocs\\mariasanti\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation' . '/start.php';
     }
     public function startExceptionHandling()
     {
@@ -1138,7 +1138,11 @@ class Request extends SymfonyRequest
         if ($request instanceof static) {
             return $request;
         }
-        return (new static())->duplicate($request->query->all(), $request->request->all(), $request->attributes->all(), $request->cookies->all(), $request->files->all(), $request->server->all());
+        $content = $request->content;
+        $request = (new static())->duplicate($request->query->all(), $request->request->all(), $request->attributes->all(), $request->cookies->all(), $request->files->all(), $request->server->all());
+        $request->content = $content;
+        $request->request = $request->getInputSource();
+        return $request;
     }
     public function session()
     {
@@ -1485,7 +1489,7 @@ class Request
     public function getClientIps()
     {
         $ip = $this->server->get('REMOTE_ADDR');
-        if (!self::$trustedProxies) {
+        if (!$this->isFromTrustedProxy()) {
             return array($ip);
         }
         if (!self::$trustedHeaders[self::HEADER_CLIENT_IP] || !$this->headers->has(self::$trustedHeaders[self::HEADER_CLIENT_IP])) {
@@ -1540,7 +1544,7 @@ class Request
     }
     public function getPort()
     {
-        if (self::$trustedProxies) {
+        if ($this->isFromTrustedProxy()) {
             if (self::$trustedHeaders[self::HEADER_CLIENT_PORT] && ($port = $this->headers->get(self::$trustedHeaders[self::HEADER_CLIENT_PORT]))) {
                 return $port;
             }
@@ -1616,7 +1620,7 @@ class Request
     }
     public function isSecure()
     {
-        if (self::$trustedProxies && self::$trustedHeaders[self::HEADER_CLIENT_PROTO] && ($proto = $this->headers->get(self::$trustedHeaders[self::HEADER_CLIENT_PROTO]))) {
+        if ($this->isFromTrustedProxy() && self::$trustedHeaders[self::HEADER_CLIENT_PROTO] && ($proto = $this->headers->get(self::$trustedHeaders[self::HEADER_CLIENT_PROTO]))) {
             return in_array(strtolower(current(explode(',', $proto))), array('https', 'on', 'ssl', '1'));
         }
         $https = $this->server->get('HTTPS');
@@ -1624,7 +1628,7 @@ class Request
     }
     public function getHost()
     {
-        if (self::$trustedProxies && self::$trustedHeaders[self::HEADER_CLIENT_HOST] && ($host = $this->headers->get(self::$trustedHeaders[self::HEADER_CLIENT_HOST]))) {
+        if ($this->isFromTrustedProxy() && self::$trustedHeaders[self::HEADER_CLIENT_HOST] && ($host = $this->headers->get(self::$trustedHeaders[self::HEADER_CLIENT_HOST]))) {
             $elements = explode(',', $host);
             $host = $elements[count($elements) - 1];
         } elseif (!($host = $this->headers->get('HOST'))) {
@@ -1984,6 +1988,10 @@ class Request
             return $request;
         }
         return new static($query, $request, $attributes, $cookies, $files, $server, $content);
+    }
+    private function isFromTrustedProxy()
+    {
+        return self::$trustedProxies && IpUtils::checkIp($this->server->get('REMOTE_ADDR'), self::$trustedProxies);
     }
 }
 namespace Symfony\Component\HttpFoundation;
@@ -2828,8 +2836,7 @@ class ExceptionHandler
                             <h2><span>%d/%d</span> %s: %s</h2>
                         </div>
                         <div class="block">
-                            <ol class="traces list_exception">
-', $ind, $total, $class, $message);
+                            <ol class="traces list_exception">', $ind, $total, $class, $message);
                     foreach ($e['trace'] as $trace) {
                         $content .= '       <li>';
                         if ($trace['function']) {
@@ -2858,7 +2865,7 @@ class ExceptionHandler
                 }
             }
         }
-        return "            <div id=\"sf-resetcontent\" class=\"sf-reset\">\r\n                <h1>{$title}</h1>\r\n                {$content}\r\n            </div>";
+        return "            <div id=\"sf-resetcontent\" class=\"sf-reset\">\n                <h1>{$title}</h1>\n                {$content}\n            </div>";
     }
     public function getStylesheet(FlattenException $exception)
     {
@@ -2915,7 +2922,7 @@ class ExceptionHandler
     }
     private function decorate($content, $css)
     {
-        return "<!DOCTYPE html>\r\n<html>\r\n    <head>\r\n        <meta charset=\"UTF-8\" />\r\n        <meta name=\"robots\" content=\"noindex,nofollow\" />\r\n        <style>\r\n            /* Copyright (c) 2010, Yahoo! Inc. All rights reserved. Code licensed under the BSD License: http://developer.yahoo.com/yui/license.html */\r\n            html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}\r\n\r\n            html { background: #eee; padding: 10px }\r\n            img { border: 0; }\r\n            #sf-resetcontent { width:970px; margin:0 auto; }\r\n            {$css}\r\n        </style>\r\n    </head>\r\n    <body>\r\n        {$content}\r\n    </body>\r\n</html>";
+        return "<!DOCTYPE html>\n<html>\n    <head>\n        <meta charset=\"UTF-8\" />\n        <meta name=\"robots\" content=\"noindex,nofollow\" />\n        <style>\n            /* Copyright (c) 2010, Yahoo! Inc. All rights reserved. Code licensed under the BSD License: http://developer.yahoo.com/yui/license.html */\n            html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}\n\n            html { background: #eee; padding: 10px }\n            img { border: 0; }\n            #sf-resetcontent { width:970px; margin:0 auto; }\n            {$css}\n        </style>\n    </head>\n    <body>\n        {$content}\n    </body>\n</html>";
     }
     private function abbrClass($class)
     {
@@ -3596,14 +3603,15 @@ class Str
     }
     public static function snake($value, $delimiter = '_')
     {
-        if (isset(static::$snakeCache[$value . $delimiter])) {
-            return static::$snakeCache[$value . $delimiter];
+        $key = $value . $delimiter;
+        if (isset(static::$snakeCache[$key])) {
+            return static::$snakeCache[$key];
         }
         if (!ctype_lower($value)) {
             $replace = '$1' . $delimiter . '$2';
             $value = strtolower(preg_replace('/(.)([A-Z])/', $replace, $value));
         }
-        return static::$snakeCache[$value . $delimiter] = $value;
+        return static::$snakeCache[$key] = $value;
     }
     public static function startsWith($haystack, $needles)
     {
@@ -3616,11 +3624,12 @@ class Str
     }
     public static function studly($value)
     {
-        if (isset(static::$studlyCache[$value])) {
-            return static::$studlyCache[$value];
+        $key = $value;
+        if (isset(static::$studlyCache[$key])) {
+            return static::$studlyCache[$key];
         }
         $value = ucwords(str_replace(array('-', '_'), ' ', $value));
-        return static::$studlyCache[$value] = str_replace(' ', '', $value);
+        return static::$studlyCache[$key] = str_replace(' ', '', $value);
     }
 }
 namespace Symfony\Component\Debug;
@@ -4207,9 +4216,9 @@ class Filesystem
     {
         require_once $file;
     }
-    public function put($path, $contents)
+    public function put($path, $contents, $lock = false)
     {
-        return file_put_contents($path, $contents);
+        return file_put_contents($path, $contents, $lock ? LOCK_EX : 0);
     }
     public function prepend($path, $data)
     {
@@ -4856,6 +4865,9 @@ class Router implements HttpKernelInterface, RouteFiltererInterface
     protected function getGroupResourceName($prefix, $resource, $method)
     {
         $group = str_replace('/', '.', $this->getLastGroupPrefix());
+        if (empty($group)) {
+            return trim("{$prefix}{$resource}.{$method}", '.');
+        }
         return trim("{$prefix}{$group}.{$resource}.{$method}", '.');
     }
     public function getResourceWildcard($value)
@@ -6540,10 +6552,10 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
     }
     public static function find($id, $columns = array('*'))
     {
-        if (is_array($id) && empty($id)) {
-            return new Collection();
-        }
         $instance = new static();
+        if (is_array($id) && empty($id)) {
+            return $instance->newCollection();
+        }
         return $instance->newQuery()->find($id, $columns);
     }
     public static function findOrNew($id, $columns = array('*'))
@@ -6976,8 +6988,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
     }
     public function newQuery()
     {
-        $builder = $this->newEloquentBuilder($this->newBaseQueryBuilder());
-        $builder->setModel($this)->with($this->with);
+        $builder = $this->newQueryWithoutScopes();
         return $this->applyGlobalScopes($builder);
     }
     public function newQueryWithoutScope($scope)
@@ -6987,7 +6998,8 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
     }
     public function newQueryWithoutScopes()
     {
-        return $this->removeGlobalScopes($this->newQuery());
+        $builder = $this->newEloquentBuilder($this->newBaseQueryBuilder());
+        return $builder->setModel($this)->with($this->with);
     }
     public function applyGlobalScopes($builder)
     {
@@ -8737,6 +8749,7 @@ class Logger implements LoggerInterface
     public function pushHandler(HandlerInterface $handler)
     {
         array_unshift($this->handlers, $handler);
+        return $this;
     }
     public function popHandler()
     {
@@ -8755,6 +8768,7 @@ class Logger implements LoggerInterface
             throw new \InvalidArgumentException('Processors must be valid callables (callback or object with an __invoke method), ' . var_export($callback, true) . ' given');
         }
         array_unshift($this->processors, $callback);
+        return $this;
     }
     public function popProcessor()
     {
@@ -8857,9 +8871,7 @@ class Logger implements LoggerInterface
     }
     public function log($level, $message, array $context = array())
     {
-        if (is_string($level) && defined(__CLASS__ . '::' . strtoupper($level))) {
-            $level = constant(__CLASS__ . '::' . strtoupper($level));
-        }
+        $level = static::toMonologLevel($level);
         return $this->addRecord($level, $message, $context);
     }
     public function debug($message, array $context = array())
@@ -8909,6 +8921,10 @@ class Logger implements LoggerInterface
     public function emergency($message, array $context = array())
     {
         return $this->addRecord(static::EMERGENCY, $message, $context);
+    }
+    public static function setTimezone(\DateTimeZone $tz)
+    {
+        self::$timezone = $tz;
     }
 }
 namespace Psr\Log;
@@ -10819,6 +10835,7 @@ class Run
             $this->writeToOutputNow($output);
         }
         if ($willQuit) {
+            flush();
             die(1);
         }
         return $output;
@@ -10833,13 +10850,15 @@ class Run
                     return true;
                 }
             }
-            $exception = new ErrorException($message, $level, 0, $file, $line);
+            $exception = new ErrorException($message, $level, $level, $file, $line);
             if ($this->canThrowExceptions) {
                 throw $exception;
             } else {
                 $this->handleException($exception);
             }
+            return true;
         }
+        return false;
     }
     public function handleShutdown()
     {

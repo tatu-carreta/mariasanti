@@ -25,7 +25,6 @@ class ImagenController extends BaseController {
         } else {
             echo 'No image';
         }
-        die();
     }
     
     public function uploadGaleriaSlideHome() {

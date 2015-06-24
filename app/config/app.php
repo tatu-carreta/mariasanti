@@ -111,7 +111,8 @@ return array(
         'Zizaco\Entrust\EntrustServiceProvider',
         'Thujohn\Pdf\PdfServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
-        'Gloudemans\Shoppingcart\ShoppingcartServiceProvider'
+        'Gloudemans\Shoppingcart\ShoppingcartServiceProvider',
+        'Alaouy\Youtube\YoutubeServiceProvider',
     ),
     /*
       |--------------------------------------------------------------------------

@@ -75,6 +75,71 @@ class Slide extends Eloquent {
         return $respuesta;
     }
 
+    public static function agregarSlideHome($input) {
+
+        $respuesta = array();
+
+        //Se definen las reglas con las que se van a validar los datos..
+        $reglas = array(
+            'seccion_id' => array('required'),
+            'tipo' => array('required')
+        );
+
+        //Se realiza la validación
+        $validator = Validator::make($input, $reglas);
+
+        if ($validator->fails()) {
+            //Si está todo mal, carga lo que corresponde en el mensaje.
+            $respuesta['mensaje'] = $validator;
+            $respuesta['error'] = true;
+        } else {
+
+            //Se cargan los datos necesarios para la creacion del Item
+            $datos = array(
+                'seccion_id' => $input['seccion_id'],
+                'tipo' => $input['tipo'],
+                'estado' => 'A',
+                'fecha_carga' => date("Y-m-d H:i:s"),
+                'usuario_id_carga' => Auth::user()->id
+            );
+
+            //Lo crea definitivamente
+            $slide = static::create($datos);
+
+            if (isset($input['imagenes_slide']) && ($input['imagenes_slide'] != "")) {
+                if (is_array($input['imagenes_slide'])) {
+                    foreach ($input['imagenes_slide'] as $key => $imagen) {
+                        if ($imagen != "") {
+                            if ($input['tipo'] == "I") {
+                                $imagen_creada = Imagen::agregarImagenAngularSlideHome($imagen, null);
+                            } else {
+                                $imagen_creada = Imagen::agregarImagen($imagen, $input['epigrafe_slide'][$key]);
+                            }
+
+                            if (!$imagen_creada['error']) {
+
+                                $info = array(
+                                    'estado' => 'A',
+                                    'fecha_carga' => date("Y-m-d H:i:s"),
+                                    'usuario_id_carga' => Auth::user()->id
+                                );
+
+                                $slide->imagenes()->attach($imagen_creada['data']->id, $info);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Mensaje correspondiente a la agregacion exitosa
+            $respuesta['mensaje'] = 'Slide creado.';
+            $respuesta['error'] = false;
+            $respuesta['data'] = $slide;
+        }
+
+        return $respuesta;
+    }
+
     //Me quedo con las categorias a las que pertenece el Item
     public function imagenes() {
         return $this->belongsToMany('Imagen', 'slide_imagen', 'slide_id', 'imagen_id');

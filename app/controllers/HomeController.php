@@ -15,9 +15,9 @@ class HomeController extends BaseController {
                 array_push($items_home, $item_of);
             }
 
-            $items_nuevos = parent::itemsNuevos(8 - count($items_oferta));
+            $items_nuevos = parent::itemsNuevos(8 - count($items_home));
 
-            if ((count($items_oferta) + count($items_nuevos)) < 8) {
+            if ((count($items_home) + count($items_nuevos)) < 8) {
 
                 if (count($items_nuevos) > 0) {
 
@@ -26,9 +26,9 @@ class HomeController extends BaseController {
                         array_push($items_home, $item);
                     }
 
-                    $ultimos_productos = Item::where('estado', 'A')->whereNotIn('id', $destacados)->orderBy('fecha_modificacion', 'desc')->skip(0)->take(8 - count($items_nuevos))->get();
+                    $ultimos_productos = Item::where('estado', 'A')->whereNotIn('id', $destacados)->orderBy('fecha_modificacion', 'desc')->skip(0)->take(8 - count($items_home))->get();
                 } else {
-                    $ultimos_productos = Item::where('estado', 'A')->orderBy('fecha_modificacion', 'desc')->skip(0)->take(8 - count($items_nuevos))->get();
+                    $ultimos_productos = Item::where('estado', 'A')->orderBy('fecha_modificacion', 'desc')->skip(0)->take(8 - count($items_home))->get();
                 }
 
                 foreach ($ultimos_productos as $item_ul) {

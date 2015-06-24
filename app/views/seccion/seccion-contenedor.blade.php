@@ -1,6 +1,6 @@
 @foreach($menu -> secciones as $seccion)
+    @if((count($seccion->items) > 0) || Auth::check())
         <div class="row divListadoItems">
-            @if((count($seccion->items) > 0) || Auth::check())
                 <div  class="col-md-12" id="{{$menu->estado.$menu->id}}">
                     @if(($seccion->titulo != "") || (Auth::check()))
                         <h3 class="pull-left" id="{{$seccion->estado.$seccion->id}}">
@@ -29,8 +29,9 @@
                      <!-- Ver con MAXI -->
 
                 </div>
-            @endif
+            
         </div>
+    @endif
     @if(count($seccion->items) > 0)
     
         @if(Auth::check())

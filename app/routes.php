@@ -136,6 +136,8 @@ Route::group(array('before' => 'auth'), function() {
     
     Route::post('admin/imagen/crop/upload', 'ImagenController@uploadImagenCrop');
     
+    Route::post('admin/imagen/slide/upload', 'ImagenController@uploadGaleriaSlideHome');
+    
     /*
      * Ruteo de Menu
      */

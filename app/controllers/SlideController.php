@@ -22,7 +22,7 @@ class SlideController extends BaseController {
 
         //Aca se manda a la funcion agregarItem de la clase Item
         //y se queda con la respuesta para redirigir cual sea el caso
-        $respuesta = Slide::agregarSlide(Input::all());
+        $respuesta = Slide::agregarSlideHome(Input::all());
 
         if ($respuesta['error'] == true) {
             return Redirect::to('admin/item')->withErrors($respuesta['mensaje'])->withInput();

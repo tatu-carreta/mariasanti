@@ -30,7 +30,8 @@
         "Zizaco\\Entrust\\EntrustServiceProvider",
         "Thujohn\\Pdf\\PdfServiceProvider",
         "Maatwebsite\\Excel\\ExcelServiceProvider",
-        "Gloudemans\\Shoppingcart\\ShoppingcartServiceProvider"
+        "Gloudemans\\Shoppingcart\\ShoppingcartServiceProvider",
+        "Alaouy\\Youtube\\YoutubeServiceProvider"
     ],
     "eager": [
         "Illuminate\\Cookie\\CookieServiceProvider",
@@ -44,7 +45,8 @@
         "Zizaco\\Entrust\\EntrustServiceProvider",
         "Thujohn\\Pdf\\PdfServiceProvider",
         "Maatwebsite\\Excel\\ExcelServiceProvider",
-        "Gloudemans\\Shoppingcart\\ShoppingcartServiceProvider"
+        "Gloudemans\\Shoppingcart\\ShoppingcartServiceProvider",
+        "Alaouy\\Youtube\\YoutubeServiceProvider"
     ],
     "deferred": {
         "artisan": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
