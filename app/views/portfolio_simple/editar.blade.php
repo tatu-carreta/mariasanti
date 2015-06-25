@@ -18,7 +18,7 @@
 
             <div class="row marginBottom2">
                 <!-- Abre columna de imágenes -->
-                <div class="col-md-6 cargaImg">
+                <div class="col-md-12 cargaImg">
                     <div class="fondoDestacado">
 
                     @if(Auth::user()->can('cambiar_seccion_item'))
@@ -30,19 +30,19 @@
                         </select>
                     @endif
             
-                        <h3>Imagen principal</h3>
-                        @if(!is_null($item->imagen_destacada()))
-                            <div class="divCargaImgProducto" style="margin-bottom:0 !important">
-                                <div class="marginBottom2 divCargaImg">
-                                    <img alt="{{$item->titulo}}"  src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}">
-                                    <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times fa-lg"></i>
-                                </div>
-                                <input type="hidden" name="imagen_portada_editar" value="{{$item->imagen_destacada()->id}}">
-                                <input class="block marginBottom form-control" type="text" name="epigrafe_imagen_portada_editar" placeholder="Ingrese una descripción de la foto" value="{{ $item->imagen_destacada()->epigrafe }}">
+                    <h3>Imagen principal</h3>
+                    @if(!is_null($item->imagen_destacada()))
+                        <div class="divCargaImgProducto" style="margin-bottom:0 !important">
+                            <div class="marginBottom2 divCargaImg">
+                                <img alt="{{$item->titulo}}"  src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}">
+                                <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times fa-lg"></i>
                             </div>
-                        @else
-                            @include('imagen.modulo-imagen-angular-crop')
-                        @endif
+                            <input type="hidden" name="imagen_portada_editar" value="{{$item->imagen_destacada()->id}}">
+                            <input class="block marginBottom form-control" type="text" name="epigrafe_imagen_portada_editar" placeholder="Ingrese una descripción de la foto" value="{{ $item->imagen_destacada()->epigrafe }}">
+                        </div>
+                    @else
+                        @include('imagen.modulo-imagen-angular-crop-horizontal')
+                    @endif
                     </div>
                 </div>
             </div>  
