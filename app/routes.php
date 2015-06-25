@@ -139,6 +139,16 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('admin/imagen/slide/upload', 'ImagenController@uploadGaleriaSlideHome');
     
     /*
+     * Ruteo Video 
+     */
+    
+    Route::get('admin/video', 'VideoController@verListado');
+    
+    Route::get('admin/video/agregar', 'VideoController@vistaAgregar');
+    
+    Route::post('admin/video/agregar/youtube', 'VideoController@agregarYoutube');
+    
+    /*
      * Ruteo de Menu
      */
     Route::get('admin/menu', 'MenuController@vistaListado');
