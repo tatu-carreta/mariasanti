@@ -15,35 +15,36 @@
         {{ Form::open(array('url' => 'admin/portfolio_simple/editar', 'files' => true, 'role' => 'form')) }}
             <h2 class="marginBottom2"><span>Carga y modificación de portfolio_simple</span></h2>
             
-            @if(Auth::user()->can('cambiar_seccion_item'))
-                <select name="seccion_nueva_id">
-                    <option value="">Seleccione Nueva Sección</option>
-                    @foreach($secciones as $seccion)
-                    <option value="{{$seccion->id}}" @if($seccion->id == $item->seccionItem()->id) selected @endif>@if($seccion->nombre != ""){{$seccion->nombre}}@else Sección {{$seccion->id}} - {{$seccion->menuSeccion()->nombre}}@endif</option>
-                    @endforeach
-                </select>
-            @endif
-        
+
             <div class="row marginBottom2">
                 <!-- Abre columna de imágenes -->
-                <div class="col-md-4 fondoDestacado cargaImg">
-                    <h3>Imagen principal</h3>
-                    @if(!is_null($item->imagen_destacada()))
-                        <div class="divCargaImgProducto">
-                            <div class="marginBottom1 divCargaImg">
-                                <img alt="{{$item->titulo}}"  src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}">
-                                <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times fa-lg"></i>
-                            </div>
-                            <input type="hidden" name="imagen_portada_editar" value="{{$item->imagen_destacada()->id}}">
-                            <input class="block anchoTotal marginBottom" type="text" name="epigrafe_imagen_portada_editar" placeholder="Ingrese una descripción de la foto" value="{{ $item->imagen_destacada()->epigrafe }}">
-                        </div>
-                    @else
-                        @include('imagen.modulo-imagen-angular-crop')
-                    @endif
-                </div>
+                <div class="col-md-6 cargaImg">
+                    <div class="fondoDestacado">
 
-                <div class="clear"></div>
-                <!-- cierran columnas -->
+                    @if(Auth::user()->can('cambiar_seccion_item'))
+                        <select name="seccion_nueva_id" class="form-control  marginBottom2">
+                            <option value="">Seleccione Nueva Sección</option>
+                            @foreach($secciones as $seccion)
+                            <option value="{{$seccion->id}}" @if($seccion->id == $item->seccionItem()->id) selected @endif>@if($seccion->nombre != ""){{$seccion->nombre}}@else Sección {{$seccion->id}} - {{$seccion->menuSeccion()->nombre}}@endif</option>
+                            @endforeach
+                        </select>
+                    @endif
+            
+                        <h3>Imagen principal</h3>
+                        @if(!is_null($item->imagen_destacada()))
+                            <div class="divCargaImgProducto" style="margin-bottom:0 !important">
+                                <div class="marginBottom2 divCargaImg">
+                                    <img alt="{{$item->titulo}}"  src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}">
+                                    <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times fa-lg"></i>
+                                </div>
+                                <input type="hidden" name="imagen_portada_editar" value="{{$item->imagen_destacada()->id}}">
+                                <input class="block marginBottom form-control" type="text" name="epigrafe_imagen_portada_editar" placeholder="Ingrese una descripción de la foto" value="{{ $item->imagen_destacada()->epigrafe }}">
+                            </div>
+                        @else
+                            @include('imagen.modulo-imagen-angular-crop')
+                        @endif
+                    </div>
+                </div>
             </div>  
             
 
