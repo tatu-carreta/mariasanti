@@ -1,47 +1,54 @@
-<div class="modContenidoPagEst">
+
 
     @foreach($seccion -> items as $i)
 
     @if(Auth::check())
-        <div class="floatRight">
-            @if(!is_null($i->texto()))
-                @if(Auth::user()->can("editar_texto"))
-                    <a href="{{URL::to('admin/texto/editar/'.$i->id)}}" class="btnSec nuevaSeccion"><i class="fa fa-pencil fa-lg"></i>editar</a>
+        <div class="row pull-right">
+            <div class="col-md-12">
+                @if(!is_null($i->texto()))
+                    @if(Auth::user()->can("editar_texto"))
+                        <a href="{{URL::to('admin/texto/editar/'.$i->id)}}" class="btnSec popup-nueva-seccion"><i class="fa fa-pencil fa-lg"></i>editar</a>
+                    @endif
+                    @if(Auth::user()->can("borrar_texto"))
+                        <a onclick="borrarData('../admin/seccion/borrar', '{{$seccion->id}}');" class="btnSec sinPadding"><i class="fa fa-times fa-lg"></i>eliminar</a>
+                    @endif
+                @elseif(!is_null($i->html()))
+                    @if(Auth::user()->can("editar_html"))
+                        <a href="{{URL::to('admin/html/editar/'.$i->id)}}" class="btnSec nuevaSeccion"><i class="fa fa-pencil fa-lg"></i>editar</a>
+                    @endif
+                    @if(Auth::user()->can("borrar_html"))
+                        <a onclick="borrarData('../admin/seccion/borrar', '{{$seccion->id}}');" class="btnSec sinPadding"><i class="fa fa-times fa-lg"></i>eliminar</a>
+                    @endif
+                @elseif(!is_null($i->galeria()))
+                    @if(Auth::user()->can("editar_galeria"))
+                        <a href="{{URL::to('admin/galeria/editar/'.$i->id)}}" class="btnSec nuevaSeccion"><i class="fa fa-pencil fa-lg"></i>editar</a>
+                    @endif
+                    @if(Auth::user()->can("borrar_galeria"))
+                        <a onclick="borrarData('../admin/seccion/borrar', '{{$seccion->id}}');" class="btnSec sinPadding"><i class="fa fa-times fa-lg"></i>eliminar</a>
+                    @endif
                 @endif
-                @if(Auth::user()->can("borrar_texto"))
-                    <a onclick="borrarData('../admin/seccion/borrar', '{{$seccion->id}}');" class="btnSec sinPadding"><i class="fa fa-times fa-lg"></i>eliminar</a>
-                @endif
-            @elseif(!is_null($i->html()))
-                @if(Auth::user()->can("editar_html"))
-                    <a href="{{URL::to('admin/html/editar/'.$i->id)}}" class="btnSec nuevaSeccion"><i class="fa fa-pencil fa-lg"></i>editar</a>
-                @endif
-                @if(Auth::user()->can("borrar_html"))
-                    <a onclick="borrarData('../admin/seccion/borrar', '{{$seccion->id}}');" class="btnSec sinPadding"><i class="fa fa-times fa-lg"></i>eliminar</a>
-                @endif
-            @elseif(!is_null($i->galeria()))
-                @if(Auth::user()->can("editar_galeria"))
-                    <a href="{{URL::to('admin/galeria/editar/'.$i->id)}}" class="btnSec nuevaSeccion"><i class="fa fa-pencil fa-lg"></i>editar</a>
-                @endif
-                @if(Auth::user()->can("borrar_galeria"))
-                    <a onclick="borrarData('../admin/seccion/borrar', '{{$seccion->id}}');" class="btnSec sinPadding"><i class="fa fa-times fa-lg"></i>eliminar</a>
-                @endif
-            @endif
+            </div>
         </div>
     @endif
 
-    <div class="clear"></div>
-    @if(!is_null($i->titulo) && ($i->titulo != ""))
-        <h2>{{$i->titulo}}</h2>
-    @endif
-    @if(is_null($i->texto()) && (is_null($i->html())))
-        <p>{{$i->descripcion}}</p>
-    @else
-        @if(!is_null($i->texto()))
-            <p>{{$i->texto()->cuerpo}}</p>
-        @else
-            {{$i->html()->cuerpo}}
-        @endif
-    @endif
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            @if(!is_null($i->titulo) && ($i->titulo != ""))
+                <h2>{{$i->titulo}}</h2>
+            @endif
+            @if(is_null($i->texto()) && (is_null($i->html())))
+                <p>{{$i->descripcion}}</p>
+            @else
+                @if(!is_null($i->texto()))
+                    <p>{{$i->texto()->cuerpo}}</p>
+                @else
+                    {{$i->html()->cuerpo}}
+                @endif
+            @endif
+        </div>
+    </div>
+    
 
     <!-- Galeria de Imagenes -->
     @if(count($i->imagenes) > 0)
