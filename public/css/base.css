@@ -36,6 +36,8 @@ footer {margin-top: 3em}
 
 /* ----------------------------- A D M I N ------------------------------------ */
 
+.sortable{cursor:move;}
+
 .divLogin{margin: 100px auto 250px auto; width: 300px;  }
 /*.divLogin input[type="text"], .divLogin input[type="password"] {width: 100%; margin-bottom: 20px}
 .divLogin input[type="submit"]{float:right;}ver bootstrap y sacar*/ 
