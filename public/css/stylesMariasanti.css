@@ -9,7 +9,7 @@
 
 .open {background: #E0E0DC}
 
-.thumbnail {padding: 0; border: 1px solid #ccc; border-radius: 0;}
+.thumbnail {padding: 0; border: none; border-radius: 0;}
 
 .modal-header, .modal-footer {border: 0}
 .progress {height:10px;}
