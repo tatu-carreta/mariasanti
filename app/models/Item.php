@@ -18,6 +18,7 @@ class Item extends Eloquent {
         $reglas = array(
             //'titulo' => array('max:50', 'unique:item'),
             'seccion_id' => array('integer'),
+            'imagen_portada_crop' => array('required'),
         );
 
         if (isset($input['file']) && ($input['file'] != "") && (!is_array($input['file']))) {
@@ -32,7 +33,7 @@ class Item extends Eloquent {
 
         if ($validator->fails()) {
             // $respuesta['mensaje'] = "No se pudo realizar la carga del producto. Compruebe los campos.";
-            $respuesta['mensaje'] = $validator->messages()->first('titulo');
+            $respuesta['mensaje'] = $validator->messages()->first('imagen_portada_crop');
             //Si está todo mal, carga lo que corresponde en el mensaje.
 
             $respuesta['error'] = true;
@@ -245,7 +246,7 @@ class Item extends Eloquent {
             }
 
             //Mensaje correspondiente a la agregacion exitosa
-            $respuesta['mensaje'] = 'Producto creado.';
+            $respuesta['mensaje'] = 'Obra creada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $item;
         }
@@ -542,7 +543,7 @@ class Item extends Eloquent {
              * 
              */
 
-            $respuesta['mensaje'] = 'Producto modificado.';
+            $respuesta['mensaje'] = 'Obra modificada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $item;
         }
@@ -573,7 +574,7 @@ class Item extends Eloquent {
 
             $item->save();
 
-            $respuesta['mensaje'] = 'Producto eliminado';
+            $respuesta['mensaje'] = 'Obra eliminada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $item;
         }
@@ -599,7 +600,7 @@ class Item extends Eloquent {
             $baja_item_seccion = DB::table('item_seccion')->where($input)->update(array(
                 'estado' => 'B'));
 
-            $respuesta['mensaje'] = 'Producto eliminado.';
+            $respuesta['mensaje'] = 'Obra eliminada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $baja_item_seccion;
         }
@@ -637,7 +638,7 @@ class Item extends Eloquent {
             $item = DB::table('item_seccion')->where(
                             $input)->update(array('orden' => $orden));
 
-            $respuesta['mensaje'] = 'Los productos han sido ordenados.';
+            $respuesta['mensaje'] = 'Las obras han sido ordenados.';
             $respuesta['error'] = false;
             $respuesta['data'] = $item;
         }
@@ -663,7 +664,7 @@ class Item extends Eloquent {
             $baja_item_seccion = DB::table('item_seccion')->where($input)->update(array(
                 'destacado' => 'A'));
 
-            $respuesta['mensaje'] = 'Producto destacado.';
+            $respuesta['mensaje'] = 'Obra destacada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $baja_item_seccion;
         }
@@ -689,7 +690,7 @@ class Item extends Eloquent {
             $baja_item_seccion = DB::table('item_seccion')->where($input)->update(array(
                 'destacado' => 'N'));
 
-            $respuesta['mensaje'] = 'Producto nuevo.';
+            $respuesta['mensaje'] = 'Obra nueva.';
             $respuesta['error'] = false;
             $respuesta['data'] = $baja_item_seccion;
         }
@@ -715,7 +716,7 @@ class Item extends Eloquent {
             $baja_item_seccion = DB::table('item_seccion')->where($input)->update(array(
                 'destacado' => 'O'));
 
-            $respuesta['mensaje'] = 'Producto oferta.';
+            $respuesta['mensaje'] = 'Obra oferta.';
             $respuesta['error'] = false;
             $respuesta['data'] = $baja_item_seccion;
         }

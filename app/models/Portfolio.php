@@ -2,16 +2,16 @@
 
 class Portfolio extends Item {
 
-    //Tabla de la BD
+//Tabla de la BD
     protected $table = 'portfolio_simple';
-    //Atributos que van a ser modificables
+//Atributos que van a ser modificables
     protected $fillable = array('item_id');
-    //Hace que no se utilicen los default: create_at y update_at
+//Hace que no se utilicen los default: create_at y update_at
     public $timestamps = false;
 
-    //Función de Agregación de Item
+//Función de Agregación de Item
     public static function agregar($input) {
-        //Lo crea definitivamente
+//Lo crea definitivamente
 
         if (isset($input['descripcion'])) {
 
@@ -23,25 +23,28 @@ class Portfolio extends Item {
 
         $item = Item::agregarItem($input);
 
-        $portfolio_simple = static::create(['item_id' => $item['data']->id]);
-
-        if ($portfolio_simple) {
-            $respuesta['error'] = false;
-            $respuesta['mensaje'] = "Portfolio creado.";
-            $respuesta['data'] = $portfolio_simple;
-        } else {
+        if ($item['error']) {
             $respuesta['error'] = true;
-            $respuesta['mensaje'] = "Error en el portfolio. Compruebe los campos.";
-        }
+            $respuesta['mensaje'] = "Error en la obra. Compruebe los campos.";
+        } else {
+            $portfolio_simple = static::create(['item_id' => $item['data']->id]);
 
+            if ($portfolio_simple) {
+                $respuesta['error'] = false;
+                $respuesta['mensaje'] = "Obra creada.";
+                $respuesta['data'] = $portfolio_simple;
+            } else {
+                $respuesta['error'] = true;
+                $respuesta['mensaje'] = "Error en la obra. Compruebe los campos.";
+            }
+        }
         return $respuesta;
     }
 
     public static function editar($input) {
         $respuesta = array();
 
-        $reglas = array(
-        );
+        $reglas = array();
 
         $validator = Validator::make($input, $reglas);
 
@@ -63,7 +66,7 @@ class Portfolio extends Item {
 
             $item = Item::editarItem($input);
 
-            $respuesta['mensaje'] = 'Portfolio modificado.';
+            $respuesta['mensaje'] = 'Obra modificada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $portfolio_simple;
         }
@@ -78,7 +81,7 @@ class Portfolio extends Item {
     public function portfolio_completo() {
         return PortfolioCompleto::where('portfolio_simple_id', $this->id)->first();
     }
-    
+
     public static function buscar($item_id) {
         return Portfolio::where('item_id', $item_id)->first();
     }

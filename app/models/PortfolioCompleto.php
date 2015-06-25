@@ -29,10 +29,10 @@ class PortfolioCompleto extends Portfolio {
 
             $respuesta['data'] = $portfolio_completo;
             $respuesta['error'] = false;
-            $respuesta['mensaje'] = "Portfolio creado.";
+            $respuesta['mensaje'] = "Obra creada.";
         } else {
             $respuesta['error'] = true;
-            $respuesta['mensaje'] = "El portfolio no pudo ser creado. Compruebe los campos.";
+            $respuesta['mensaje'] = "La obra no pudo ser creada. Compruebe los campos.";
         }
 
 
@@ -70,7 +70,7 @@ class PortfolioCompleto extends Portfolio {
 
             $portfolio_simple = Portfolio::editar($input);
 
-            $respuesta['mensaje'] = 'Portfolio modificado.';
+            $respuesta['mensaje'] = 'Obra modificada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $portfolio_completo;
         }
@@ -100,7 +100,7 @@ class PortfolioCompleto extends Portfolio {
 
             $item->save();
 
-            $respuesta['mensaje'] = 'Portfolio eliminado.';
+            $respuesta['mensaje'] = 'Obra eliminada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $item;
         }
@@ -123,7 +123,7 @@ class PortfolioCompleto extends Portfolio {
 
             $baja_item_seccion = DB::table('item_seccion')->where($input)->update(array('estado' => 'B'));
 
-            $respuesta['mensaje'] = 'Portfolio eliminado.';
+            $respuesta['mensaje'] = 'Obra eliminada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $baja_item_seccion;
         }
@@ -152,7 +152,7 @@ class PortfolioCompleto extends Portfolio {
 
             $item = Item::destacar($data);
 
-            $respuesta['mensaje'] = 'Portfolio destacado.';
+            $respuesta['mensaje'] = 'Obra destacada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $portfolio_completo;
         }
