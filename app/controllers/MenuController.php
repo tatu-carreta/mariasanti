@@ -88,11 +88,11 @@ class MenuController extends BaseController {
                         $texto_modulo = "eventos";
                         break;
                     case "portfolio_simple":
-                        $textoAgregar = "Nuevo Portfolio Simple";
+                        $textoAgregar = "Nueva Obra";
                         $texto_modulo = "obras";
                         break;
                     case "portfolio_completo":
-                        $textoAgregar = "Nuevo Portfolio Completo";
+                        $textoAgregar = "Nueva Obra";
                         $texto_modulo = "obras";
                         break;
                     case "muestra":

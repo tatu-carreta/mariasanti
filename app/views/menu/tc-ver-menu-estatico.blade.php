@@ -4,8 +4,14 @@
     @if(Auth::check())
         <script src="{{URL::to('js/popupFuncs.js')}}"></script>
     @endif
-    <section class="container @if(Auth::check()) admin @endif">
-        <h2>{{ $menu -> nombre }}</h2>
+    <section class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ $menu -> nombre }}</h2>
+            </div>
+        </div>
+        
+        
 
         @if(Auth::check())
             @if(Auth::user()->can("ver_menu_estatico_admin"))

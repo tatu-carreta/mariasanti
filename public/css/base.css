@@ -47,7 +47,7 @@ footer {margin-top: 3em}
 
 /* Catálogo de Productos */
 .divListadoItems:nth-child(1) {border-top: 0 none;}
-.divListadoItems {border-top: 1px solid #c6c6c6; padding-top: 1em; vertical-align: top;}
+.divListadoItems {border-top: 1px solid #c6c6c6; min-height: 5em; padding-top: 1em; vertical-align: top;}
 .divListadoItems h3 {margin: 0 1em 0 0 !important}
 .sinProductos {border: 1px dashed #C6C6C6; width: 218px; height: 218px; text-align: center; line-height: 200px; margin: 2em 0px 4em;}
 

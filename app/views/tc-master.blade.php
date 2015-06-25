@@ -20,6 +20,7 @@
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/jquery-ui.css')}}">
         <link rel="stylesheet" href="{{URL::to('font-awesome-4.2.0/css/font-awesome.css')}}">
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/full-slider.css')}}"> 
+        <link rel="stylesheet" href="{{URL::to('source/jquery.fancybox.css')}}">
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/base.css')}}"> 
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/stylesMariasanti.css')}}"> 
         
@@ -32,6 +33,14 @@
         <script src="{{URL::to('js/jquery-ui.min.js')}}"></script>
         <script src="{{URL::to('js/funcs.js')}}"></script>
         
+        
+        <!-- Include Fancybox -->
+        <script src="{{URL::to('source/jquery.fancybox.js')}}"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".fancybox").fancybox();
+            });
+        </script>
         @show
     </head>
     <body>
