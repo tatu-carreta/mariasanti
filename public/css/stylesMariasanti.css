@@ -26,8 +26,6 @@ header {background: #F4F4F2;}
 .logo {padding: 0.125em 0; margin-top: 0.6em; font-size: 2em; font-weight: 400; color: #333131}
 .logo:hover {color: #333131}
 
-section {margin-top: 60px}
-
 .imagenslider1{background-image: url(../images/1.jpg) !important; height: 100%;}
 .imagenslider2{background-image: url(../images/2.jpg) !important; height: 100%;}
 .imagenslider3{background-image: url(../images/3.jpg) !important; height: 100%;}

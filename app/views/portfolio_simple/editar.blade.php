@@ -13,7 +13,7 @@
     @endif
     <section class="container">
         {{ Form::open(array('url' => 'admin/portfolio_simple/editar', 'files' => true, 'role' => 'form')) }}
-            <h2 class="marginBottom2"><span>Carga y modificación de portfolio_simple</span></h2>
+            <h2 class="marginBottom2"><span>Editar obra</span></h2>
             
 
             <div class="row marginBottom2">

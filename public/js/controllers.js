@@ -73,14 +73,14 @@ angular
                     },
                     texto: 'Está intentando cargar una imagen nueva',
                 });
-//                uploader.filters.push({
-//                    name: 'sizeLimit',
-//                    fn: function (item /*{File|FileLikeObject}*/, options) {
-//                        //500kb
-//                        return item.size < 500000;
-//                    },
-//                    texto: 'Excede los 500kb'
-//                });
+                uploader.filters.push({
+                    name: 'sizeLimit',
+                    fn: function (item /*{File|FileLikeObject}*/, options) {
+                        //500kb
+                        return item.size < 500000;
+                    },
+                    texto: 'Excede los 500kb'
+                });
 
                 // CALLBACKS
 

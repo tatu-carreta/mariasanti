@@ -17,8 +17,10 @@
         {{ Form::open(array('url' => 'admin/portfolio_completo/agregar', 'files' => true, 'role' => 'form')) }}
             <h2 class="marginBottom2"><span>Carga y modificación de portfolio_completo</span></h2>
         
-            <h3>Título del portfolio completo</h3>
-            <input class="block anchoTotal marginBottom" type="text" name="titulo" placeholder="Título" required="true" maxlength="50">
+            <h3>Título de la obra</h3>
+            <div class="form-group marginBottom2">
+                <input class="form-control" type="text" name="titulo" placeholder="Título de la obra" required="true" maxlength="50">
+            </div>
             
             <div class="row marginBottom2">
                 <!-- Abre columna de imágenes -->
@@ -29,19 +31,27 @@
 	                </div>
                 </div>
             </div>  
-            <div>
+            <div class="row">
                 <h3>Imágenes seleccionadas</h3>
                 <div ng-repeat="img in imagenes_seleccionadas">
-                    <input type="hidden" name="imagen_portada_ampliada[]" value="<% img.imagen_portada_ampliada %>">
-                    <img ng-src="<% img.src %>">
-                    <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
-                    <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
+                    <div class="col-md-3">
+                        <input type="hidden" name="imagen_portada_ampliada[]" value="<% img.imagen_portada_ampliada %>">
+                        <img ng-src="<% img.src %>">
+                        <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
+                        <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
+                    </div>
                 </div>
             </div>
             
-            <h3>Cuerpo</h3>
-            <div class="divEditorTxt marginBottom2">
-                <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
+            <div class="row">
+                
+            </div>
+            
+            <div class="row">
+                <h3>Cuerpo</h3>
+                <div class="divEditorTxt marginBottom2">
+                    <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
+                </div>
             </div>
             
 
