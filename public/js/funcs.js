@@ -5,7 +5,7 @@
 
 
 function borrarData(url, id) {
-    if (confirm("¿Está seguro que desea continuar con la eliminación? Advertencia: no podrá volver las acciones atras."))
+    if (confirm("¿Está seguro que desea continuar con la eliminación? Advertencia: no podrá volver las acciones atrás."))
         $.post($.trim(url), {id: id}, function (data) {
             alert(data.mensaje);
             if (!data.error)

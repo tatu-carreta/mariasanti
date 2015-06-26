@@ -62,6 +62,7 @@ angular
 
                 var uploader = $scope.uploader = new FileUploader({
                     url: 'http://localhost/mariasanti/public/admin/imagen/crop/upload'
+                    //url: 'http://mariasanti.com.ar/nuevo/public/admin/imagen/crop/upload'
                 });
 
                 // FILTERS
@@ -225,6 +226,7 @@ angular
 
                 var uploader = $scope.uploader = new FileUploader({
                     url: 'http://localhost/mariasanti/public/admin/imagen/crop/upload'
+                    //url: 'http://mariasanti.com.ar/nuevo/public/admin/imagen/crop/upload'
                 });
 
                 // FILTERS
@@ -236,14 +238,14 @@ angular
                     },
                     texto: 'Está intentando cargar una imagen nueva',
                 });
-//                uploader.filters.push({
-//                    name: 'sizeLimit',
-//                    fn: function (item /*{File|FileLikeObject}*/, options) {
-//                        //500kb
-//                        return item.size < 500000;
-//                    },
-//                    texto: 'Excede los 500kb'
-//                });
+                uploader.filters.push({
+                    name: 'sizeLimit',
+                    fn: function (item /*{File|FileLikeObject}*/, options) {
+                        //500kb
+                        return item.size < 500000;
+                    },
+                    texto: 'Excede los 500kb'
+                });
 
                 // CALLBACKS
 

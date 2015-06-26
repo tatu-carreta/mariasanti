@@ -6,10 +6,10 @@
                         <h3 class="pull-left" id="{{$seccion->estado.$seccion->id}}">
                             @if($seccion->titulo != "")
                                 {{ $seccion -> titulo }}
-                            @else 
+                            {{-- @else 
                                 @if(Auth::check()) 
                                     Sección sin título {{ $seccion->id }}
-                                @endif 
+                                @endif  --}}
                             @endif
                         </h3>
                     @endif

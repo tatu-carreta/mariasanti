@@ -246,7 +246,7 @@ class Item extends Eloquent {
             }
 
             //Mensaje correspondiente a la agregacion exitosa
-            $respuesta['mensaje'] = 'Obra creada.';
+            $respuesta['mensaje'] = 'Obra publicada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $item;
         }
@@ -268,10 +268,14 @@ class Item extends Eloquent {
             $reglas['w'] = array('required');
         }
 
+        if (isset($input['imagen_portada_crop']) && ($input['imagen_portada_crop'] != "")) {
+            $reglas['imagen_portada_crop'] = array('required');
+        }
+
         $validator = Validator::make($input, $reglas);
 
         if ($validator->fails()) {
-            $respuesta['mensaje'] = $validator->messages()->first('titulo');
+            $respuesta['mensaje'] = '';
             $respuesta['error'] = true;
         } else {
 
@@ -638,7 +642,7 @@ class Item extends Eloquent {
             $item = DB::table('item_seccion')->where(
                             $input)->update(array('orden' => $orden));
 
-            $respuesta['mensaje'] = 'Las obras han sido ordenados.';
+            $respuesta['mensaje'] = 'Las obras han sido ordenadas.';
             $respuesta['error'] = false;
             $respuesta['data'] = $item;
         }
