@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2>{{ $item -> titulo }}</h2>
-            <a class="volveraSeccion" href="{{URL::to('/'.$item -> seccionItem() -> menuSeccion() -> url)}}">Volver a {{ $item -> seccionItem() -> menuSeccion() -> nombre }}</a>
+            <a class="volveraSeccion" href="{{URL::to('/'.$item -> seccionItem() -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ $item -> seccionItem() -> menuSeccion() -> nombre }}</a>
             @if(Auth::check())
                 @if(Auth::user()->can("editar_item"))
                 <a href="{{URL::to('admin/portfolio_completo/editar/'.$item->portfolio()->portfolio_completo()->id)}}" data='{{$item -> seccionItem() -> id}}' style="display:none">Editar<i class="fa fa-pencil fa-lg"></i></a>

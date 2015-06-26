@@ -52,9 +52,9 @@ header {background: #F4F4F2;}
 button.submit{background-color:#5E5C5C;color: #5B5B5E; width: 100px;height: 36px;color:#fff;float: right;margin-right: 10px}
 
 
-
-
-
+/* -- A D M I N --*/
+.imgCargada {background: #fff}
+.resultadoImgCargada h3 {margin-top: 16px !important;}
 
 
 
