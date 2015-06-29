@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="{{URL::to('font-awesome-4.2.0/css/font-awesome.css')}}">
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/full-slider.css')}}"> 
         <link rel="stylesheet" href="{{URL::to('source/jquery.fancybox.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{URL::to('css/set1.css')}}">
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/base.css')}}"> 
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/stylesMariasanti.css')}}"> 
         
@@ -130,7 +131,7 @@
         <!-- Script to Activate the Carousel -->
         <script>
             $('.carousel').carousel({
-                interval: 5000 //changes the speed
+                interval: 2000 //changes the speed
             });
         </script>
         

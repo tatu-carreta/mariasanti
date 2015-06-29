@@ -1,8 +1,16 @@
+<script>
+    // For Demo purposes only (show hover effect on mobile devices)
+    [].slice.call( document.querySelectorAll('a[href="#"') ).forEach( function(el) {
+        el.addEventListener( 'click', function(ev) { ev.preventDefault(); } );
+    } );
+</script>
+
 <div class="row sortable">
+    <div class="grid">
     @foreach($seccion -> items as $i)
 
         <div class="col-md-3">
-            <div class="thumbnail">
+            <div class="thumbnail effect-milo">
             @if(Auth::check())
                 <div class="iconos">
                     <span class="pull-left">
@@ -32,7 +40,7 @@
                 <a href="{{URL::to('portfolio_completo/'.$i->url)}}">
             @endif
                 <img class="lazy" data-original="@if(!is_null($i->imagen_destacada())){{ URL::to($i->imagen_destacada()->carpeta.$i->imagen_destacada()->nombre) }}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$i->titulo}}">
-                <p class="pull-left">{{ $i->titulo }}</p>
+                <figcaption><p class="pull-left">{{ $i->titulo }}</p></figcaption>
             @if(!Auth::check())
                 </a>
             @endif
@@ -44,4 +52,5 @@
         </div>
 
     @endforeach
+    </div>
 </div>
