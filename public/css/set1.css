@@ -24,7 +24,7 @@
 	max-width: 480px;
 	max-height: 360px;
 	width: 48%;
-	background: #3085a3;
+	background: #000;
 	text-align: center;
 	cursor: pointer;
 }
@@ -86,7 +86,6 @@
 
 .grid .effect-milo p {
 	letter-spacing: 1px;
-	font-size: 68.5%;
 }
 
 /* Individual effects */
@@ -107,16 +106,16 @@ div.effect-milo img {
 	opacity: 1;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
-	-webkit-transform: translate3d(-30px,0,0) scale(1.12);
-	transform: translate3d(-30px,0,0) scale(1.12);
+	-webkit-transform: scale(1.12);
+	transform: scale(1.12);
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
 
 div.effect-milo:hover img {
 	opacity: 0.5;
-	-webkit-transform: translate3d(0,0,0) scale(1);
-	transform: translate3d(0,0,0) scale(1);
+	-webkit-transform: scale(1);
+	transform: scale(1);
 }
 
 div.effect-milo h2 {
@@ -127,10 +126,9 @@ div.effect-milo h2 {
 }
 
 div.effect-milo p {
-	padding: 0 10px 0 0;
-	width: 50%;
-	border-right: 1px solid #fff;
-	text-align: right;
+	padding: 20% 10px 0 0;
+	width: 100%;
+	text-align: center;
 	opacity: 0;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
