@@ -54,7 +54,7 @@ footer {margin-top: 3em}
 
 .divLogin{margin: 100px auto 250px auto; width: 300px;  }
 
-.headerAdmin{background: #000; border-bottom: 1px solid #fff; height:3.125em; color: #fff; position: relative; }
+.headerAdmin{background: #000; border-bottom: 1px solid #fff; height:3.125em; color: #fff; position: relative; z-index: 1000 }
 .headerAdmin .divSalir{position: absolute;right: 0}
 .headerAdmin .divAdministrar{position: absolute; left: 0}
 .headerAdmin .salir{color:#fff; padding: 0 1em; margin-left: 1em}
