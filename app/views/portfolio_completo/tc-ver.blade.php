@@ -9,7 +9,7 @@
         <div class="divAlerta ok alert-success">{{ Session::get('mensaje') }}<i onclick="" class="cerrarDivAlerta fa fa-times fa-lg"></i></div>
     @endif
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 marginBottom2">
             <h2>{{ $item -> titulo }}</h2>
             <a class="volveraSeccion" href="{{URL::to('/'.$item -> seccionItem() -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ $item -> seccionItem() -> menuSeccion() -> nombre }}</a>
             @if(Auth::check())
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="clear"></div>
-    <div class="row">
+    <div class="row marginBottom2">
         <div class="col-md-3">
             @if(count($item->imagen_destacada()) > 0)
                 <a class="fancybox" href="{{URL::to($item->imagen_destacada()->ampliada()->carpeta.$item->imagen_destacada()->ampliada()->nombre)}}" title="{{ $item->imagen_destacada()->ampliada()->epigrafe }}" rel='group'><img src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->titulo}}"></a>
@@ -37,8 +37,8 @@
         @endforeach
     </div>
     <div class="clear"></div>
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row ">
+        <div class="col-md-12 divCuerpoTxt">
             {{ $item->portfolio()->portfolio_completo()->cuerpo }}
         </div>
     </div>

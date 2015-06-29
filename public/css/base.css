@@ -34,6 +34,14 @@ header {background: #F4F4F2;}
 section {padding: 3em 0 8em;}
 section  * > * > *>{margin-top: 0 !important}
 
+/* Estilos que cargan dentro de la div Editor de Textos */
+
+.divCuerpoTxt {}
+.divCuerpoTxt p {font-weight: 400}
+.divCuerpoTxt h2 {color:#5E5C5C}
+
+
+
 /* FOOTER */
 footer {margin-top: 3em}
 
