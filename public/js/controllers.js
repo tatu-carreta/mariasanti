@@ -62,7 +62,7 @@ angular
 
                 var uploader = $scope.uploader = new FileUploader({
                     url: 'http://localhost/mariasanti/public/admin/imagen/crop/upload'
-                    //url: 'http://mariasanti.com.ar/nuevo/public/admin/imagen/crop/upload'
+                            //url: 'http://mariasanti.com.ar/nuevo/public/admin/imagen/crop/upload'
                 });
 
                 // FILTERS
@@ -226,7 +226,7 @@ angular
 
                 var uploader = $scope.uploader = new FileUploader({
                     url: 'http://localhost/mariasanti/public/admin/imagen/crop/upload'
-                    //url: 'http://mariasanti.com.ar/nuevo/public/admin/imagen/crop/upload'
+                            //url: 'http://mariasanti.com.ar/nuevo/public/admin/imagen/crop/upload'
                 });
 
                 // FILTERS
@@ -336,7 +336,7 @@ angular
                     };
 
                     $scope.imagenes_seleccionadas.push(imagen);
-                    
+
                     $scope.removerImagen();
                     console.log($scope.imagenes_seleccionadas);
 
@@ -344,6 +344,13 @@ angular
                 uploader.onCompleteAll = function () {
                     console.info('onCompleteAll');
 
+                };
+
+                $scope.borrarImagenCompleto = function (imagen) {
+                    if (confirm('¿Está segura que desea eliminar esta imagen?'))
+                    {
+                        $scope.imagenes_seleccionadas.splice(imagen, 1);
+                    }
                 };
 
                 console.info('uploader', uploader);

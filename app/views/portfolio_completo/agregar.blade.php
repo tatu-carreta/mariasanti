@@ -40,6 +40,7 @@
                                         <img ng-src="<% img.src %>">
                                         <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
                                         <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
+                                        <i ng-click="borrarImagenCompleto($index)" class="fa fa-times fa-lg"></i>
                                     </div>
                                 </div>
                             </div>
@@ -47,11 +48,6 @@
                     </div>
                 </div>
             </div>  
-            
-            
-            <div class="row">
-                
-            </div>
             
             <div class="row">
                 <div class="col-md-12">
@@ -62,6 +58,21 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Videos</h3>
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                    </div>
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                    </div>
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                    </div>
+                </div>
+            </div>
+            
             <div class="borderTop">
                 <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
                 <a onclick="window.history.back();" class="btn btn-default">Cancelar</a>

@@ -2,21 +2,21 @@
 
 class Item extends Eloquent {
 
-    //Tabla de la BD
+//Tabla de la BD
     protected $table = 'item';
-    //Atributos que van a ser modificables
+//Atributos que van a ser modificables
     protected $fillable = array('titulo', 'descripcion', 'url', 'estado', 'fecha_carga', 'fecha_modificacion', 'fecha_baja', 'usuario_id_carga', 'usuario_id_baja');
-    //Hace que no se utilicen los default: create_at y update_at
+//Hace que no se utilicen los default: create_at y update_at
     public $timestamps = false;
 
-    //Función de Agregación de Item
+//Función de Agregación de Item
     public static function agregarItem($input) {
 
         $respuesta = array();
 
-        //Se definen las reglas con las que se van a validar los datos..
+//Se definen las reglas con las que se van a validar los datos..
         $reglas = array(
-            //'titulo' => array('max:50', 'unique:item'),
+//'titulo' => array('max:50', 'unique:item'),
             'seccion_id' => array('integer'),
             'imagen_portada_crop' => array('required'),
         );
@@ -28,13 +28,13 @@ class Item extends Eloquent {
             $reglas['w'] = array('required');
         }
 
-        //Se realiza la validación
+//Se realiza la validación
         $validator = Validator::make($input, $reglas);
 
         if ($validator->fails()) {
-            // $respuesta['mensaje'] = "No se pudo realizar la carga del producto. Compruebe los campos.";
+// $respuesta['mensaje'] = "No se pudo realizar la carga del producto. Compruebe los campos.";
             $respuesta['mensaje'] = $validator->messages()->first('imagen_portada_crop');
-            //Si está todo mal, carga lo que corresponde en el mensaje.
+//Si está todo mal, carga lo que corresponde en el mensaje.
 
             $respuesta['error'] = true;
         } else {
@@ -47,7 +47,7 @@ class Item extends Eloquent {
                 $url = $input['titulo'];
             }
 
-            //Se cargan los datos necesarios para la creacion del Item
+//Se cargan los datos necesarios para la creacion del Item
             $datos = array(
                 'titulo' => $input['titulo'],
                 'descripcion' => $input['descripcion'],
@@ -58,7 +58,7 @@ class Item extends Eloquent {
                 'usuario_id_carga' => Auth::user()->id
             );
 
-            //Lo crea definitivamente
+//Lo crea definitivamente
             $item = static::create($datos);
 
             if (isset($input['file']) && ($input['file'] != "")) {
@@ -109,7 +109,7 @@ class Item extends Eloquent {
                     );
                     $archivo_creado = Archivo::agregar($data_archivo);
                     $item->archivos()->attach($archivo_creado['data']->id);
-                    //$item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));
+//$item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));
                 }
             }
 
@@ -186,8 +186,50 @@ class Item extends Eloquent {
                 }
             }
 
+            if (isset($input['video']) && ($input['video'] != "")) {
+                if (is_array($input['video'])) {
+                    foreach ($input['video'] as $key => $video) {
+                        if ($video != "") {
 
-            //Le asocia la categoria en caso que se haya elegido alguna
+                            $hosts = array('youtube.com', 'www.youtube.com');
+                            $paths = array('/watch');
+
+                            if (Video::validarUrl($video, $hosts, $paths)['estado']) {
+                                if ($ID_video = Youtube::parseVIdFromURL($video)) {
+
+                                    $data_video = array(
+                                        'ID_video' => $ID_video,
+                                            //'titulo' => $input['titulo_archivo'][$key]
+                                    );
+                                    $video_creado = Video::agregarYoutube($data_video);
+
+                                    $item->videos()->attach($video_creado['data']->id);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    $hosts = array('youtube.com', 'www.youtube.com');
+                    $paths = array('/watch');
+
+                    if (Video::validarUrl($video, $hosts, $paths)['estado']) {
+                        if ($ID_video = Youtube::parseVIdFromURL(Input::get('video'))) {
+
+                            $data_video = array(
+                                'ID_video' => $ID_video,
+                                    //'titulo' => $input['titulo_archivo'][$key]
+                            );
+                            $video_creado = Video::agregarYoutube($data_video);
+
+                            $item->videos()->attach($video_creado['data']->id);
+                        }
+                    }
+//$item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));
+                }
+            }
+
+
+//Le asocia la categoria en caso que se haya elegido alguna
             if (isset($input['categoria_id']) && ($input['categoria_id'] != "")) {
                 $item->categorias()->attach($input['categoria_id']);
             }
@@ -202,8 +244,8 @@ class Item extends Eloquent {
                 array_push($secciones, $input['seccion_id']);
             }
 
-            //Le asocia la seccion y por lo tanto la categoria correspondiente
-            //if ($input['seccion_id'] != "") {
+//Le asocia la seccion y por lo tanto la categoria correspondiente
+//if ($input['seccion_id'] != "") {
             if (count($secciones) > 0) {
 
                 if (isset($input['item_destacado']) && ($input['item_destacado'] == 'A')) {
@@ -220,11 +262,11 @@ class Item extends Eloquent {
                 $item->secciones()->attach($secciones, $info);
 
                 foreach ($secciones as $seccion_id) {
-                    //ME QUEDO CON LA SECCION CORRESPONDIENTE
-                    //$seccion = Seccion::find($input['seccion_id']);
+//ME QUEDO CON LA SECCION CORRESPONDIENTE
+//$seccion = Seccion::find($input['seccion_id']);
                     $seccion = Seccion::find($seccion_id);
 
-                    //ME QUEDO CON EL MENU AL CUAL PERTENECE LA SECCION
+//ME QUEDO CON EL MENU AL CUAL PERTENECE LA SECCION
 
                     foreach ($seccion->menu as $menu) {
                         $menu_id = $menu->id;
@@ -232,12 +274,12 @@ class Item extends Eloquent {
 
                     $menu = Menu::find($menu_id);
 
-                    //ME QUEDO CON LA CATEGORIA AL CUAL PERTENECE EL MENU
+//ME QUEDO CON LA CATEGORIA AL CUAL PERTENECE EL MENU
                     foreach ($menu->categorias as $categoria) {
                         $categoria_id = $categoria->id;
                     }
 
-                    //IMPACTO AL ITEM CON LA CATEGORIA CORRESPONDIENTE
+//IMPACTO AL ITEM CON LA CATEGORIA CORRESPONDIENTE
 
                     if (isset($categoria_id)) {
                         $item->categorias()->attach($categoria_id);
@@ -245,7 +287,7 @@ class Item extends Eloquent {
                 }
             }
 
-            //Mensaje correspondiente a la agregacion exitosa
+//Mensaje correspondiente a la agregacion exitosa
             $respuesta['mensaje'] = 'Obra publicada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $item;
@@ -330,7 +372,7 @@ class Item extends Eloquent {
                     $imagen_creada = Imagen::agregarImagen($input['file'], $input['epigrafe'], $coordenadas);
 
                     $item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));
-                    //$item->imagenes()->attach($imagen_creada['data']->->id, array("destacado" => "A"));
+//$item->imagenes()->attach($imagen_creada['data']->->id, array("destacado" => "A"));
                 }
             }
 
@@ -354,7 +396,7 @@ class Item extends Eloquent {
                     );
                     $archivo_creado = Archivo::agregar($data_archivo);
                     $item->archivos()->attach($archivo_creado['data']->id);
-                    //$item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));
+//$item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));
                 }
             }
 
@@ -487,11 +529,11 @@ class Item extends Eloquent {
 
                     $item->secciones()->attach($secc, $info);
 
-                    //ME QUEDO CON LA SECCION CORRESPONDIENTE
-                    //$seccion = Seccion::find($input['seccion_id']);
+//ME QUEDO CON LA SECCION CORRESPONDIENTE
+//$seccion = Seccion::find($input['seccion_id']);
                     $seccion = Seccion::find($secc);
 
-                    //ME QUEDO CON EL MENU AL CUAL PERTENECE LA SECCION
+//ME QUEDO CON EL MENU AL CUAL PERTENECE LA SECCION
 
                     foreach ($seccion->menu as $menu) {
                         $menu_id = $menu->id;
@@ -499,12 +541,12 @@ class Item extends Eloquent {
 
                     $menu = Menu::find($menu_id);
 
-                    //ME QUEDO CON LA CATEGORIA AL CUAL PERTENECE EL MENU
+//ME QUEDO CON LA CATEGORIA AL CUAL PERTENECE EL MENU
                     foreach ($menu->categorias as $categoria) {
                         $categoria_id = $categoria->id;
                     }
 
-                    //IMPACTO AL ITEM CON LA CATEGORIA CORRESPONDIENTE
+//IMPACTO AL ITEM CON LA CATEGORIA CORRESPONDIENTE
 
                     if (isset($categoria_id)) {
                         $item->categorias()->attach($categoria_id);
@@ -762,12 +804,12 @@ class Item extends Eloquent {
         return $seccion;
     }
 
-    //Me quedo con las categorias a las que pertenece el Item
+//Me quedo con las categorias a las que pertenece el Item
     public function categorias() {
         return $this->belongsToMany('Categoria', 'item_categoria', 'item_id', 'categoria_id');
     }
 
-    //Me quedo con las secciones a las que pertenece el Item
+//Me quedo con las secciones a las que pertenece el Item
     public function secciones() {
         return $this->belongsToMany('Seccion', 'item_seccion', 'item_id', 'seccion_id');
     }
@@ -786,6 +828,10 @@ class Item extends Eloquent {
 
     public function archivos() {
         return $this->belongsToMany('Archivo', 'item_archivo', 'item_id', 'archivo_id')->where('archivo.estado', 'A')->whereNull('item_archivo.destacado')->orWhere('item_archivo.destacado', '<>', 'A');
+    }
+    
+    public function videos() {
+        return $this->belongsToMany('Video', 'item_video', 'item_id', 'video_id')->where('video.estado', 'A')->whereNull('item_video.destacado')->orWhere('item_video.destacado', '<>', 'A');
     }
 
     public function obtener_destacada() {

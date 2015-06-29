@@ -12,29 +12,66 @@ class PortfolioCompleto extends Portfolio {
     //Función de Agregación de Item
     public static function agregar($input) {
 
+        $ok = false;
+        if (isset($input['video']) && ($input['video'] != "")) {
+            if (is_array($input['video'])) {
+                foreach ($input['video'] as $key => $video) {
+                    if ($video != "") {
 
-        //Lo crea definitivamente
-        $portfolio_simple = Portfolio::agregar($input);
+                        $hosts = array('youtube.com', 'www.youtube.com');
+                        $paths = array('/watch');
 
-        if (isset($input['cuerpo'])) {
+                        if (Video::validarUrl($video, $hosts, $paths)['estado']) {
+                            if ($ID_video = Youtube::parseVIdFromURL($video)) {
+                                $ok = true;
+                            }
+                        }
+                    } else {
+                        $ok = true;
+                        break;
+                    }
+                }
+            } else {
+                $hosts = array('youtube.com', 'www.youtube.com');
+                $paths = array('/watch');
 
-            $cuerpo = $input['cuerpo'];
+                if (Video::validarUrl($input['video'], $hosts, $paths)['estado']) {
+                    if ($ID_video = Youtube::parseVIdFromURL($input['video'])) {
+                        $ok = true;
+                    }
+                }
+            }
         } else {
-            $cuerpo = NULL;
+            $ok = true;
         }
 
-        if (!$portfolio_simple['error']) {
+        if ($ok) {
 
-            $portfolio_completo = static::create(['portfolio_simple_id' => $portfolio_simple['data']->id, 'cuerpo' => $cuerpo]);
+            //Lo crea definitivamente
+            $portfolio_simple = Portfolio::agregar($input);
 
-            $respuesta['data'] = $portfolio_completo;
-            $respuesta['error'] = false;
-            $respuesta['mensaje'] = "Obra creada.";
+            if (isset($input['cuerpo'])) {
+
+                $cuerpo = $input['cuerpo'];
+            } else {
+                $cuerpo = NULL;
+            }
+
+            if (!$portfolio_simple['error']) {
+
+                $portfolio_completo = static::create(['portfolio_simple_id' => $portfolio_simple['data']->id, 'cuerpo' => $cuerpo]);
+
+                $respuesta['data'] = $portfolio_completo;
+                $respuesta['error'] = false;
+                $respuesta['mensaje'] = "Obra creada.";
+            } else {
+                $respuesta['error'] = true;
+                $respuesta['mensaje'] = "La obra no pudo ser creada. Compruebe los campos.";
+            }
         } else {
             $respuesta['error'] = true;
-            $respuesta['mensaje'] = "La obra no pudo ser creada. Compruebe los campos.";
+            $respuesta['mensaje'] = "Problema en la/s url de video cargada.";
         }
-
 
         return $respuesta;
     }

@@ -12,31 +12,68 @@
     @if (Session::has('mensaje'))
         <script src="{{URL::to('js/divAlertaFuncs.js')}}"></script>
     @endif
-    <section class="container">
+    <section class="container" id="ng-app" ng-app="app">
+        <div ng-controller="ImagenMultiple" nv-file-drop="" uploader="uploader" filters="customFilter, sizeLimit">
         {{ Form::open(array('url' => 'admin/muestra/agregar', 'files' => true, 'role' => 'form')) }}
-            <h2 class="marginBottom2"><span>Carga y modificación de muestra</span></h2>
+            <h2 class="marginBottom2"><span>Nueva muestra</span></h2>
         
             <h3>Título de la muestra</h3>
-            <input class="block anchoTotal marginBottom" type="text" name="titulo" placeholder="Título" required="true" maxlength="50">
+            <div class="form-group marginBottom2">
+                <input class="form-control" type="text" name="titulo" placeholder="Título de la muestra" required="true" maxlength="50">
+            </div>
             
             <div class="row marginBottom2">
                 <!-- Abre columna de imágenes -->
-                <div class="col-md-4 fondoDestacado cargaImg">
-                    <h3>Imagen principal</h3>
-                    @include('imagen.modulo-imagen-angular-crop')
-                </div>
+                <div class="col-md-12 cargaImg">
+                	<div class="fondoDestacado">
+	                    <h3>Recorte de imágenes</h3>
+	                    @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
+    	                <div class="row">
+                            <div class="col-md-12">
+                                <h3>Imágenes seleccionadas</h3>
+                            </div>
 
-                <div class="clear"></div>
-                <!-- cierran columnas -->
+                            <div ng-repeat="img in imagenes_seleccionadas">
+                                <div class="col-md-3">
+                                    <div class="thumbnail">
+                                        <input type="hidden" name="imagen_portada_ampliada[]" value="<% img.imagen_portada_ampliada %>">
+                                        <img ng-src="<% img.src %>">
+                                        <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
+                                        <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
+                                        <i ng-click="borrarImagenCompleto($index)" class="fa fa-times fa-lg"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>  
             
-            <h3>Cuerpo</h3>
-            <div class="divEditorTxt marginBottom2">
-                <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Texto descriptivo de la muestra</h3>
+                    <div class="divEditorTxt marginBottom2">
+                        <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Videos</h3>
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                    </div>
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                    </div>
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                    </div>
+                </div>
             </div>
             
-
-            <div class="punteado">
+            <div class="borderTop">
                 <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
                 <a onclick="window.history.back();" class="btn btn-default">Cancelar</a>
             </div>
@@ -44,6 +81,7 @@
 
             {{Form::hidden('seccion_id', $seccion_id)}}
         {{Form::close()}}
+        </div>
     </section>
 @stop
 

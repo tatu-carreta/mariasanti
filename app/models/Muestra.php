@@ -13,35 +13,73 @@ class Muestra extends Item {
     public static function agregar($input) {
         //Lo crea definitivamente
 
-        if (isset($input['descripcion'])) {
+        $ok = false;
+        if (isset($input['video']) && ($input['video'] != "")) {
+            if (is_array($input['video'])) {
+                foreach ($input['video'] as $key => $video) {
+                    if ($video != "") {
 
-            $input['descripcion'] = $input['descripcion'];
+                        $hosts = array('youtube.com', 'www.youtube.com');
+                        $paths = array('/watch');
+
+                        if (Video::validarUrl($video, $hosts, $paths)['estado']) {
+                            if ($ID_video = Youtube::parseVIdFromURL($video)) {
+                                $ok = true;
+                            }
+                        }
+                    } else {
+                        $ok = true;
+                        break;
+                    }
+                }
+            } else {
+                $hosts = array('youtube.com', 'www.youtube.com');
+                $paths = array('/watch');
+
+                if (Video::validarUrl($input['video'], $hosts, $paths)['estado']) {
+                    if ($ID_video = Youtube::parseVIdFromURL($input['video'])) {
+                        $ok = true;
+                    }
+                }
+            }
         } else {
-            $input['descripcion'] = NULL;
+            $ok = true;
         }
 
+        if ($ok) {
 
-        $item = Item::agregarItem($input);
-        
-        if (isset($input['cuerpo'])) {
+            if (isset($input['descripcion'])) {
 
-            $cuerpo = $input['cuerpo'];
-        } else {
-            $cuerpo = NULL;
-        }
-        
-        if (!$item['error']) {
+                $input['descripcion'] = $input['descripcion'];
+            } else {
+                $input['descripcion'] = NULL;
+            }
 
-            $muestra = static::create(['item_id' => $item['data']->id, 'cuerpo' => $cuerpo]);
 
-            $respuesta['data'] = $muestra;
-            $respuesta['error'] = false;
-            $respuesta['mensaje'] = "Muestra creada.";
+            $item = Item::agregarItem($input);
+
+            if (isset($input['cuerpo'])) {
+
+                $cuerpo = $input['cuerpo'];
+            } else {
+                $cuerpo = NULL;
+            }
+
+            if (!$item['error']) {
+
+                $muestra = static::create(['item_id' => $item['data']->id, 'cuerpo' => $cuerpo]);
+
+                $respuesta['data'] = $muestra;
+                $respuesta['error'] = false;
+                $respuesta['mensaje'] = "Muestra creada.";
+            } else {
+                $respuesta['error'] = true;
+                $respuesta['mensaje'] = "La muestra no pudo ser creada. Compruebe los campos.";
+            }
         } else {
             $respuesta['error'] = true;
-            $respuesta['mensaje'] = "La muestra no pudo ser creada. Compruebe los campos.";
+            $respuesta['mensaje'] = "Problema en la/s url de video cargada.";
         }
-
         return $respuesta;
     }
 
@@ -68,7 +106,7 @@ class Muestra extends Item {
             }
 
             $muestra->cuerpo = $cuerpo;
-            
+
             $muestra->save();
 
             if (isset($input['descripcion'])) {
