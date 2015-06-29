@@ -14,6 +14,8 @@
 	text-align: center;
 }
 
+.grid .lazy {margin-bottom: 0 !important;}
+
 /* Common style */
 .grid .effect-milo {
 	position: relative;
@@ -126,7 +128,7 @@ div.effect-milo h2 {
 }
 
 div.effect-milo p {
-	padding: 20% 10px 0 0;
+	padding: 40% 10px 0 0;
 	width: 100%;
 	text-align: center;
 	opacity: 0;
