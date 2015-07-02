@@ -18,15 +18,15 @@ class Item extends Eloquent {
         $reglas = array(
 //'titulo' => array('max:50', 'unique:item'),
             'seccion_id' => array('integer'),
-        //    'imagen_portada_crop' => array('required'),
+            'imagen_portada_crop' => array('required'),
         );
 
         if (isset($input['titulo']) && ($input['titulo'] != "")) {
             $reglas['titulo'] = array('max:50', 'unique:item');
         }
 
-        if (isset($input['imagen_portada_crop']) && ($input['imagen_portada_crop'] != "")) {
-            $reglas['imagen_portada_crop'] = array('required');
+        if (isset($input['es_texto']) && ($input['es_texto'])) {
+            unset($reglas['imagen_portada_crop']);
         }
         
         if (isset($input['file']) && ($input['file'] != "") && (!is_array($input['file']))) {
