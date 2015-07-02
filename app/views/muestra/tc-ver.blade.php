@@ -47,18 +47,20 @@
         </div>
     </div>
     
-    <div class="row ">
-        <div class="col-md-12">
-            <h3>Videos</h3>
-        </div>
-    </div>
-    <div class="row">
-        @foreach($item->videos as $video)
-            <div class="col-md-4">
-                <iframe class="video" src="https://www.youtube.com/embed/{{ $video->url }}"></iframe>
+    @if(count($item->videos) > 0)
+        <div class="row ">
+            <div class="col-md-12">
+                <h3>Videos</h3>
             </div>
-        @endforeach
-    </div>
+        </div>
+        <div class="row">
+            @foreach($item->videos as $video)
+                <div class="col-md-4">
+                    <iframe class="video-tc" src="https://www.youtube.com/embed/{{ $video->url }}"></iframe>
+                </div>
+            @endforeach
+        </div>
+    @endif
         
 </section>
 @stop

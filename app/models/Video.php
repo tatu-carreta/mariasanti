@@ -50,6 +50,35 @@ class Video extends Eloquent {
         return $respuesta;
     }
 
+    public static function borrar($input) {
+        $respuesta = array();
+
+        $reglas = array(
+            'id' => array('integer')
+        );
+
+        $validator = Validator::make($input, $reglas);
+
+        if ($validator->fails()) {
+            $respuesta['mensaje'] = $validator;
+            $respuesta['error'] = true;
+        } else {
+
+            $video = Video::find($input['id']);
+
+            $video->fecha_baja = date("Y-m-d H:i:s");
+            $video->estado = 'B';
+            $video->usuario_id_baja = Auth::user()->id;
+
+            $video->save();
+
+            $respuesta['mensaje'] = 'Video eliminado.';
+            $respuesta['error'] = false;
+            $respuesta['data'] = $video;
+        }
+
+        return $respuesta;
+    }
     /*
       public static function editar($input) {
       $respuesta = array();

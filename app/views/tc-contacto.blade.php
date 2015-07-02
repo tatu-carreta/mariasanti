@@ -8,10 +8,7 @@
 	            <h3>Representación exclusiva</h3>
 	            <p>PRAXIS INTERNATIONAL ART <br> <a href="http://www.praxis-art.com">www.praxis-art.com</a></p>
 	        </div>
-	        <div class="textocolumnaizquierda">
-	            <h3>Representación online</h3>
-	            <p>SAATCHI ART <br> <a href="http://www.saatchiart.com">www.saatchiart.com</a></p>
-	        </div>
+	        
 	    </div>
 	    <div class="col-md-6 col-form">
 	        <div class="formulario">

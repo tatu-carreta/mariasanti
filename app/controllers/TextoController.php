@@ -25,7 +25,10 @@ class TextoController extends BaseController {
         $respuesta = Texto::agregar(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/item')->withErrors($respuesta['mensaje'])->withInput();
+            $seccion = Seccion::find(Input::get('seccion_id'));
+            $menu = $seccion->menuSeccion()->url;
+            $ancla = '#' . $seccion->estado . $seccion->id;
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
         } else {
             $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;

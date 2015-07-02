@@ -105,6 +105,8 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('admin/imagen/borrar', 'ImagenController@borrar');
 
     Route::post('admin/archivo/borrar', 'ArchivoController@borrar');
+    
+    Route::post('admin/video/borrar', 'VideoController@borrar');
     /*
      * Ruteo de Item
      */

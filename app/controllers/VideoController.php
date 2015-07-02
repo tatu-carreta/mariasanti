@@ -46,6 +46,15 @@ class VideoController extends BaseController {
         //echo $infoValidate['texto'];
         return Redirect::to('admin/' . $this->folder_name . '/agregar')->withErrors($infoValidate['texto'])->withInput();
     }
+    
+    public function borrar() {
+
+        //Aca se manda a la funcion borrarItem de la clase Item
+        //y se queda con la respuesta para redirigir cual sea el caso
+        $respuesta = Video::borrar(Input::all());
+
+        return $respuesta;
+    }
 
     /*
       public function vistaEditar($id) {

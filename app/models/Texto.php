@@ -20,7 +20,8 @@ class Texto extends Item {
             $input['descripcion'] = NULL;
         }
 
-
+        $input['es_texto'] = true;
+        
         $item = Item::agregarItem($input);
 
         if (isset($input['cuerpo'])) {
@@ -39,7 +40,7 @@ class Texto extends Item {
 
         if ($texto) {
             $respuesta['error'] = false;
-            $respuesta['mensaje'] = "Texto creado.";
+            $respuesta['mensaje'] = "Texto publicado.";
             $respuesta['data'] = $texto;
         } else {
             $respuesta['error'] = true;

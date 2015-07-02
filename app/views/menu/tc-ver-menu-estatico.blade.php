@@ -38,7 +38,7 @@
                 @endif
                 @if(Auth::user()->can("agregar_html"))
                     <div class="col-md-2">
-                        <a href="{{URL::to('admin/html/agregar/'.$menu->id)}}" class="btn nuevaSeccion"><i class="fa fa-plus fa-lg"></i>Agregar HTML</a>
+                        <a href="{{URL::to('admin/html/agregar/'.$menu->id)}}" class="btn popup-nueva-seccion"><i class="fa fa-plus fa-lg"></i>Agregar HTML</a>
                     </div>
                 @endif
             </div>
