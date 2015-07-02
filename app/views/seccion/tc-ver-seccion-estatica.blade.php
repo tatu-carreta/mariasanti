@@ -33,7 +33,7 @@
 
     <div class="clearfix"></div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 divCuerpoTxt">
             @if(!is_null($i->titulo) && ($i->titulo != ""))
                 <h2>{{$i->titulo}}</h2>
             @endif
