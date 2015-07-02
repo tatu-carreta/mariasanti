@@ -56,7 +56,7 @@
         <div class="row">
             @foreach($item->videos as $video)
                 <div class="col-md-4">
-                    <iframe class="video" src="https://www.youtube.com/embed/{{ $video->url }}"></iframe>
+                    <iframe class="video-tc" src="https://www.youtube.com/embed/{{ $video->url }}"></iframe>
                 </div>
             @endforeach
         </div>
