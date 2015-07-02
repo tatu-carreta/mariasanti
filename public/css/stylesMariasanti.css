@@ -73,4 +73,5 @@ button.submit{background-color:#5E5C5C;color: #5B5B5E; width: 100px;height: 36px
 	#menuPrincipal {height: auto !important;} 
 	#menuPrincipal a {height: 40px; line-height: 40px; font-size: 1.250em;}
 	.navbar-collapse {border: 0 !important;}
+	.navbar-default {width: 100%;}
 }
