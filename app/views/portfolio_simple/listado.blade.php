@@ -1,7 +1,7 @@
 <div class="row @if(Auth::check()) sortable @endif">
     @foreach($seccion -> items as $i)
 
-        <div class="col-md-3 col-sm-4 col-xs-6">
+        <div class="col-md-3 col-sm-4 col-xs-4">
             <div class="thumbnail">
             @if(Auth::check())
                 <div class="iconos">

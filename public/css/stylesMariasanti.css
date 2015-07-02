@@ -9,7 +9,7 @@
 
 .open {background: #E0E0DC}
 
-.thumbnail {padding: 0; border: none; border-radius: 0;}
+.thumbnail {padding: 0; border: none; border-radius: 0; background: transparent;}
 
 .modal-header, .modal-footer {border: 0}
 .progress {height:10px;}
@@ -58,7 +58,7 @@ button.submit{background-color:#5E5C5C;color: #5B5B5E; width: 100px;height: 36px
 .imgCargada {background: #fff}
 .resultadoImgCargada h3 {margin-top: 16px !important;}
 
-
+.divCargaImg .fa-lg {font-size: 1.2em; color:#286090; cursor: pointer }
 
 /* -- M E D I A  Q U E R Y -- */
 @media screen and (max-width: 1000px) {
