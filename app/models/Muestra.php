@@ -84,45 +84,83 @@ class Muestra extends Item {
     }
 
     public static function editar($input) {
-        $respuesta = array();
+        $ok = false;
+        if (isset($input['video']) && ($input['video'] != "")) {
+            if (is_array($input['video'])) {
+                foreach ($input['video'] as $key => $video) {
+                    if ($video != "") {
 
-        $reglas = array(
-        );
+                        $hosts = array('youtube.com', 'www.youtube.com');
+                        $paths = array('/watch');
 
-        $validator = Validator::make($input, $reglas);
+                        if (Video::validarUrl($video, $hosts, $paths)['estado']) {
+                            if ($ID_video = Youtube::parseVIdFromURL($video)) {
+                                $ok = true;
+                            }
+                        }
+                    } else {
+                        $ok = true;
+                        break;
+                    }
+                }
+            } else {
+                $hosts = array('youtube.com', 'www.youtube.com');
+                $paths = array('/watch');
 
-        if ($validator->fails()) {
-            $respuesta['mensaje'] = $validator;
-            $respuesta['error'] = true;
+                if (Video::validarUrl($input['video'], $hosts, $paths)['estado']) {
+                    if ($ID_video = Youtube::parseVIdFromURL($input['video'])) {
+                        $ok = true;
+                    }
+                }
+            }
         } else {
-
-            $muestra = Muestra::find($input['muestra_id']);
-
-            if (isset($input['cuerpo'])) {
-
-                $cuerpo = $input['cuerpo'];
-            } else {
-                $cuerpo = NULL;
-            }
-
-            $muestra->cuerpo = $cuerpo;
-
-            $muestra->save();
-
-            if (isset($input['descripcion'])) {
-
-                $input['descripcion'] = $input['descripcion'];
-            } else {
-                $input['descripcion'] = NULL;
-            }
-
-            $item = Item::editarItem($input);
-
-            $respuesta['mensaje'] = 'Muestra modificada.';
-            $respuesta['error'] = false;
-            $respuesta['data'] = $muestra;
+            $ok = true;
         }
 
+        if ($ok) {
+            $respuesta = array();
+
+            $reglas = array(
+                'titulo' => array('required', 'max:50', 'unique:item,titulo,' . $input['id']),
+            );
+
+            $validator = Validator::make($input, $reglas);
+
+            if ($validator->fails()) {
+                $respuesta['mensaje'] = $validator->messages()->first('titulo');
+                $respuesta['error'] = true;
+            } else {
+
+                $muestra = Muestra::find($input['muestra_id']);
+
+                if (isset($input['cuerpo'])) {
+
+                    $cuerpo = $input['cuerpo'];
+                } else {
+                    $cuerpo = NULL;
+                }
+
+                $muestra->cuerpo = $cuerpo;
+
+                $muestra->save();
+
+                if (isset($input['descripcion'])) {
+
+                    $input['descripcion'] = $input['descripcion'];
+                } else {
+                    $input['descripcion'] = NULL;
+                }
+
+                $item = Item::editarItem($input);
+
+                $respuesta['mensaje'] = 'Muestra modificada.';
+                $respuesta['error'] = false;
+                $respuesta['data'] = $muestra;
+            }
+        } else {
+            $respuesta['error'] = true;
+            $respuesta['mensaje'] = "Problema en la/s url de video cargada.";
+        }
         return $respuesta;
     }
 

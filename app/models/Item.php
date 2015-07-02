@@ -21,6 +21,10 @@ class Item extends Eloquent {
             'imagen_portada_crop' => array('required'),
         );
 
+        if (isset($input['titulo']) && ($input['titulo'] != "")) {
+            $reglas['titulo'] = array('max:50', 'unique:item');
+        }
+
         if (isset($input['file']) && ($input['file'] != "") && (!is_array($input['file']))) {
             $reglas['x'] = array('required');
             $reglas['y'] = array('required');
@@ -34,6 +38,9 @@ class Item extends Eloquent {
         if ($validator->fails()) {
 // $respuesta['mensaje'] = "No se pudo realizar la carga del producto. Compruebe los campos.";
             $respuesta['mensaje'] = $validator->messages()->first('imagen_portada_crop');
+            if (isset($input['titulo']) && ($input['titulo'] != "")) {
+                $respuesta['mensaje'] = $validator->messages()->first('titulo');
+            }
 //Si está todo mal, carga lo que corresponde en el mensaje.
 
             $respuesta['error'] = true;
@@ -555,7 +562,7 @@ class Item extends Eloquent {
 //$item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));
                 }
             }
-            
+
             if (isset($input['secciones']) && (count($input['secciones']) > 0)) {
                 foreach ($item->secciones as $seccion) {
                     $data_borrar = array(
