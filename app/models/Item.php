@@ -300,7 +300,7 @@ class Item extends Eloquent {
         $respuesta = array();
 
         $reglas = array(
-            'titulo' => array('max:50', 'unique:item,titulo,' . $input['id']),
+                //'titulo' => array('max:50', 'unique:item,titulo,' . $input['id']),
         );
 
         if (isset($input['file']) && ($input['file'] != "") && (!is_array($input['file']))) {
@@ -450,9 +450,24 @@ class Item extends Eloquent {
                 }
             }
 
+            if (isset($input['imagen_crop_editar']) && ($input['imagen_crop_editar'] != "")) {
+                if (is_array($input['imagen_crop_editar'])) {
+                    foreach ($input['imagen_crop_editar'] as $key => $imagen) {
+                        if ($imagen != "") {
+
+                            $datos = array(
+                                'id' => $imagen,
+                                'epigrafe' => $input['epigrafe_imagen_crop_editar'][$key]
+                            );
+
+                            $imagen_crop = Imagen::editar($datos);
+                        }
+                    }
+                }
+            }
+
             if (isset($input['imagen_portada_crop']) && ($input['imagen_portada_crop'] != "")) {
                 if (is_array($input['imagen_portada_crop'])) {
-                    $i = 0;
                     foreach ($input['imagen_portada_crop'] as $key => $imagen) {
                         if ($imagen != "") {
 
@@ -471,18 +486,13 @@ class Item extends Eloquent {
                             $imagen_crop = Imagen::agregarImagenCropped($imagen, $ampliada, $epigrafe_imagen_portada);
 
                             if (!$imagen_crop['error']) {
-                                if ($i == 0) {
-                                    $destacado = array(
-                                        "destacado" => "A"
-                                    );
-                                } else {
-                                    $destacado = array(
-                                        "destacado" => NULL
-                                    );
-                                }
+
+                                $destacado = array(
+                                    "destacado" => NULL
+                                );
+
                                 $item->imagenes()->attach($imagen_crop['data']->id, $destacado);
                             }
-                            $i++;
                         }
                     }
                 } else {
@@ -504,6 +514,48 @@ class Item extends Eloquent {
                 }
             }
 
+            if (isset($input['video']) && ($input['video'] != "")) {
+                if (is_array($input['video'])) {
+                    foreach ($input['video'] as $key => $video) {
+                        if ($video != "") {
+
+                            $hosts = array('youtube.com', 'www.youtube.com');
+                            $paths = array('/watch');
+
+                            if (Video::validarUrl($video, $hosts, $paths)['estado']) {
+                                if ($ID_video = Youtube::parseVIdFromURL($video)) {
+
+                                    $data_video = array(
+                                        'ID_video' => $ID_video,
+                                            //'titulo' => $input['titulo_archivo'][$key]
+                                    );
+                                    $video_creado = Video::agregarYoutube($data_video);
+
+                                    $item->videos()->attach($video_creado['data']->id);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    $hosts = array('youtube.com', 'www.youtube.com');
+                    $paths = array('/watch');
+
+                    if (Video::validarUrl($video, $hosts, $paths)['estado']) {
+                        if ($ID_video = Youtube::parseVIdFromURL(Input::get('video'))) {
+
+                            $data_video = array(
+                                'ID_video' => $ID_video,
+                                    //'titulo' => $input['titulo_archivo'][$key]
+                            );
+                            $video_creado = Video::agregarYoutube($data_video);
+
+                            $item->videos()->attach($video_creado['data']->id);
+                        }
+                    }
+//$item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));
+                }
+            }
+            
             if (isset($input['secciones']) && (count($input['secciones']) > 0)) {
                 foreach ($item->secciones as $seccion) {
                     $data_borrar = array(
@@ -829,7 +881,7 @@ class Item extends Eloquent {
     public function archivos() {
         return $this->belongsToMany('Archivo', 'item_archivo', 'item_id', 'archivo_id')->where('archivo.estado', 'A')->whereNull('item_archivo.destacado')->orWhere('item_archivo.destacado', '<>', 'A');
     }
-    
+
     public function videos() {
         return $this->belongsToMany('Video', 'item_video', 'item_id', 'video_id')->where('video.estado', 'A')->whereNull('item_video.destacado')->orWhere('item_video.destacado', '<>', 'A');
     }

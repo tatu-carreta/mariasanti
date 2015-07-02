@@ -77,41 +77,78 @@ class PortfolioCompleto extends Portfolio {
     }
 
     public static function editar($input) {
-        $respuesta = array();
+        $ok = false;
+        if (isset($input['video']) && ($input['video'] != "")) {
+            if (is_array($input['video'])) {
+                foreach ($input['video'] as $key => $video) {
+                    if ($video != "") {
 
-        $reglas = array(
-            'titulo' => array('required', 'max:50', 'unique:item,titulo,' . $input['id']),
-        );
+                        $hosts = array('youtube.com', 'www.youtube.com');
+                        $paths = array('/watch');
 
-        $validator = Validator::make($input, $reglas);
-
-        if ($validator->fails()) {
-            $respuesta['mensaje'] = $validator->messages()->first('titulo');
-            $respuesta['error'] = true;
-        } else {
-
-            $portfolio_completo = PortfolioCompleto::find($input['portfolio_completo_id']);
-
-            if (isset($input['cuerpo'])) {
-
-                $cuerpo = $input['cuerpo'];
+                        if (Video::validarUrl($video, $hosts, $paths)['estado']) {
+                            if ($ID_video = Youtube::parseVIdFromURL($video)) {
+                                $ok = true;
+                            }
+                        }
+                    } else {
+                        $ok = true;
+                        break;
+                    }
+                }
             } else {
-                $cuerpo = NULL;
+                $hosts = array('youtube.com', 'www.youtube.com');
+                $paths = array('/watch');
+
+                if (Video::validarUrl($input['video'], $hosts, $paths)['estado']) {
+                    if ($ID_video = Youtube::parseVIdFromURL($input['video'])) {
+                        $ok = true;
+                    }
+                }
             }
-
-            $portfolio_completo->cuerpo = $cuerpo;
-
-            $portfolio_completo->save();
-
-            $input['portfolio_id'] = $portfolio_completo->portfolio_simple_id;
-
-            $portfolio_simple = Portfolio::editar($input);
-
-            $respuesta['mensaje'] = 'Obra modificada.';
-            $respuesta['error'] = false;
-            $respuesta['data'] = $portfolio_completo;
+        } else {
+            $ok = true;
         }
 
+        if ($ok) {
+            $respuesta = array();
+
+            $reglas = array(
+                'titulo' => array('required', 'max:50', 'unique:item,titulo,' . $input['id']),
+            );
+
+            $validator = Validator::make($input, $reglas);
+
+            if ($validator->fails()) {
+                $respuesta['mensaje'] = $validator->messages()->first('titulo');
+                $respuesta['error'] = true;
+            } else {
+
+                $portfolio_completo = PortfolioCompleto::find($input['portfolio_completo_id']);
+
+                if (isset($input['cuerpo'])) {
+
+                    $cuerpo = $input['cuerpo'];
+                } else {
+                    $cuerpo = NULL;
+                }
+
+                $portfolio_completo->cuerpo = $cuerpo;
+
+                $portfolio_completo->save();
+
+                $input['portfolio_id'] = $portfolio_completo->portfolio_simple_id;
+
+                $portfolio_simple = Portfolio::editar($input);
+
+                $respuesta['mensaje'] = 'Obra modificada.';
+                $respuesta['error'] = false;
+                $respuesta['data'] = $portfolio_completo;
+            }
+        } else {
+            $respuesta['error'] = true;
+            $respuesta['mensaje'] = "Problema en la/s url de video cargada.";
+        }
         return $respuesta;
     }
 
