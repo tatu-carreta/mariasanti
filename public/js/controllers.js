@@ -62,7 +62,7 @@ angular
 
                 var uploader = $scope.uploader = new FileUploader({
                     url: 'http://localhost/mariasanti/public/admin/imagen/crop/upload'
-                            //url: 'http://mariasanti.com.ar/nuevo/public/admin/imagen/crop/upload'
+                    //        url: 'http://mariasanti.com.ar/public/admin/imagen/crop/upload'
                 });
 
                 // FILTERS
@@ -226,7 +226,7 @@ angular
 
                 var uploader = $scope.uploader = new FileUploader({
                     url: 'http://localhost/mariasanti/public/admin/imagen/crop/upload'
-                            //url: 'http://mariasanti.com.ar/nuevo/public/admin/imagen/crop/upload'
+                    //        url: 'http://mariasanti.com.ar/public/admin/imagen/crop/upload'
                 });
 
                 // FILTERS

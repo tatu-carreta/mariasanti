@@ -104,8 +104,8 @@
 
         @if(!Auth::check())
             <div class="redes">
-                <a class="facebook" href="#"></a>
-                <a class="pinterest" href="#"></a>
+                <a class="facebook" href="https://www.facebook.com/www.mariasanti.com.ar" target="_blank"></a>
+                <a class="pinterest" href="http://www.pinterest.com/mariusanti/" target="_blank"></a>
                 <a class="instagram" href="#"></a>
             </div>
         @endif
