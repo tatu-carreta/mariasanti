@@ -8,7 +8,7 @@
 <div class="row @if(Auth::check()) sortable @endif">
     @foreach($seccion -> items as $i)
 
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
             <div class="thumbnail">
                 @if(Auth::check())
                     <div class="iconos">
@@ -35,7 +35,7 @@
                     </div>
                 @endif
                 <div class="grid">
-                    <div class="effect-milo">
+                    <div class="effect-milo @if(Auth::check()) cursor-move @endif">
                         @if(!Auth::check())
                             <a href="{{URL::to('muestra/'.$i->url)}}">
                         @endif

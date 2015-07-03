@@ -18,12 +18,16 @@
             <h2 class="marginBottom2"><span>Editar muestra</span></h2>
         
             @if(Auth::user()->can('cambiar_seccion_item'))
-                <select name="seccion_nueva_id">
-                    <option value="">Seleccione Nueva Sección</option>
-                    @foreach($secciones as $seccion)
-                        <option value="{{$seccion->id}}" @if($seccion->id == $item->seccionItem()->id) selected @endif>@if($seccion->nombre != ""){{$seccion->nombre}}@else Sección {{$seccion->id}} - {{$seccion->menuSeccion()->nombre}}@endif</option>
-                    @endforeach
-                </select>
+            <div class="row marginBottom2">
+                <div class="col-md-6">
+                    <select name="seccion_nueva_id" class="form-control">
+                        <option value="">Seleccione Nueva Sección</option>
+                        @foreach($secciones as $seccion)
+                            <option value="{{$seccion->id}}" @if($seccion->id == $item->seccionItem()->id) selected @endif>@if($seccion->nombre != ""){{$seccion->nombre}}@else Sección {{$seccion->id}} - {{$seccion->menuSeccion()->nombre}}@endif</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
             @endif
             
             <h3>Título de la muestra</h3>
@@ -38,37 +42,43 @@
 	                    <h3>Recorte de imágenes</h3>
 	                    @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
     	                <div class="row">
-                            <div class="col-md-12">
-                                <h3>Imágenes seleccionadas</h3>
-                            </div>
+                            @if((count($item->imagen_destacada()) > 0) || (count($item->imagenes) > 0))
+                                <div class="col-md-12">
+                                    <h3>Imágenes cargadas</h3>
+                                </div>
+                            @endif
                             @if(count($item->imagen_destacada()) > 0)
+                            <div class="imgSeleccionadas">
                                 <div class="col-md-3">
                                     <div class="thumbnail">
                                         <input type="hidden" name="imagen_crop_editar[]" value="{{$item->imagen_destacada()->id}}">
-                                        <img src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->titulo}}">
-                                        <input type="text" name="epigrafe_imagen_crop_editar[]" value="{{$item->imagen_destacada()->epigrafe}}">
-                                        <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times fa-lg"></i>
+                                        <img class="marginBottom1" src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->titulo}}">
+                                        <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$item->imagen_destacada()->epigrafe}}">
+                                        <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times-circle fa-lg"></i>
                                     </div>
                                 </div>
+                            </div>
                             @endif
                             @foreach($item->imagenes as $img)
+                             <div class="imgSeleccionadas">
                                 <div class="col-md-3">
                                     <div class="thumbnail">
                                         <input type="hidden" name="imagen_crop_editar[]" value="{{$img->id}}">
-                                        <img src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
-                                        <input type="text" name="epigrafe_imagen_crop_editar[]" value="{{$img->epigrafe}}">
-                                        <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$img->id}}');" class="fa fa-times fa-lg"></i>
+                                        <img class="marginBottom1" src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
+                                        <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$img->epigrafe}}">
+                                        <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$img->id}}');" class="fa fa-times-circle fa-lg"></i>
                                     </div>
                                 </div>
+                            </div>
                             @endforeach
-                            <div ng-repeat="img in imagenes_seleccionadas">
+                            <div ng-repeat="img in imagenes_seleccionadas" class="imgSeleccionadas">
                                 <div class="col-md-3">
                                     <div class="thumbnail">
                                         <input type="hidden" name="imagen_portada_ampliada[]" value="<% img.imagen_portada_ampliada %>">
-                                        <img ng-src="<% img.src %>">
+                                        <img class="marginBottom1" ng-src="<% img.src %>">
                                         <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
                                         <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
-                                        <i ng-click="borrarImagenCompleto($index)" class="fa fa-times fa-lg"></i>
+                                        <i ng-click="borrarImagenCompleto($index)" class="fa fa-times-circle fa-lg"></i>
                                     </div>
                                 </div>
                             </div>
@@ -94,8 +104,8 @@
             <div class="row">
                 @foreach($item->videos as $video)
                     <div class="col-md-4">
-                        <iframe class="video" src="https://www.youtube.com/embed/{{ $video->url }}"></iframe>
-                        <i onclick="borrarImagenReload('{{ URL::to('admin/video/borrar') }}', '{{$video->id}}');" class="fa fa-times fa-lg"></i>
+                        <iframe class="video-tc" src="https://www.youtube.com/embed/{{ $video->url }}"></iframe>
+                        <a onclick="borrarVideoReload('{{ URL::to('admin/video/borrar') }}', '{{$video->id}}');" class="btn pull-right"><i class="fa fa-times fa-lg"></i>eliminar</a>
                     </div>
                 @endforeach
             </div>

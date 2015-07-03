@@ -63,13 +63,13 @@ class PortfolioCompletoController extends BaseController {
             $menu = $seccion->menuSeccion()->url;
             $ancla = '#' . $seccion->estado . $seccion->id;
 
-            return Redirect::to('admin/' . $this->folder_name . '/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje']); //->with('ancla', $ancla);
+            return Redirect::to('admin/' . $this->folder_name . '/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje'])->with('error', true); //->with('ancla', $ancla);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             $menu = $respuesta['data']->portfolio_simple()->item()->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->portfolio_simple()->item()->seccionItem()->estado . $respuesta['data']->portfolio_simple()->item()->seccionItem()->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -108,7 +108,7 @@ class PortfolioCompletoController extends BaseController {
          * 
          */
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('portfolio_completo_id'))->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('portfolio_completo_id'))->with('mensaje', $respuesta['mensaje'])->with('error', true);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             if (Input::get('continue') == "home") {
@@ -117,7 +117,7 @@ class PortfolioCompletoController extends BaseController {
                 $menu = $respuesta['data']->portfolio_simple()->item()->seccionItem()->menuSeccion()->url;
                 $ancla = '#' . $respuesta['data']->portfolio_simple()->item()->seccionItem()->estado . $respuesta['data']->portfolio_simple()->item()->seccionItem()->id;
 
-                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
             }
         }
     }

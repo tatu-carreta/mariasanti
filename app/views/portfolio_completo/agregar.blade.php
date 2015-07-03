@@ -29,8 +29,8 @@
 	                    <h3>Recorte de imágenes</h3>
 	                    @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
     	                <div class="row">
-                            <div class="col-md-12">
-                                <h3>Imágenes seleccionadas</h3>
+                            <div class="col-md-12" ng-show='imagenes_seleccionadas.length > 0'>
+                                <h3>Imágenes cargadas</h3>
                             </div>
 
                             <div ng-repeat="img in imagenes_seleccionadas" class="imgSeleccionadas">

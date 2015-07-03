@@ -35,7 +35,7 @@
                     </div>
                 @endif
                 <div class="grid">
-                    <div class="effect-milo">
+                    <div class="effect-milo @if(Auth::check()) cursor-move @endif">
                         @if(!Auth::check())
                             <a href="{{URL::to('portfolio_completo/'.$i->url)}}">
                         @endif

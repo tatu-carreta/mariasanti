@@ -24,12 +24,12 @@ class SeccionController extends BaseController {
         $respuesta = Seccion::agregarSeccion(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name)->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
             $menu = $respuesta['data']->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -58,12 +58,12 @@ class SeccionController extends BaseController {
         $respuesta = Seccion::editarSeccion(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name)->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
             $menu = $respuesta['data']->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -92,7 +92,7 @@ class SeccionController extends BaseController {
         $menu = $respuesta['data']->menuSeccion()->url;
         $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
 
-        return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+        return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
 
         //return Redirect::action('SeccionController@vistaOrdenar', array(Input::get('menu_id')));
     }

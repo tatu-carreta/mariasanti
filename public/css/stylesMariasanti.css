@@ -18,6 +18,10 @@
 
 #myCarousel {position: absolute;top: 0;left: 0; width: 100%;}
 
+.alert-warning{border: 0;}
+//modal
+.modal-dialog{width: 900px !important;}
+
 /* Estilos propios María */
 
 /* HEADER */

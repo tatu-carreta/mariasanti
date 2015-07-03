@@ -28,9 +28,9 @@ class MenuController extends BaseController {
         $respuesta = Menu::agregarMenu(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name)->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
-            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
         }
     }
 
@@ -174,9 +174,9 @@ class MenuController extends BaseController {
         $respuesta = Menu::editarMenu(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name)->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
-            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
         }
     }
 
@@ -196,9 +196,9 @@ class MenuController extends BaseController {
             return Response::json(['mensaje' => $respuesta['mensaje'], 'error' => $respuesta['error'], 'url' => '../']);
         } else {
             if ($respuesta['error'] == true) {
-                return Redirect::to('admin/seccion')->withErrors($respuesta['mensaje'])->withInput();
+                return Redirect::to('admin/seccion')->with('mensaje', $respuesta['mensaje'])->with('error', true);
             } else {
-                return Redirect::to('admin/categoria')->with('mensaje', $respuesta['mensaje']);
+                return Redirect::to('admin/categoria')->with('mensaje', $respuesta['mensaje'])->with('ok', true);
             }
         }
     }

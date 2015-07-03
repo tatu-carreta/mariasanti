@@ -5,19 +5,12 @@
 </style>
 <style>
     .cropArea {
-        background: #E4E4E4;
+        background: #fff;
         margin: auto;
         overflow: hidden;
     }
-    .cropArea.big {
-        width:800px;
-        height:600px;
-    }
-    .cropArea.medium {
-        width:500px;
-        height:350px;
-    }
     .cropArea.small {
+        background: #fff;
         width:100%;
         height:300px;
     }
@@ -78,7 +71,7 @@
 
     <div class="col-md-6 resultadoImgCargada">
         <h3>Resultado</h3>
-        <div class="imgCargada marginBottom2">
+        <div class="imgCargada marginBottom1">
             <img ng-src="<% croppedImage %>" />
         </div>
 

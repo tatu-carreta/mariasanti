@@ -37,12 +37,4 @@
         </div>
     </div>
 
-
-
-    <div class="redes">
-        <a class="facebook" href="#"></a>
-        <a class="pinterest" href="#"></a>
-        <a class="instagram" href="#"></a>
-    </div>
-
 @stop

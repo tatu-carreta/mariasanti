@@ -58,7 +58,7 @@
         <div class="clearfix"></div>
         @if(Auth::check())
             <div class="modal fade" id="nueva-seccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="width: 900px !important;">
                     <div class="modal-content">
                         
                     </div>

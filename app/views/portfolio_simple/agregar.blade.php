@@ -17,7 +17,7 @@
         
             <div class="row marginBottom2">
                 <!-- Abre columna de imágenes -->
-                <div class="col-md-12 divCargaImg">
+                <div class="col-md-12 cargaImg">
                 	<div class="fondoDestacado">
 	                    <h3>Recorte de imágenes</h3>
 	                    @include('imagen.modulo-imagen-angular-crop-horizontal')

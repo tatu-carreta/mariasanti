@@ -42,9 +42,11 @@
 	                    <h3>Recorte de imágenes</h3>
 	                    @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
     	                <div class="row">
-                            <div class="col-md-12">
-                                <h3>Imágenes seleccionadas</h3>
-                            </div>
+                            @if((count($item->imagen_destacada()) > 0) || (count($item->imagenes) > 0))
+                                <div class="col-md-12">
+                                    <h3>Imágenes cargadas</h3>
+                                </div>
+                            @endif
                             @if(count($item->imagen_destacada()) > 0)
                             <div class="imgSeleccionadas">
                                 <div class="col-md-3">
@@ -101,9 +103,9 @@
             </div>
             <div class="row">
                 @foreach($item->videos as $video)
-                    <div class="col-md-4">
-                        <iframe class="video" src="https://www.youtube.com/embed/{{ $video->url }}"></iframe>
-                        <i onclick="borrarImagenReload('{{ URL::to('admin/video/borrar') }}', '{{$video->id}}');" class="fa fa-times fa-lg"></i>
+                    <div class="col-md-4 marginBottom2">
+                        <iframe class="video-tc" src="https://www.youtube.com/embed/{{ $video->url }}"></iframe>
+                        <a onclick="borrarVideoReload('{{ URL::to('admin/video/borrar') }}', '{{$video->id}}');" class="btn pull-right"><i class="fa fa-times fa-lg"></i>eliminar</a>
                     </div>
                 @endforeach
             </div>

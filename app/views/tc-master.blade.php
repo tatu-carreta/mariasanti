@@ -102,6 +102,14 @@
 
         @yield('contenido')
 
+        @if(!Auth::check())
+            <div class="redes">
+                <a class="facebook" href="#"></a>
+                <a class="pinterest" href="#"></a>
+                <a class="instagram" href="#"></a>
+            </div>
+        @endif
+        
         @section('footer')
         <!-- abre F O O T E R -->
         <footer>

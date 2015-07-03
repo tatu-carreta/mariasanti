@@ -75,7 +75,7 @@
 
             <div class="col-md-6 resultadoImgCargada">
                 <h3>Resultado</h3>
-                <div class="imgCargada marginBottom2">
+                <div class="imgCargada marginBottom1">
                     <img ng-src="<% croppedImage %>" />
                 </div>
 

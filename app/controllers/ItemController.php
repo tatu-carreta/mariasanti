@@ -32,12 +32,12 @@ class ItemController extends BaseController {
         $respuesta = Item::agregarItem(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name)->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
             $menu = $respuesta['data']->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->seccionItem()->estado . $respuesta['data']->seccionItem()->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -73,12 +73,12 @@ class ItemController extends BaseController {
         $respuesta = Item::editarItem(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name)->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
             $menu = $respuesta['data']->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->seccionItem()->estado . $respuesta['data']->seccionItem()->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -120,7 +120,7 @@ class ItemController extends BaseController {
         $menu = $seccion->menuSeccion()->url;
         $ancla = '#' . $seccion->estado . $seccion->id;
 
-        return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+        return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
     }
 
     public function destacarItemSeccion() {

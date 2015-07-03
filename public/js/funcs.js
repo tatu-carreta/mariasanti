@@ -39,13 +39,29 @@ function borrarImagen(url, id, item_id, load) {
 }
 
 function borrarImagenReload(url, id) {
-    $.post($.trim(url), {id: id}, function (data) {
-        alert(data.mensaje);
-        if (!data.error)
-        {
-            window.location.reload();
-        }
-    }, "json");
+    if(confirm("¿Está seguro que desea eliminar la imagen seleccionada?"))
+    {
+        $.post($.trim(url), {id: id}, function (data) {
+            alert(data.mensaje);
+            if (!data.error)
+            {
+                window.location.reload();
+            }
+        }, "json");
+    }
+}
+
+function borrarVideoReload(url, id) {
+    if(confirm("¿Está seguro que desea eliminar el video seleccionado?"))
+    {
+        $.post($.trim(url), {id: id}, function (data) {
+            alert(data.mensaje);
+            if (!data.error)
+            {
+                window.location.reload();
+            }
+        }, "json");
+    }
 }
 
 function destacarItemSeccion(url, seccion_id, item_id) {
