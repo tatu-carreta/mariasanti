@@ -27,7 +27,7 @@
         @if(Auth::check())
             @if(Auth::user()->can("ver_menu_estatico_admin"))
             <div class="row">
-                <div class="col-md-12 fondoDestacado text-center">       
+                <div class="col-md-12 fondoDestacado text-center menuInsertContenido">       
                     @if(Auth::user()->can("agregar_slide"))
                        <a href="{{URL::to('admin/slide/agregar/'.$menu->id.'/E')}}" class="btn btn-primary popup-nueva-seccion">Agregar slide</a>
                     @endif

@@ -21,7 +21,7 @@
     </div>
     <div class="clear"></div>
     <div class="row marginBottom2">
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-4 col-xs-4">
             <div class="thumbnail">
                 @if(count($item->imagen_destacada()) > 0)
                     <a class="fancybox" href="{{URL::to($item->imagen_destacada()->ampliada()->carpeta.$item->imagen_destacada()->ampliada()->nombre)}}" title="{{ $item->imagen_destacada()->ampliada()->epigrafe }}" rel='group'><img src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->titulo}}"></a>
@@ -32,7 +32,7 @@
             </div>
         </div>
         @foreach($item->imagenes as $img)
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-4 col-xs-4">
                 <div class="thumbnail">
                     <a class="fancybox" href="{{URL::to($img->ampliada()->carpeta.$img->ampliada()->nombre)}}" title="{{ $img->ampliada()->epigrafe }}" rel='group'><img src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}"></a>
                     {{-- <p>{{$img->epigrafe}}</p> --}}

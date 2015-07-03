@@ -33,14 +33,14 @@
                                 <h3>Imágenes seleccionadas</h3>
                             </div>
 
-                            <div ng-repeat="img in imagenes_seleccionadas">
+                            <div ng-repeat="img in imagenes_seleccionadas" class="imgSeleccionadas">
                                 <div class="col-md-3">
                                     <div class="thumbnail">
                                         <input type="hidden" name="imagen_portada_ampliada[]" value="<% img.imagen_portada_ampliada %>">
                                         <img ng-src="<% img.src %>">
                                         <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
                                         <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
-                                        <i ng-click="borrarImagenCompleto($index)" class="fa fa-times fa-lg"></i>
+                                        <i ng-click="borrarImagenCompleto($index)" class="fa fa-times-circle fa-lg"></i>
                                     </div>
                                 </div>
                             </div>

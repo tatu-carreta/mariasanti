@@ -1,5 +1,6 @@
 /* Estilos de Bootstrap modificados */
 .navbar {margin:0;}
+.navbar-collapse {padding: 0}
 .navbar-toggle {margin-top: 1.560em}
 .dropdown-menu {background:transparent !important; padding:0;}
 .dropdown-menu li a {background: #E0E0DC !important;}
@@ -9,7 +10,8 @@
 
 .open {background: #E0E0DC}
 
-.thumbnail {padding: 0; border: none; border-radius: 0; background: transparent;}
+.thumbnail {padding: 0; border: none; border-radius: 0; background: transparent; position: relative;}
+.imgSeleccionadas i {position: absolute; right: 0.5em; top: 0.5em;background: #fff; color: #337ab7; cursor: pointer; border-radius: 50%; -webkit-border-radius:50%; margin: 0; font-size: 1.5em !important}
 
 .modal-header, .modal-footer {border: 0}
 .progress {height:10px;}
@@ -45,6 +47,10 @@ header {background: #F4F4F2; position: relative; z-index: 1000;}
 .boton-idioma {float: right; }
 .boton-idioma a{color:#fff; font-family: 14px;display:inline-block;text-decoration: none;width: 24px; height: 19px; background: #3F3939; margin-right: 3px;}
 
+/* Efecto Hover sobre las imágenes */
+figcaption {display: table}
+figcaption p {display: inline-block; vertical-align: middle;}
+
 /*CONTACTOS*/
 .contenedorcontacto{margin: 0 auto; width:100%;padding: 50px}
 .col-info{height: 430px;background:#F4F4F2;padding: 150px 0 0 50px;}
@@ -71,9 +77,21 @@ button.submit{background-color:#5E5C5C;color: #5B5B5E; width: 100px;height: 36px
 
 @media screen and (max-width: 768px) {
 
+	header {padding-bottom: 1em}
 	.divMenu {float: left; width: 100%}
 	#menuPrincipal {height: auto !important;} 
 	#menuPrincipal a {height: 40px; line-height: 40px; font-size: 1.250em;}
 	.navbar-collapse {border: 0 !important;}
 	.navbar-default {width: 100%;}
+	.logo {position: absolute;}
+}
+
+@media screen and (max-width: 550px) {
+
+	.col-xs-4 {width: 50%}
+}
+
+@media screen and (max-width: 340px) {
+
+	.col-xs-4 {width: 100%}
 }

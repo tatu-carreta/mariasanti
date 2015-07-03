@@ -87,6 +87,9 @@ footer {margin-top: 3em}
 
 .nombre-peso th {padding: 8px 0;}
 
+/* Agregar Contenido en páginas estáticas  */
+.menuInsertContenido a {margin: 0.5em}
+
 /* Estilos para personalizar los INPUT FILE*/
 	/* Ocultamos el input file */
 	.oculto {z-index: 999;line-height: 0;font-size: 30px; position: absolute;opacity: 0;filter: alpha(opacity = 0);-ms-filter: "alpha(opacity=0)";
