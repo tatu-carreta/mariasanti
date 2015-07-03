@@ -25,12 +25,12 @@ class HtmlController extends BaseController {
         $respuesta = TextoHtml::agregar(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/item')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/item')->with('mensaje', $respuesta['mensaje'])->withInput()->with('error', true);
         } else {
             $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
