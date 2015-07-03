@@ -10,7 +10,7 @@
 
 .open {background: #E0E0DC}
 
-.thumbnail {padding: 0; border: none; border-radius: 0; background: transparent; position: relative;}
+.thumbnail {padding: 0; border: none; border-radius: 0; background: transparent; position: relative;margin-bottom: 30px;}
 .imgSeleccionadas i {position: absolute; right: 0.5em; top: 0.5em;background: #fff; color: #337ab7; cursor: pointer; border-radius: 50%; -webkit-border-radius:50%; margin: 0; font-size: 1.5em !important}
 
 .modal-header, .modal-footer {border: 0}
@@ -87,6 +87,7 @@ button.submit{background-color:#5E5C5C;color: #5B5B5E; width: 100px;height: 36px
 	#menuPrincipal a {height: 40px; line-height: 40px; font-size: 1.250em;}
 	.navbar-collapse {border: 0 !important;}
 	.navbar-default {width: 100%;}
+        .navbar-nav {margin: 7.5px 0px;}
 	.logo {position: absolute;}
 }
 
