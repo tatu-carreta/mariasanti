@@ -23,7 +23,7 @@ header {background: #F4F4F2;}
 .divMenu {float: right;}
 #menuPrincipal a {background: transparent; font-size: 1.250em; color:#333131; font-weight: 300;background: transparent; height: 88px; line-height: 88px; padding: 0 30px !important; text-transform: uppercase; box-sizing: border-box;}
 #menuPrincipal a:hover {background: #E0E0DC}
-#menuPrincipal .dropdown li a {height: 30px; line-height: 30px; font-size: 0.8em !important;}
+#menuPrincipal .dropdown li a {height: 33px; line-height: 33px; font-size: 0.9em !important;}
 .btnCarrito {font-weight: 300; font-size: 15px; height: 88px; line-height: 88px; margin: 0 !important; background: #302F2F; color:#fff; padding: 0 30px !important; text-transform: uppercase; box-sizing: border-box;}
 
 /* Módulo lista y ficha de productos */
