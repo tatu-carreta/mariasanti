@@ -41,7 +41,7 @@
 
 .grid .effect-milo figcaption {
 	padding: 2em;
-	color: #fff;
+	color: #fff !important;
 	text-transform: uppercase;
 	font-size: 1.25em;
 	-webkit-backface-visibility: hidden;
@@ -60,7 +60,10 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
+	color:#fff;
 }
+.grid .effect-milo a, .grid .effect-milo a:hover {color:#fff !important;}
+.grid .effect-milo > a {display: block; width: 100%; height: 100%}
 
 /* Anchor will cover the whole item by default */
 /* For some effects it will show as a button */
@@ -101,6 +104,7 @@ div.effect-milo {
 	background: #000;
 }
 
+
 div.effect-milo img {
 	max-width: none;
 	width: -webkit-calc(100% + 60px);
@@ -118,7 +122,7 @@ div.effect-milo:hover img {
 	opacity: 0.5;
 	-webkit-transform: scale(1);
 	transform: scale(1);
-}
+} 
 
 div.effect-milo h2 {
 	position: absolute;

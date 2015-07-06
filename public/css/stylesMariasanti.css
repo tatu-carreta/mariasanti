@@ -2,7 +2,7 @@
 .navbar {margin:0;}
 .navbar-collapse {padding: 0}
 .navbar-toggle {margin-top: 1.560em}
-.dropdown-menu {background:transparent !important; padding:0;}
+.dropdown-menu {background:transparent !important; padding:0; box-shadow: none}
 .dropdown-menu li a {background: #E0E0DC !important;}
 .dropdown-menu li:nth-child(3n+1) a:hover {background:rgba(0,183,255,0.7) !important;}
 .dropdown-menu li:nth-child(3n+2) a:hover {background:rgba(255,245,0,0.7) !important;}

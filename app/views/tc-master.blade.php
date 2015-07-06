@@ -106,7 +106,7 @@
             <div class="redes">
                 <a class="facebook" href="https://www.facebook.com/www.mariasanti.com.ar" target="_blank"></a>
                 <a class="pinterest" href="http://www.pinterest.com/mariusanti/" target="_blank"></a>
-                <a class="instagram" href="#"></a>
+                <a class="instagram" href="https://instagram.com/mariusanti70/" target="_blank"></a>
             </div>
         @endif
         
