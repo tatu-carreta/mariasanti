@@ -24,7 +24,8 @@
 	margin: 15px 0;
 	//min-width: 320px;
 	max-width: 480px;
-	max-height: 360px;
+	max-height: 263px; /* Arreglo para SAFARI
+	 */
 	//width: 48%;
 	//background: #000;
 	text-align: center;

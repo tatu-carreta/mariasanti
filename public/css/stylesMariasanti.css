@@ -95,6 +95,20 @@ button.submit{background-color:#5E5C5C;color: #5B5B5E; width: 100px;height: 36px
 @media screen and (max-width: 550px) {
 
 	.col-xs-4 {width: 50%}
+	.grid .effect-milo figcaption {	width: auto; height: auto;}
+	.grid .effect-milo p {font-size: 0.8em;}
+	div.effect-milo p {
+	/*padding: 40% 10px 0 0;*/
+	width: 100%;
+	text-align: center;
+	opacity: 0;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+
 }
 
 @media screen and (max-width: 340px) {
