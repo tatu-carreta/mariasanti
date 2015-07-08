@@ -463,6 +463,45 @@ class Imagen extends Eloquent {
         return $respuesta;
     }
 
+    public static function ordenarImagenItem($imagen_id, $orden, $item_id) {
+        $respuesta = array();
+
+        $datos = array(
+            'imagen_id' => $imagen_id,
+            'orden' => $orden,
+            'item_id' => $item_id
+        );
+
+        $reglas = array(
+            'imagen_id' => array('integer'),
+            'orden' => array('integer'),
+            'item_id' => array('integer')
+        );
+
+        $validator = Validator::make($datos, $reglas);
+
+        if ($validator->fails()) {
+            $respuesta['mensaje'] = $validator;
+            $respuesta['error'] = true;
+        } else {
+
+            $input = array(
+                'item_id' => $item_id,
+                'imagen_id' => $imagen_id
+                
+            );
+
+            $magen = DB::table('item_imagen')->where(
+                            $input)->update(array('orden' => $orden));
+
+            $respuesta['mensaje'] = 'Las imágenes han sido ordenadas.';
+            $respuesta['error'] = false;
+            $respuesta['data'] = $magen;
+        }
+
+        return $respuesta;
+    }
+    
     public function miniatura() {
         return DB::table('imagen')
                         ->where('tipo', 'C')

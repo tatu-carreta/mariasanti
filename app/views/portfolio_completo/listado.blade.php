@@ -22,6 +22,7 @@
                                     <i onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', '{{$seccion->id}}', '{{$i->id}}');" class="fa fa-thumb-tack prodDestacado fa-lg"></i>
                                 @endif
                             @endif
+                            <a href="{{URL::to('portfolio_completo/'.$i->url)}}"><i class="fa fa-eye fa-lg"></i></a>
                         </span>
                         <span class="pull-right">
                             @if(Auth::user()->can("editar_item"))

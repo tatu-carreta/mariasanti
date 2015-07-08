@@ -2,7 +2,4 @@
 /nbproject
 /public/temporary
 /public/uploads
-app/storage/sessions/a37d48a1655ce4f5301e13ba32feefb6468db818
-app/storage/sessions/c4a5590ae4e67dac5f161194ec3e4b02f6f770af
-app/storage/logs/laravel.log
-app/storage/logs/laravel.log
+/app/storage

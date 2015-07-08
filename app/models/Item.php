@@ -878,7 +878,7 @@ class Item extends Eloquent {
     }
 
     public function imagenes() {
-        return $this->belongsToMany('Imagen', 'item_imagen', 'item_id', 'imagen_id')->where('imagen.estado', 'A')->whereNull('item_imagen.destacado')->orWhere('item_imagen.destacado', '<>', 'A');
+        return $this->belongsToMany('Imagen', 'item_imagen', 'item_id', 'imagen_id')->where('imagen.estado', 'A')->whereNull('item_imagen.destacado')->orWhere('item_imagen.destacado', '<>', 'A')->orderBy('item_imagen.orden')->orderBy('imagen.id', 'DESC');
     }
 
     public function imagenes_producto() {

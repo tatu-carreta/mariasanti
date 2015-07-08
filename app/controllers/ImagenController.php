@@ -26,7 +26,7 @@ class ImagenController extends BaseController {
             echo 'No image';
         }
     }
-    
+
     public function uploadGaleriaSlideHome() {
 
         if (!empty(Input::hasFile('file'))) {
@@ -40,6 +40,19 @@ class ImagenController extends BaseController {
             echo 'No image';
         }
         die();
+    }
+
+    public function ordenar() {
+
+        foreach (Input::get('orden') as $key => $imagen_id) {
+            $respuesta = Imagen::ordenarImagenItem($imagen_id, $key, Input::get('item_id'));
+        }
+
+        $item = Item::find(Input::get('item_id'));
+
+        $menu = $item->seccionItem()->menuSeccion()->modulo()->nombre;
+
+        return Redirect::to('/' . $menu . '/' . $item->url)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
     }
 
 }

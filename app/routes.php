@@ -140,6 +140,8 @@ Route::group(array('before' => 'auth'), function() {
     
     Route::post('admin/imagen/slide/upload', 'ImagenController@uploadGaleriaSlideHome');
     
+    Route::post('admin/imagen/ordenar-por-item', 'ImagenController@ordenar');
+    
     /*
      * Ruteo Video 
      */

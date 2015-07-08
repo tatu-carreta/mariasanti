@@ -1,6 +1,19 @@
 @extends($project_name.'-master')
 
 @section('contenido')
+    @if(Auth::check())
+        @if(Auth::user()->can("ordenar_item"))
+            <script>
+                $(function() {
+                    $('.sortable').sortable({
+                        update: function(event, ui) {
+                            $("#formularioOrdenImagenes").submit();
+                        }
+                    });
+                });
+            </script>
+        @endif
+    @endif
 <section class="container">
     <div class="row">
         <div class="col-md-12 marginBottom2">
@@ -25,14 +38,28 @@
                 @endif
             </div>
         </div>
+        @if(Auth::check())
+            {{ Form::open(array('url' => 'admin/imagen/ordenar-por-item', 'id' => 'formularioOrdenImagenes')) }}
+        @endif
+        <div class="@if(Auth::check()) sortable @endif">
         @foreach($item->imagenes as $img)
-            <div class="col-md-3 col-sm-4 col-xs-4">
+            <div class="col-md-3 col-sm-4 col-xs-4 ">
                 <div class="thumbnail">
                     <a class="fancybox" href="{{URL::to($img->ampliada()->carpeta.$img->ampliada()->nombre)}}" title="{{ $img->ampliada()->epigrafe }}" rel='group'><img src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}"></a>
                     {{-- <p>{{$img->epigrafe}}</p> --}}
+                    @if(Auth::check())
+                        <input type="hidden" name="orden[]" value="{{$img->id}}">
+                    @endif    
                 </div>
             </div>
+            
         @endforeach
+    </div>
+        
+        @if(Auth::check())
+            {{Form::hidden('item_id', $item->id)}}
+            {{Form::close()}}
+        @endif
     </div>
     <div class="clear"></div>
     <div class="row ">
