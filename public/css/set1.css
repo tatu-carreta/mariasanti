@@ -19,13 +19,13 @@
 /* Common style */
 .grid .effect-milo {
 	position: relative;
-	/*float: left;*/
+	float: left;
 	overflow: hidden;
-	/*margin: 15px 0;
+	margin: 15px 0;
 	//min-width: 320px;
 	max-width: 480px;
 	max-height: 360px;
-	//width: 48%;*/
+	//width: 48%;
 	//background: #000;
 	text-align: center;
 	cursor: pointer;
