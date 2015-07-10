@@ -45,7 +45,12 @@ class ImagenController extends BaseController {
     public function ordenar() {
 
         foreach (Input::get('orden') as $key => $imagen_id) {
-            $respuesta = Imagen::ordenarImagenItem($imagen_id, $key, Input::get('item_id'));
+            if ($key == 0) {
+                $destacado = 'A';
+            } else {
+                $destacado = NULL;
+            }
+            $respuesta = Imagen::ordenarImagenItem($imagen_id, $key, Input::get('item_id'), $destacado);
         }
 
         $item = Item::find(Input::get('item_id'));

@@ -463,7 +463,7 @@ class Imagen extends Eloquent {
         return $respuesta;
     }
 
-    public static function ordenarImagenItem($imagen_id, $orden, $item_id) {
+    public static function ordenarImagenItem($imagen_id, $orden, $item_id, $destacado) {
         $respuesta = array();
 
         $datos = array(
@@ -492,7 +492,7 @@ class Imagen extends Eloquent {
             );
 
             $magen = DB::table('item_imagen')->where(
-                            $input)->update(array('orden' => $orden));
+                            $input)->update(array('orden' => $orden, 'destacado' => $destacado));
 
             $respuesta['mensaje'] = 'Las imágenes han sido ordenadas.';
             $respuesta['error'] = false;
