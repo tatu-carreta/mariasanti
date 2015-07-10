@@ -85,7 +85,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <a class="logo pull-left" href="{{URL::to('/')}}" >Maria Santi</a>
+                            <h1 class="logo pull-left"><a href="{{URL::to('/')}}" >Maria Santi</a></h1>
                             
                             <!-- N A V -->
                             @include('menu.'.$project_name.'-desplegar-menu')

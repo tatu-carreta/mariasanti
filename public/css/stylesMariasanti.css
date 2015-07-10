@@ -31,8 +31,8 @@ h3 {font-size: 1.4em; font-weight: 300}
 
 header {background: #F4F4F2; position: relative; z-index: 1000;}
 
-.logo {padding: 0.125em 0; margin-top: 0.6em; font-size: 2em; font-weight: 400; color: #333131}
-.logo:hover {color: #333131}
+.logo {padding: 0.125em 0; margin-top: 0.8em; font-size: 2em; font-weight: 400; color: #333131 !important}
+.logo a, .logo:hover a {color: #333131 !important}
 
 .imagenslider1{background-image: url(../images/1.jpg) !important; height: 100%;}
 .imagenslider2{background-image: url(../images/2.jpg) !important; height: 100%;}
