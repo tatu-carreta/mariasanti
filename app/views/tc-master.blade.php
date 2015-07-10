@@ -10,7 +10,7 @@
         <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
         <meta name="description" content="">
         <meta name="Keywords" content="">
-        <meta property="og:image" content="" />
+        <meta property="og:image" content="{{URL::to('images/maria-face.jpg')}}" />
         <meta name="viewport" content="width = device-width, initial-scale=1, maximum-scale=1">
         
         <!-- B O O T S T R A P -->
