@@ -3,14 +3,14 @@
     <head>
         @section('head')
         <meta charset="UTF-8">
-        <title>MariaSanti</title>
+        <title>Maria Santi</title>
 
         <!-- abre LINK -->
         <link href="favicon.ico" rel="shortcut icon">
         <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
-        <meta name="description" content="">
+        <meta name="description" content="Mi práctica artística actual explora el sexto sentido o instinto  que posee el mundo natural, asi como el sentido primordial de la pureza y la belleza que existe en él">
         <meta name="Keywords" content="">
-        <meta property="og:image" content="{{URL::to('images/maria-face.jpg')}}" />
+        <meta property="og:image" content="{{URL::to('images/maria-face.jpg')}}">
         <meta name="viewport" content="width = device-width, initial-scale=1, maximum-scale=1">
         
         <!-- B O O T S T R A P -->
