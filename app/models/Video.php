@@ -49,6 +49,47 @@ class Video extends Eloquent {
 
         return $respuesta;
     }
+    
+    public static function agregarVimeo($info) {
+
+        $respuesta = array();
+
+        $rules = array(
+                //'archivo' => array('mimes:pdf'),
+        );
+
+        $validator = Validator::make($info, $rules);
+
+        if ($validator->fails()) {
+            //return Response::make($validator->errors->first(), 400);
+            //Si está todo mal, carga lo que corresponde en el mensaje.
+            $respuesta['mensaje'] = $validator;
+            $respuesta['error'] = 'no pasa';
+        } else {
+
+            //$INFO_video = Youtube::getVideoInfo($info['ID_video']);
+
+
+            $datos = array(
+                'nombre' => '',
+                'url' => $info['ID_video'],
+                'tipo' => 'vimeo',
+                'estado' => 'A',
+                'fecha_carga' => date("Y-m-d H:i:s"),
+                'usuario_id_carga' => Auth::user()->id
+            );
+
+            $video = static::create($datos);
+
+            //Mensaje correspondiente a la agregacion exitosa
+            $respuesta['mensaje'] = 'Video creado.';
+            $respuesta['error'] = false;
+            $respuesta['data'] = $video;
+            //return Response::json('success', 200);
+        }
+
+        return $respuesta;
+    }
 
     public static function borrar($input) {
         $respuesta = array();
@@ -161,6 +202,37 @@ class Video extends Eloquent {
         } elseif (!isset($dataUrl['path']) || ($dataUrl['path'] == '') || (!in_array($dataUrl['path'], $paths))) {
             $texto = 'Problema en la url.';
         } elseif (!isset($dataUrl['query']) || ($dataUrl['query'] == '')) {
+            $texto = 'Problema en la url.';
+        } else {
+            $ok = true;
+        }
+
+        $result = array(
+            'estado' => $ok,
+            'texto' => $texto
+        );
+
+        return $result;
+    }
+    
+    public static function validarUrlVimeo($url, $hosts) {
+        $dataUrl = parse_url($url);
+        $ok = false;
+        $texto = '';
+        /*
+         * Array
+          (
+          [scheme] => http
+          [host] => youtube.com
+          [path] => /watch
+          [query] => v=VIDEOID
+          )
+         */
+        if (!isset($dataUrl['scheme']) || ($dataUrl['scheme'] == "") || (!in_array($dataUrl['scheme'], array('http', 'https')))) {
+            $texto = 'Problema en el protocolo.';
+        } elseif (!isset($dataUrl['host']) || ($dataUrl['host'] == '') || (!in_array($dataUrl['host'], $hosts))) {
+            $texto = 'Problema en el hosting.';
+        } elseif (!isset($dataUrl['path']) || ($dataUrl['path'] == '')) {
             $texto = 'Problema en la url.';
         } else {
             $ok = true;

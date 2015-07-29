@@ -18,12 +18,22 @@ class PortfolioCompleto extends Portfolio {
                 foreach ($input['video'] as $key => $video) {
                     if ($video != "") {
 
-                        $hosts = array('youtube.com', 'www.youtube.com');
-                        $paths = array('/watch');
+                        $dataUrl = parse_url($video);
 
-                        if (Video::validarUrl($video, $hosts, $paths)['estado']) {
-                            if ($ID_video = Youtube::parseVIdFromURL($video)) {
+                        if (in_array($dataUrl['host'], ['vimeo.com', 'www.vimeo.com'])) {
+                            $hosts = array('vimeo.com', 'www.vimeo.com');
+
+                            if (Video::validarUrlVimeo($video, $hosts)['estado']) {
                                 $ok = true;
+                            }
+                        } else {
+                            $hosts = array('youtube.com', 'www.youtube.com');
+                            $paths = array('/watch');
+
+                            if (Video::validarUrl($video, $hosts, $paths)['estado']) {
+                                if ($ID_video = Youtube::parseVIdFromURL($video)) {
+                                    $ok = true;
+                                }
                             }
                         }
                     } else {
@@ -32,12 +42,22 @@ class PortfolioCompleto extends Portfolio {
                     }
                 }
             } else {
-                $hosts = array('youtube.com', 'www.youtube.com');
-                $paths = array('/watch');
+                $dataUrl = parse_url($input['video']);
 
-                if (Video::validarUrl($input['video'], $hosts, $paths)['estado']) {
-                    if ($ID_video = Youtube::parseVIdFromURL($input['video'])) {
+                if (in_array($dataUrl['host'], ['vimeo.com', 'www.vimeo.com'])) {
+                    $hosts = array('vimeo.com', 'www.vimeo.com');
+
+                    if (Video::validarUrlVimeo($input['video'], $hosts)['estado']) {
                         $ok = true;
+                    }
+                } else {
+                    $hosts = array('youtube.com', 'www.youtube.com');
+                    $paths = array('/watch');
+
+                    if (Video::validarUrl($input['video'], $hosts, $paths)['estado']) {
+                        if ($ID_video = Youtube::parseVIdFromURL($input['video'])) {
+                            $ok = true;
+                        }
                     }
                 }
             }
@@ -83,12 +103,22 @@ class PortfolioCompleto extends Portfolio {
                 foreach ($input['video'] as $key => $video) {
                     if ($video != "") {
 
-                        $hosts = array('youtube.com', 'www.youtube.com');
-                        $paths = array('/watch');
+                        $dataUrl = parse_url($video);
 
-                        if (Video::validarUrl($video, $hosts, $paths)['estado']) {
-                            if ($ID_video = Youtube::parseVIdFromURL($video)) {
+                        if (in_array($dataUrl['host'], ['vimeo.com', 'www.vimeo.com'])) {
+                            $hosts = array('vimeo.com', 'www.vimeo.com');
+
+                            if (Video::validarUrlVimeo($video, $hosts)['estado']) {
                                 $ok = true;
+                            }
+                        } else {
+                            $hosts = array('youtube.com', 'www.youtube.com');
+                            $paths = array('/watch');
+
+                            if (Video::validarUrl($video, $hosts, $paths)['estado']) {
+                                if ($ID_video = Youtube::parseVIdFromURL($video)) {
+                                    $ok = true;
+                                }
                             }
                         }
                     } else {
@@ -97,12 +127,22 @@ class PortfolioCompleto extends Portfolio {
                     }
                 }
             } else {
-                $hosts = array('youtube.com', 'www.youtube.com');
-                $paths = array('/watch');
+                $dataUrl = parse_url($input['video']);
 
-                if (Video::validarUrl($input['video'], $hosts, $paths)['estado']) {
-                    if ($ID_video = Youtube::parseVIdFromURL($input['video'])) {
+                if (in_array($dataUrl['host'], ['vimeo.com', 'www.vimeo.com'])) {
+                    $hosts = array('vimeo.com', 'www.vimeo.com');
+
+                    if (Video::validarUrlVimeo($input['video'], $hosts)['estado']) {
                         $ok = true;
+                    }
+                } else {
+                    $hosts = array('youtube.com', 'www.youtube.com');
+                    $paths = array('/watch');
+
+                    if (Video::validarUrl($input['video'], $hosts, $paths)['estado']) {
+                        if ($ID_video = Youtube::parseVIdFromURL($input['video'])) {
+                            $ok = true;
+                        }
                     }
                 }
             }

@@ -28,7 +28,7 @@ class Item extends Eloquent {
         if (isset($input['es_texto']) && ($input['es_texto'])) {
             unset($reglas['imagen_portada_crop']);
         }
-        
+
         if (isset($input['file']) && ($input['file'] != "") && (!is_array($input['file']))) {
             $reglas['x'] = array('required');
             $reglas['y'] = array('required');
@@ -202,40 +202,72 @@ class Item extends Eloquent {
                     foreach ($input['video'] as $key => $video) {
                         if ($video != "") {
 
-                            $hosts = array('youtube.com', 'www.youtube.com');
-                            $paths = array('/watch');
+                            $dataUrl = parse_url($video);
 
-                            if (Video::validarUrl($video, $hosts, $paths)['estado']) {
-                                if ($ID_video = Youtube::parseVIdFromURL($video)) {
+                            if (in_array($dataUrl['host'], ['vimeo.com', 'www.vimeo.com'])) {
+                                $hosts = array('vimeo.com', 'www.vimeo.com');
 
+                                if (Video::validarUrlVimeo($video, $hosts)['estado']) {
                                     $data_video = array(
-                                        'ID_video' => $ID_video,
+                                        'ID_video' => substr($dataUrl['path'], 1),
                                             //'titulo' => $input['titulo_archivo'][$key]
                                     );
-                                    $video_creado = Video::agregarYoutube($data_video);
+                                    $video_creado = Video::agregarVimeo($data_video);
 
                                     $item->videos()->attach($video_creado['data']->id);
+                                }
+                            } else {
+                                $hosts = array('youtube.com', 'www.youtube.com');
+                                $paths = array('/watch');
+
+                                if (Video::validarUrl($video, $hosts, $paths)['estado']) {
+                                    if ($ID_video = Youtube::parseVIdFromURL($video)) {
+
+                                        $data_video = array(
+                                            'ID_video' => $ID_video,
+                                                //'titulo' => $input['titulo_archivo'][$key]
+                                        );
+                                        $video_creado = Video::agregarYoutube($data_video);
+
+                                        $item->videos()->attach($video_creado['data']->id);
+                                    }
                                 }
                             }
                         }
                     }
                 } else {
-                    $hosts = array('youtube.com', 'www.youtube.com');
-                    $paths = array('/watch');
 
-                    if (Video::validarUrl($video, $hosts, $paths)['estado']) {
-                        if ($ID_video = Youtube::parseVIdFromURL(Input::get('video'))) {
+                    $dataUrl = parse_url(Input::get('video'));
 
+                    if (in_array($dataUrl['host'], ['vimeo.com', 'www.vimeo.com'])) {
+                        $hosts = array('vimeo.com', 'www.vimeo.com');
+
+                        if (Video::validarUrlVimeo(Input::get('video'), $hosts)['estado']) {
                             $data_video = array(
-                                'ID_video' => $ID_video,
+                                'ID_video' => substr($dataUrl['path'], 1),
                                     //'titulo' => $input['titulo_archivo'][$key]
                             );
-                            $video_creado = Video::agregarYoutube($data_video);
+                            $video_creado = Video::agregarVimeo($data_video);
 
                             $item->videos()->attach($video_creado['data']->id);
                         }
+                    } else {
+                        $hosts = array('youtube.com', 'www.youtube.com');
+                        $paths = array('/watch');
+
+                        if (Video::validarUrl(Input::get('video'), $hosts, $paths)['estado']) {
+                            if ($ID_video = Youtube::parseVIdFromURL(Input::get('video'))) {
+
+                                $data_video = array(
+                                    'ID_video' => $ID_video,
+                                        //'titulo' => $input['titulo_archivo'][$key]
+                                );
+                                $video_creado = Video::agregarYoutube($data_video);
+
+                                $item->videos()->attach($video_creado['data']->id);
+                            }
+                        }
                     }
-//$item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));
                 }
             }
 
@@ -530,40 +562,71 @@ class Item extends Eloquent {
                     foreach ($input['video'] as $key => $video) {
                         if ($video != "") {
 
-                            $hosts = array('youtube.com', 'www.youtube.com');
-                            $paths = array('/watch');
+                            $dataUrl = parse_url($video);
 
-                            if (Video::validarUrl($video, $hosts, $paths)['estado']) {
-                                if ($ID_video = Youtube::parseVIdFromURL($video)) {
+                            if (in_array($dataUrl['host'], ['vimeo.com', 'www.vimeo.com'])) {
+                                $hosts = array('vimeo.com', 'www.vimeo.com');
 
+                                if (Video::validarUrlVimeo($video, $hosts)['estado']) {
                                     $data_video = array(
-                                        'ID_video' => $ID_video,
+                                        'ID_video' => substr($dataUrl['path'], 1),
                                             //'titulo' => $input['titulo_archivo'][$key]
                                     );
-                                    $video_creado = Video::agregarYoutube($data_video);
+                                    $video_creado = Video::agregarVimeo($data_video);
 
                                     $item->videos()->attach($video_creado['data']->id);
+                                }
+                            } else {
+                                $hosts = array('youtube.com', 'www.youtube.com');
+                                $paths = array('/watch');
+
+                                if (Video::validarUrl($video, $hosts, $paths)['estado']) {
+                                    if ($ID_video = Youtube::parseVIdFromURL($video)) {
+
+                                        $data_video = array(
+                                            'ID_video' => $ID_video,
+                                                //'titulo' => $input['titulo_archivo'][$key]
+                                        );
+                                        $video_creado = Video::agregarYoutube($data_video);
+
+                                        $item->videos()->attach($video_creado['data']->id);
+                                    }
                                 }
                             }
                         }
                     }
                 } else {
-                    $hosts = array('youtube.com', 'www.youtube.com');
-                    $paths = array('/watch');
+                    $dataUrl = parse_url(Input::get('video'));
 
-                    if (Video::validarUrl($video, $hosts, $paths)['estado']) {
-                        if ($ID_video = Youtube::parseVIdFromURL(Input::get('video'))) {
+                    if (in_array($dataUrl['host'], ['vimeo.com', 'www.vimeo.com'])) {
+                        $hosts = array('vimeo.com', 'www.vimeo.com');
 
+                        if (Video::validarUrlVimeo(Input::get('video'), $hosts)['estado']) {
                             $data_video = array(
-                                'ID_video' => $ID_video,
+                                'ID_video' => substr($dataUrl['path'], 1),
                                     //'titulo' => $input['titulo_archivo'][$key]
                             );
-                            $video_creado = Video::agregarYoutube($data_video);
+                            $video_creado = Video::agregarVimeo($data_video);
 
                             $item->videos()->attach($video_creado['data']->id);
                         }
+                    } else {
+                        $hosts = array('youtube.com', 'www.youtube.com');
+                        $paths = array('/watch');
+
+                        if (Video::validarUrl(Input::get('video'), $hosts, $paths)['estado']) {
+                            if ($ID_video = Youtube::parseVIdFromURL(Input::get('video'))) {
+
+                                $data_video = array(
+                                    'ID_video' => $ID_video,
+                                        //'titulo' => $input['titulo_archivo'][$key]
+                                );
+                                $video_creado = Video::agregarYoutube($data_video);
+
+                                $item->videos()->attach($video_creado['data']->id);
+                            }
+                        }
                     }
-//$item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));
                 }
             }
 

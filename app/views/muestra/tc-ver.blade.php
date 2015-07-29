@@ -101,7 +101,7 @@
         <div class="row">
             @foreach($item->videos as $video)
                 <div class="col-md-4">
-                    <iframe class="video-tc" src="https://www.youtube.com/embed/{{ $video->url }}"></iframe>
+                    <iframe class="video-tc" src="@if($video->tipo == 'youtube')https://www.youtube.com/embed/@else//player.vimeo.com/video/@endif{{ $video->url }}"></iframe>
                 </div>
             @endforeach
         </div>
