@@ -1,0 +1,164 @@
+@font-face {
+	font-weight: normal;
+	font-style: normal;
+	font-family: 'feathericons';
+	src:url('../fonts/feathericons/feathericons.eot?-8is7zf');
+	src:url('../fonts/feathericons/feathericons.eot?#iefix-8is7zf') format('embedded-opentype'),
+		url('../fonts/feathericons/feathericons.woff?-8is7zf') format('woff'),
+		url('../fonts/feathericons/feathericons.ttf?-8is7zf') format('truetype'),
+		url('../fonts/feathericons/feathericons.svg?-8is7zf#feathericons') format('svg');
+}
+
+.grid {
+	position: relative;
+	text-align: center;
+}
+
+.grid .lazy {margin-bottom: 0 !important;}
+
+/* Common style */
+.grid .effect-milo {
+	position: relative;
+	float: left;
+	overflow: hidden;
+	margin: 15px 0;
+	//min-width: 320px;
+	max-width: 480px;
+	max-height: 360px;
+	//width: 48%;
+	//background: #000;
+	text-align: center;
+	cursor: pointer;
+}
+
+.grid .effect-milo img {
+	position: relative;
+	display: block;
+	height: 100%;
+	width: 100%;
+	opacity: 0.8;
+}
+
+.grid .effect-milo figcaption {
+	padding: 2em;
+	color: #fff !important;
+	font-size: 1.25em;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.grid .effect-milo figcaption::before,
+.grid .effect-milo figcaption::after {
+	pointer-events: none;
+}
+
+.grid .effect-milo figcaption,
+.grid .effect-milo figcaption > a {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	color:#fff;
+}
+.grid .effect-milo a, .grid .effect-milo a:hover {color:#fff !important;}
+.grid .effect-milo > a {display: block; width: 100%; height: 100%}
+
+/* Anchor will cover the whole item by default */
+/* For some effects it will show as a button */
+.grid .effect-milo figcaption > a {
+	z-index: 1000;
+	text-indent: 200%;
+	white-space: nowrap;
+	font-size: 0;
+	opacity: 0;
+}
+
+.grid .effect-milo h2 {
+	word-spacing: -0.15em;
+	font-weight: 300;
+}
+
+.grid .effect-milo h2 span {
+	font-weight: 800;
+}
+
+.grid .effect-milo h2,
+.grid .effect-milo p {
+	margin: 0;
+}
+
+.grid .effect-milo p {
+	letter-spacing: 1px;
+}
+
+/* Individual effects */
+
+
+/*---------------*/
+/***** Milo *****/
+/*---------------*/
+
+div.effect-milo {
+	background: #000;
+}
+
+
+div.effect-milo img {
+	max-width: none;
+	width: -webkit-calc(100% + 60px);
+	width: calc(100% + 60px);
+	opacity: 1;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: scale(1.12);
+	transform: scale(1.12);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+div.effect-milo:hover img {
+	opacity: 0.5;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+} 
+
+div.effect-milo h2 {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	padding: 1em 1.2em;
+}
+
+div.effect-milo p {
+	/*padding: 40% 10px 0 0;*/
+	width: 100%;
+	text-align: center;
+	opacity: 0;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: translate3d(-40px,0,0);
+	transform: translate3d(-40px,0,0);
+}
+
+div.effect-milo:hover p {
+	opacity: 1;
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+
+
+
+@media screen and (max-width: 50em) {
+	.content {
+		padding: 0 10px;
+		text-align: center;
+	}
+	.grid figure {
+		display: inline-block;
+		float: none;
+		margin: 10px auto;
+		width: 100%;
+	}
+}
